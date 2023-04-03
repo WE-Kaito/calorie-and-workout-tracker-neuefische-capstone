@@ -18,5 +18,5 @@ export const LinkContainer = styled.div`
 `;
 
 export const StyledLink = styled(Link)`
-  padding-right: 10% 40% 10% 40%;
+  padding: 10% 40% 10% 40%;
 `;

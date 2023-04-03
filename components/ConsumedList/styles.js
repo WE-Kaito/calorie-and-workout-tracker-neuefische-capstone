@@ -9,7 +9,7 @@ export const StyledList = styled.div`
 `;
 export const StyledListItem = styled.div`
 display: grid;
-grid-template-columns: 6fr 2fr 1fr;
+grid-template-columns: 6fr 2fr 2fr 1fr;
 padding: 0.2rem;
 background-color: lightskyblue;
 border 1px solid black;
@@ -20,4 +20,5 @@ export const ShiftedSpan = styled.span`
   width: 5rem;
   display: inline-block;
   text-align: right;
+  transform: translateX(-1rem);
 `;

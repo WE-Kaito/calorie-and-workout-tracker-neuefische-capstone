@@ -1,6 +1,7 @@
-import AddCalories from "../components/AddCalories";
+import AddCalories from "../components/AddCalories/AddCalories";
 import useCalorieStore from "../utils/useCalorieStore";
 import styled from "styled-components";
+import ConsumedList from "../components/ConsumedList/ConsumedList";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -9,12 +10,13 @@ const StyledDiv = styled.div`
 `;
 
 export default function HomePage() {
-  const { dailyCount, addDailyCount } = useCalorieStore();
+  const { dailyCount } = useCalorieStore();
 
   return (
     <StyledDiv>
       <h1>{dailyCount}</h1>
-      <AddCalories addDailyCount={addDailyCount} />
+      <AddCalories />
+      <ConsumedList />
     </StyledDiv>
   );
 }

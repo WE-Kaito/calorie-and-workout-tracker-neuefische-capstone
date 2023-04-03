@@ -1,7 +1,7 @@
-import AddCalories from "../components/AddCalories";
+import AddCalories from "../components/AddCalories/AddCalories";
 import useCalorieStore from "../utils/useCalorieStore";
 import styled from "styled-components";
-import ConsumedList from "../components/ConsumedList";
+import ConsumedList from "../components/ConsumedList/ConsumedList";
 
 const StyledDiv = styled.div`
   display: flex;

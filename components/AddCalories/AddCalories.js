@@ -1,23 +1,5 @@
-import styled from "styled-components";
-import useCalorieStore from "../utils/useCalorieStore";
-
-const AddCalorieButton = styled.button`
-  background-color: green;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 3rem;
-`;
-
-const AddCalorieForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 200px;
-  gap: 10px;
-`;
+import useCalorieStore from "../../utils/useCalorieStore";
+import { AddCalorieButton, AddCalorieForm, FixedInput } from "./styles";
 
 export default function AddCalories() {
   const { addDailyCount, addDailyMeal } = useCalorieStore();
@@ -37,7 +19,14 @@ export default function AddCalories() {
         <span>+</span>
       </AddCalorieButton>
       <input type="text" name="name" placeholder="name" required />
-      <input type="number" name="calories" placeholder="kcal" required />
+      <FixedInput
+        type="number"
+        min={1}
+        max={9999}
+        name="calories"
+        placeholder="kcal"
+        required
+      />
     </AddCalorieForm>
   );
 }

@@ -13,6 +13,10 @@ const useCalorieStore = create((set) => ({
         { name: `${nameUserInput}`, calories: `${caloriesUserInput}` },
       ],
     })),
+  deleteDailyMeal: (name) =>
+    set((state) => ({
+      dailyMeals: state.dailyMeals.filter((meal) => meal.name !== name),
+    })),
 }));
 
 export default useCalorieStore;

@@ -3,6 +3,7 @@ import { create } from "zustand";
 const useCalorieStore = create((set) => ({
   dailyCount: 0,
   dailyMeals: [],
+  calorieGoal: 1600,
   // initiateDailyCount: reset at midnight
   addDailyCount: (userInput) =>
     set((state) => ({ dailyCount: state.dailyCount + userInput })),
@@ -21,6 +22,7 @@ const useCalorieStore = create((set) => ({
     set((state) => ({
       dailyMeals: state.dailyMeals.filter((meal, index) => index !== index1),
     })),
+  setCalorieGoal: (userInput) => set(() => ({ calorieGoal: userInput })),
 }));
 
 export default useCalorieStore;

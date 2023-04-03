@@ -17,9 +17,9 @@ const useCalorieStore = create((set) => ({
         },
       ],
     })),
-  deleteDailyMeal: (name) =>
+  deleteDailyMeal: (index1) =>
     set((state) => ({
-      dailyMeals: state.dailyMeals.filter((meal) => meal.name !== name),
+      dailyMeals: state.dailyMeals.filter((meal, index) => index !== index1),
     })),
 }));
 

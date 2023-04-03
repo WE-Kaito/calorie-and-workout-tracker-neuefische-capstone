@@ -8,25 +8,25 @@ import {
 
 export default function ConsumedList() {
   const { dailyMeals, addDailyCount, deleteDailyMeal } = useCalorieStore();
-  const now = new Date();
-  const hour = now.getHours();
-  const minute = now.getMinutes();
 
   return (
     <CorrectionDiv>
       <StyledList>
-        {dailyMeals.map((meal) => (
-          <StyledListItem key={meal.name}>
+        {dailyMeals.map((meal, index) => (
+          <StyledListItem
+            key={meal.name}
+            aria-label={`delete meal: ${meal.name}`}
+          >
             <span>{`${meal.name}`}</span>
             <ShiftedSpan>{`${meal.calories} kcal`}</ShiftedSpan>
-            <span>{`${hour}:${minute}`}</span>
+            <span>{`${meal.time_stamp}`}</span>
             <button
               style={{ border: "none", background: "none" }}
               aria-label={`delete meal: ${meal.name}`}
               onClick={(event) => {
                 event.stopPropagation();
                 addDailyCount(-meal.calories);
-                deleteDailyMeal(meal.name);
+                deleteDailyMeal(index);
               }}
             >
               ❌

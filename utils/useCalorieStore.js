@@ -6,16 +6,20 @@ const useCalorieStore = create((set) => ({
   // initiateDailyCount: reset at midnight
   addDailyCount: (userInput) =>
     set((state) => ({ dailyCount: state.dailyCount + userInput })),
-  addDailyMeal: (nameUserInput, caloriesUserInput) =>
+  addDailyMeal: (nameUserInput, caloriesUserInput, hour, minute) =>
     set((state) => ({
       dailyMeals: [
         ...state.dailyMeals,
-        { name: `${nameUserInput}`, calories: `${caloriesUserInput}` },
+        {
+          name: `${nameUserInput}`,
+          calories: `${caloriesUserInput}`,
+          time_stamp: `${hour}:${minute < 10 ? "0" + minute : minute}`,
+        },
       ],
     })),
-  deleteDailyMeal: (name) =>
+  deleteDailyMeal: (index1) =>
     set((state) => ({
-      dailyMeals: state.dailyMeals.filter((meal) => meal.name !== name),
+      dailyMeals: state.dailyMeals.filter((meal, index) => index !== index1),
     })),
 }));
 

@@ -9,10 +9,13 @@ export default function AddCalories() {
     const formdata = new FormData(event.target);
     const data = Object.fromEntries(formdata);
     const calories = parseInt(data.calories);
+    const hour = new Date().getHours();
+    const minute = new Date().getMinutes();
     addDailyCount(calories);
-    addDailyMeal(data.name, calories);
+    addDailyMeal(data.name, calories, hour, minute);
     event.target.reset();
   }
+
   return (
     <AddCalorieForm onSubmit={handleSubmit}>
       <AddCalorieButton>

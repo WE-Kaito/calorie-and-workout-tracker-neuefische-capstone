@@ -4,6 +4,7 @@ export const StyledList = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-self: center;
   gap: 0.8rem;
   width: 250px;
 `;
@@ -21,4 +22,11 @@ export const ShiftedSpan = styled.span`
   display: inline-block;
   text-align: right;
   transform: translateX(-1rem);
+`;
+
+export const CorrectionDiv = styled.div`
+  padding: 1rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 `;

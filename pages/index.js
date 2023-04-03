@@ -2,7 +2,7 @@ import AddCalories from "../components/AddCalories/AddCalories";
 import useCalorieStore from "../utils/useCalorieStore";
 import styled from "styled-components";
 import ConsumedList from "../components/ConsumedList/ConsumedList";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -21,29 +21,29 @@ const ListContainer = styled.div`
 `;
 export default function HomePage() {
   const { dailyCount } = useCalorieStore();
+
+  const [isListVisible, setIsListVisible] = useState(false);
+
   useEffect(() => {
-    document.addEventListener("click", () => {
-      const popUpList = document.getElementById("hiddenList");
-      popUpList.hasAttribute("hidden")
-        ? null
-        : popUpList.setAttribute("hidden", true);
-    });
+    document.addEventListener("click", () => setIsListVisible(false));
   }, []);
+
   return (
     <StyledDiv>
       <button
         onClick={(event) => {
           event.stopPropagation();
-          const popUpList = document.getElementById("hiddenList");
-          popUpList.removeAttribute("hidden");
+          setIsListVisible(!isListVisible);
         }}
       >
         {dailyCount}
       </button>
       <AddCalories />
-      <ListContainer id="hiddenList" hidden>
-        <ConsumedList />
-      </ListContainer>
+      {isListVisible ? (
+        <ListContainer>
+          <ConsumedList />
+        </ListContainer>
+      ) : null}
     </StyledDiv>
   );
 }

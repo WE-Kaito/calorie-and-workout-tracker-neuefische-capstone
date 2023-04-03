@@ -22,6 +22,7 @@ export default function ConsumedList() {
             <span>{`${hour}:${minute}`}</span>
             <button
               style={{ border: "none", background: "none" }}
+              aria-label={`delete meal: ${meal.name}`}
               onClick={(event) => {
                 event.stopPropagation();
                 addDailyCount(-meal.calories);

@@ -18,6 +18,6 @@ export const LinkContainer = styled.div`
 `;
 
 export const StyledLink = styled(Link)`
-  padding: 10% 40% 10% 40%;
+  padding: 5% 40% 5% 40%;
   font-size: 2em;
 `;

@@ -15,8 +15,11 @@
     "eslint-config-next": "13.0.6",
     "next": "13.0.6",
     "react": "18.2.0",
+    "react-calendar": "^4.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^5.3.9",
+    "use-local-storage": "^2.3.6",
+    "use-local-storage-state": "^18.2.1",
     "zustand": "^4.3.7"
   },
   "devDependencies": {

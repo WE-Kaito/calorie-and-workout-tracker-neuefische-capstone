@@ -5,6 +5,7 @@ export const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 4.5rem;
 `;
 export const ConsumedContainer = styled.div`
   visibility: ${(props) => (props.isTrue ? "visible" : "hidden")};
@@ -13,7 +14,7 @@ export const ConsumedContainer = styled.div`
   width: 274px;
   height: 80%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(0.85);
   background: grey;
   opacity: 0.8;
 `;

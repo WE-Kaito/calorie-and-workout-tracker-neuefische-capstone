@@ -5,7 +5,7 @@ export const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4.5rem;
+  gap: 1rem;
 `;
 export const ConsumedContainer = styled.div`
   visibility: ${(props) => (props.isTrue ? "visible" : "hidden")};
@@ -49,8 +49,4 @@ export const OpenCalorieFormButton = styled.button`
   width: 50px;
   height: 50px;
   font-size: 3rem;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 28%;
 `;

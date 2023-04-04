@@ -1,6 +1,9 @@
 import { css } from "styled-components";
+import styled from "styled-components";
 
-export const calendarStyles = css`
+export const StyledCalendarContainer = styled.div``;
+
+/* export const calendarStyles = css`
   .calendar {
     width: 350px;
     max-width: 100%;
@@ -145,3 +148,4 @@ export const calendarStyles = css`
     background-color: #e6e6e6;
   }
 `;
+ */

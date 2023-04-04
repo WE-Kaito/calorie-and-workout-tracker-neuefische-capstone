@@ -7,7 +7,7 @@ export default function HomeCalendar() {
   const [date, setDate] = useState(new Date());
 
   return (
-    <div className="calendar-container">
+    <>
       <Calendar
         onChange={(date) => {
           setDate(date);
@@ -15,6 +15,6 @@ export default function HomeCalendar() {
         }}
         value={date}
       />
-    </div>
+    </>
   );
 }

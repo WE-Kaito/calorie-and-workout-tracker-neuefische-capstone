@@ -4,7 +4,7 @@ const useCalorieStore = create((set) => ({
   dailyCount: 0,
   dailyMeals: [],
   calorieGoal: 1600,
-  // initiateDailyCount: reset at midnight
+  // initiateDailyCount: reset at midnight!
   addDailyCount: (userInput) =>
     set((state) => ({ dailyCount: state.dailyCount + userInput })),
   addDailyMeal: (nameUserInput, caloriesUserInput, hour, minute) =>

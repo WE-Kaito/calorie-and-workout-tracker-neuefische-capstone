@@ -7,7 +7,7 @@ import {
   StyledForm,
   StyledInput,
   StyledSaveButton,
-} from "./styles";
+} from "../../components/EditPage/styles";
 
 export default function EditPage() {
   const { calorieGoal, setCalorieGoal } = useCalorieStore();

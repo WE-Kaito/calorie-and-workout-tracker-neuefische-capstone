@@ -2,7 +2,11 @@ import AddCalories from "../components/AddCalories/AddCalories";
 import useCalorieStore from "../utils/useCalorieStore";
 import ConsumedList from "../components/ConsumedList/ConsumedList";
 import { useState, useEffect } from "react";
-import { StyledDiv, StyledButtonCalorieCounter, ListContainer } from "./styles";
+import {
+  StyledDiv,
+  StyledButtonCalorieCounter,
+  ListContainer,
+} from "../components/IndexPage/styles";
 
 export default function HomePage() {
   const { dailyCount, dailyMeals, calorieGoal } = useCalorieStore();

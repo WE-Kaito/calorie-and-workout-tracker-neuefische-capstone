@@ -1,43 +1,42 @@
 import AddCalories from "../components/AddCalories/AddCalories";
 import useCalorieStore from "../utils/useCalorieStore";
-import styled from "styled-components";
 import ConsumedList from "../components/ConsumedList/ConsumedList";
 import { useState, useEffect } from "react";
+import {
+  StyledDiv,
+  StyledButtonCalorieCounter,
+  ListContainer,
+} from "../components/IndexPage/styles";
 
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const ListContainer = styled.div`
-  position: absolute;
-  top: 4rem;
-  width: 274px;
-  height: 80%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: grey;
-  opacity: 0.7;
-`;
 export default function HomePage() {
-  const { dailyCount } = useCalorieStore();
+  const { dailyCount, dailyMeals, calorieGoal } = useCalorieStore();
+  const difference = calorieGoal - dailyCount;
 
   const [isListVisible, setIsListVisible] = useState(false);
+  const [isGoalExceeded, setIsGoalExceeded] = useState(false);
 
   useEffect(() => {
     document.addEventListener("click", () => setIsListVisible(false));
   }, []);
+  useEffect(() => {
+    dailyMeals.length === 0 && setIsListVisible(false);
+    calorieGoal > dailyCount && setIsGoalExceeded(false);
+    calorieGoal < dailyCount && setIsGoalExceeded(true);
+  }, [dailyMeals]);
 
   return (
     <StyledDiv>
-      <button
+      <StyledButtonCalorieCounter
+        true={!isGoalExceeded}
         onClick={(event) => {
           event.stopPropagation();
-          setIsListVisible(!isListVisible);
+          dailyMeals.length !== 0 && setIsListVisible(!isListVisible);
         }}
       >
-        {dailyCount}
-      </button>
+        {!isGoalExceeded ? `${difference}` : `${difference * -1}`}
+        <br />
+        {!isGoalExceeded ? "left" : "over"}
+      </StyledButtonCalorieCounter>
       <AddCalories />
       {isListVisible ? (
         <ListContainer>

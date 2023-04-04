@@ -15,8 +15,7 @@ export default function EditPage() {
     event.preventDefault();
     const formdata = new FormData(event.target);
     const data = Object.fromEntries(formdata);
-    const calorieGoalInput = parseInt(data.caloriGoalInput);
-    setCalorieGoal(calorieGoalInput);
+    setCalorieGoal(data.calorieGoalInput);
     event.target.reset();
   }
 

@@ -17,7 +17,7 @@ export const ListContainer = styled.div`
   opacity: 0.8;
 `;
 
-export const StyledButton = styled.button`
+export const StyledButtonCalorieCounter = styled.button`
   color: ${(props) => (props.true ? "#32de84" : "crimson")};
   font-size: 2rem;
   font-weight: bold;

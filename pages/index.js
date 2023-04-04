@@ -2,7 +2,7 @@ import AddCalories from "../components/AddCalories/AddCalories";
 import useCalorieStore from "../utils/useCalorieStore";
 import ConsumedList from "../components/ConsumedList/ConsumedList";
 import { useState, useEffect } from "react";
-import { StyledDiv, StyledButton, ListContainer } from "./styles";
+import { StyledDiv, StyledButtonCalorieCounter, ListContainer } from "./styles";
 
 export default function HomePage() {
   const { dailyCount, dailyMeals, calorieGoal } = useCalorieStore();
@@ -22,7 +22,7 @@ export default function HomePage() {
 
   return (
     <StyledDiv>
-      <StyledButton
+      <StyledButtonCalorieCounter
         true={!isGoalExceeded}
         onClick={(event) => {
           event.stopPropagation();
@@ -32,7 +32,7 @@ export default function HomePage() {
         {!isGoalExceeded ? `${difference}` : `${difference * -1}`}
         <br />
         {!isGoalExceeded ? " left" : " over"}
-      </StyledButton>
+      </StyledButtonCalorieCounter>
       <AddCalories />
       {isListVisible ? (
         <ListContainer>

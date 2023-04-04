@@ -18,20 +18,20 @@ export default function HomePage() {
   const [isGoalExceeded, setIsGoalExceeded] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
+  function handleFormExit(event) {
+    event.stopPropagation();
+  }
   useEffect(() => {
-    document.addEventListener("click", () => setIsListVisible(false));
-    document.addEventListener("click", () => setIsFormVisible(false));
+    document.addEventListener("click", () => {
+      setIsListVisible(false);
+      setIsFormVisible(false);
+    });
   }, []);
   useEffect(() => {
     dailyMeals.length === 0 && setIsListVisible(false);
     calorieGoal > dailyCount && setIsGoalExceeded(false);
     calorieGoal < dailyCount && setIsGoalExceeded(true);
   }, [dailyMeals]);
-
-  function handleFormExit(event) {
-    event.stopPropagation();
-  }
-
   return (
     <StyledDiv>
       <StyledButtonCalorieCounter
@@ -44,15 +44,15 @@ export default function HomePage() {
         {!isGoalExceeded ? `${difference}` : `${difference * -1}`}
         <br />
         {!isGoalExceeded ? "left" : "over"}
-        <OpenCalorieFormButton
-          onClick={(event) => {
-            event.stopPropagation();
-            setIsFormVisible(true);
-          }}
-        >
-          +
-        </OpenCalorieFormButton>
       </StyledButtonCalorieCounter>
+      <OpenCalorieFormButton
+        onClick={(event) => {
+          event.stopPropagation();
+          setIsFormVisible(true);
+        }}
+      >
+        +
+      </OpenCalorieFormButton>
       <FormContainer isTrue={isFormVisible} onClick={handleFormExit}>
         <AddCalories setIsFormVisible={setIsFormVisible} />
       </FormContainer>

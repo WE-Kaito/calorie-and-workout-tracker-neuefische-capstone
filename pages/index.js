@@ -31,7 +31,7 @@ export default function HomePage() {
       >
         {!isGoalExceeded ? `${difference}` : `${difference * -1}`}
         <br />
-        {!isGoalExceeded ? " left" : " over"}
+        {!isGoalExceeded ? "left" : "over"}
       </StyledButtonCalorieCounter>
       <AddCalories />
       {isListVisible ? (

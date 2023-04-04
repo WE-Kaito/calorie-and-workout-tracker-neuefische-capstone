@@ -14,7 +14,9 @@ const useCalorieStore = create((set) => ({
         {
           name: `${nameUserInput}`,
           calories: `${caloriesUserInput}`,
-          time_stamp: `${hour}:${minute < 10 ? "0" + minute : minute}`,
+          time_stamp: `${hour < 10 ? "0" + hour : hour}:${
+            minute < 10 ? "0" + minute : minute
+          }`,
         },
       ],
     })),

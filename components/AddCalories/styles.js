@@ -8,6 +8,7 @@ export const AddCalorieButton = styled.button`
   height: 20px;
   font-size: 1.2rem;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 export const AddCalorieForm = styled.form`

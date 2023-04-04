@@ -39,6 +39,7 @@ export const StyledButtonCalorieCounter = styled.button`
   height: 160px;
   border: none;
   border-radius: 100%;
+  cursor: pointer;
 `;
 
 export const OpenCalorieFormButton = styled.button`
@@ -49,4 +50,5 @@ export const OpenCalorieFormButton = styled.button`
   width: 50px;
   height: 50px;
   font-size: 3rem;
+  cursor: pointer;
 `;

@@ -53,4 +53,6 @@ export const StyledForm = styled.form`
   gap: 2rem;
 `;
 
-export const StyledSaveButton = styled.button``;
+export const StyledSaveButton = styled.button`
+  cursor: pointer;
+`;

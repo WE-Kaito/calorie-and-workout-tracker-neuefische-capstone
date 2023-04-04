@@ -1,7 +1,7 @@
 import useCalorieStore from "../../utils/useCalorieStore";
 import { AddCalorieButton, AddCalorieForm, FixedInput } from "./styles";
 
-export default function AddCalories() {
+export default function AddCalories({ setIsFormVisible }) {
   const { addDailyCount, addDailyMeal } = useCalorieStore();
 
   function handleSubmit(event) {
@@ -18,10 +18,7 @@ export default function AddCalories() {
 
   return (
     <AddCalorieForm onSubmit={handleSubmit}>
-      <AddCalorieButton>
-        <span>+</span>
-      </AddCalorieButton>
-      <input type="text" name="name" placeholder="name" required />
+      <input type="text" name="name" placeholder="meal" required />
       <FixedInput
         type="number"
         min={1}
@@ -30,6 +27,13 @@ export default function AddCalories() {
         placeholder="kcal"
         required
       />
+      <AddCalorieButton
+        onClick={() => {
+          setIsFormVisible(false);
+        }}
+      >
+        <span>+</span>
+      </AddCalorieButton>
     </AddCalorieForm>
   );
 }

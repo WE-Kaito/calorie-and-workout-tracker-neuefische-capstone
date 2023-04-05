@@ -35,12 +35,16 @@ export default function HomePage() {
   }, 5000);
   // <----------------------------------------
 
+  function handleWindowClosing() {
+    setIsListVisible(false);
+    setIsFormVisible(false);
+  }
+
   useEffect(() => {
-    document.addEventListener("click", () => {
-      setIsListVisible(false);
-      setIsFormVisible(false);
-    });
-  }, []);
+    isListVisible
+      ? document.addEventListener("click", handleWindowClosing)
+      : document.removeEventListener("click", handleWindowClosing);
+  }, [isListVisible, isFormVisible]);
 
   useEffect(() => {
     dailyMeals.length === 0 && setIsListVisible(false);
@@ -88,7 +92,7 @@ export default function HomePage() {
           event.stopPropagation();
         }}
       >
-        <AddCalories setIsFormVisible={setIsFormVisible} />
+        <AddCalories onClose={setIsFormVisible} />
       </FormContainer>
       <ConsumedContainer
         isTrue={isListVisible}

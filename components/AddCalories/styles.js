@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 export const AddCalorieButton = styled.button`
-  background-color: green;
+  background-color: #32de84;
   color: white;
   border: none;
-  border-radius: 50%;
   width: 50px;
-  height: 50px;
-  font-size: 3rem;
+  height: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
 `;
 
 export const AddCalorieForm = styled.form`
@@ -16,6 +17,8 @@ export const AddCalorieForm = styled.form`
   align-items: center;
   width: 200px;
   gap: 10px;
+  margin-top: 10%;
+  margin-left: 12.5%;
 `;
 
 export const FixedInput = styled.input`

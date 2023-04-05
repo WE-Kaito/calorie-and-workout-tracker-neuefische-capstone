@@ -13,8 +13,16 @@ import {
 } from "../components/IndexPage/styles";
 
 export default function HomePage() {
-  const { dailyCount, dailyMeals, calorieGoal, setDailyCount } =
-    useCalorieStore();
+  const {
+    dailyCount,
+    dailyMeals,
+    resetDailyMeals,
+    calorieGoal,
+    setDailyCount,
+    addHistoryEntry,
+    history,
+  } = useCalorieStore();
+  console.log("history", history);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,12 +32,16 @@ export default function HomePage() {
 
   // reset the daily calorie count & save history entry
   const [currentDay, setCurrentDay] = useLocalStorageState("currentDay", {
-    defaultValue: new Date(),
+    defaultValue: new Date().getDate(),
   });
   setInterval(() => {
     const today = new Date();
-    if (today !== currentDay) {
-      setDailyCount(0);
+    if (today.getDate() !== currentDay) {
+      const day = today.getDate().toString().padStart(2, "0");
+      const month = (today.getMonth() + 1).toString().padStart(2, "0");
+      const year = today.getFullYear().toString();
+      const dateStr = `${day}.${month}.${year}`;
+      addHistoryEntry(dateStr, isGoalExceeded);
       setCurrentDay(today);
     }
   }, 5000);
@@ -53,9 +65,13 @@ export default function HomePage() {
   }, [dailyMeals]);
 
   // error handling
-  if (dailyMeals.length === 0 && dailyCount !== calorieGoal) {
+  if (
+    (dailyMeals.length === 0 && dailyCount !== 0) ||
+    (dailyMeals.length !== 0 && dailyCount === 0)
+  ) {
+    setDailyCount(0);
+    resetDailyMeals();
   }
-
   useEffect(() => {
     setIsLoading(false);
   }, [dailyCount]); // because dailyCount is causing hydration errors
@@ -67,6 +83,19 @@ export default function HomePage() {
 
   return (
     <StyledDiv>
+      <button // only for test purpose
+        onClick={() => {
+          const today = new Date();
+          const day = today.getDate().toString().padStart(2, "0");
+          const month = (today.getMonth() + 1).toString().padStart(2, "0");
+          const year = today.getFullYear().toString();
+          const dateStr = `${day}.${month}.${year}`;
+          addHistoryEntry(dateStr, isGoalExceeded);
+          console.log("history: ", history);
+        }}
+      >
+        test button
+      </button>
       <StyledButtonCalorieCounter
         isTrue={!isGoalExceeded}
         onClick={(event) => {

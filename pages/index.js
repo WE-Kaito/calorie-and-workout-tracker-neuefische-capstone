@@ -41,7 +41,7 @@ export default function HomePage() {
   }
 
   useEffect(() => {
-    isListVisible
+    isListVisible || isFormVisible
       ? document.addEventListener("click", handleWindowClosing)
       : document.removeEventListener("click", handleWindowClosing);
   }, [isListVisible, isFormVisible]);

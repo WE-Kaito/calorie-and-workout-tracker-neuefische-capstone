@@ -22,12 +22,12 @@ export default function HomePage() {
   const [isGoalExceeded, setIsGoalExceeded] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  // reset the daily calorie count
+  // reset the daily calorie count & save history entry
   const [currentDay, setCurrentDay] = useLocalStorageState("currentDay", {
-    defaultValue: new Date().getDay(),
+    defaultValue: new Date(),
   });
   setInterval(() => {
-    const today = new Date().getDay();
+    const today = new Date();
     if (today !== currentDay) {
       setDailyCount(0);
       setCurrentDay(today);

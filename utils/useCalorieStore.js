@@ -7,6 +7,7 @@ const useCalorieStore = create(
       dailyCount: 0,
       dailyMeals: [],
       calorieGoal: 1600,
+      history: [],
       setDailyCount: (count) => set(() => ({ dailyCount: count })),
       addDailyCount: (userInput) =>
         set((state) => ({ dailyCount: state.dailyCount + userInput })),
@@ -30,6 +31,10 @@ const useCalorieStore = create(
           ),
         })),
       setCalorieGoal: (userInput) => set(() => ({ calorieGoal: userInput })),
+      addHistoryEntry: (date, historyEntry) =>
+        set((state) => ({
+          history: [...state.history, { date: date, entry: { historyEntry } }],
+        })),
     }),
     {
       name: "dailyCountStorage",

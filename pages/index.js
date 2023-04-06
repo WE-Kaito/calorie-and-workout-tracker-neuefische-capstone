@@ -13,8 +13,15 @@ import {
 } from "../components/IndexPage/styles";
 
 export default function HomePage() {
-  const { dailyCount, dailyMeals, calorieGoal, setDailyCount } =
-    useCalorieStore();
+  const {
+    dailyCount,
+    dailyMeals,
+    resetDailyMeals,
+    calorieGoal,
+    setDailyCount,
+    addHistoryEntry,
+    history,
+  } = useCalorieStore();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,15 +29,23 @@ export default function HomePage() {
   const [isGoalExceeded, setIsGoalExceeded] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  // reset the daily calorie count
+  // reset the daily calorie count & save history entry
   const [currentDay, setCurrentDay] = useLocalStorageState("currentDay", {
-    defaultValue: new Date().getDay(),
+    defaultValue: new Date().getDate(),
   });
+
   setInterval(() => {
-    const today = new Date().getDay();
-    if (today !== currentDay) {
-      setDailyCount(0);
+    const today = new Date();
+    if (today.getDate() !== currentDay) {
+      addHistoryEntry(
+        new Date().getFullYear(),
+        new Date().getMonth(),
+        new Date().getDate(),
+        isGoalExceeded
+      );
       setCurrentDay(today);
+      setDailyCount(0);
+      resetDailyMeals();
     }
   }, 5000);
   // <----------------------------------------
@@ -53,7 +68,12 @@ export default function HomePage() {
   }, [dailyMeals]);
 
   // error handling
-  if (dailyMeals.length === 0 && dailyCount !== calorieGoal) {
+  if (
+    (dailyMeals.length === 0 && dailyCount !== 0) ||
+    (dailyMeals.length !== 0 && dailyCount === 0)
+  ) {
+    setDailyCount(0);
+    resetDailyMeals();
   }
 
   useEffect(() => {
@@ -67,6 +87,25 @@ export default function HomePage() {
 
   return (
     <StyledDiv>
+      <button /* Creates the saved daily entry for yesterday.
+        Clicking with default local storage values will mark yesterday either
+        red or green depending on the currently displayed calorie count.
+        The history with entries is also logged in the console.*/
+        onClick={() => {
+          const today = new Date();
+          const day = today.getDate() - 1;
+          const month = today.getMonth();
+          const year = today.getFullYear();
+          addHistoryEntry(year, month, day, isGoalExceeded);
+          console.log("history: ", history);
+        }}
+      >
+        simuliere:
+        <br />
+        Gestern 23:59 {`==>`} Heute 00:00 mit heutigen Werten.
+        <br />
+        Zum erneuten Testen bitte local storage löschen.
+      </button>
       <StyledButtonCalorieCounter
         isTrue={!isGoalExceeded}
         onClick={(event) => {

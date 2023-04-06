@@ -23,14 +23,6 @@ export default function HomeCalendar() {
       return "react-calendar__tile--wasNotExceeded";
     }
   }
-  if (history.length !== 0) {
-    console.log(
-      "unixdate",
-      Math.floor(date.getTime() / 100000) * 100000,
-      "entry0",
-      history[0].date
-    );
-  }
 
   return (
     <CalendarWrapper>

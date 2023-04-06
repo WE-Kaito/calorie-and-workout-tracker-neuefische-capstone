@@ -22,7 +22,6 @@ export default function HomePage() {
     addHistoryEntry,
     history,
   } = useCalorieStore();
-  console.log("history", history);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -100,7 +99,6 @@ export default function HomePage() {
           const year = today.getFullYear();
           addHistoryEntry(year, month, day, isGoalExceeded);
           console.log("history: ", history);
-          console.log("timeStamp: ", new Date(year, month, day));
         }}
       >
         history test button

@@ -87,8 +87,7 @@ export default function HomePage() {
 
   return (
     <StyledDiv>
-      <button /* Only for testing of success-marker for past days,
-        it creates the saved daily entry for yesterday.
+      <button /* Creates the saved daily entry for yesterday.
         Clicking with default local storage values will mark yesterday either
         red or green depending on the currently displayed calorie count.
         The history with entries is also logged in the console.*/
@@ -101,7 +100,11 @@ export default function HomePage() {
           console.log("history: ", history);
         }}
       >
-        history test button
+        simuliere:
+        <br />
+        Gestern 23:59 {`==>`} Heute 00:00 mit heutigen Werten.
+        <br />
+        Zum erneuten Testen bitte local storage löschen.
       </button>
       <StyledButtonCalorieCounter
         isTrue={!isGoalExceeded}

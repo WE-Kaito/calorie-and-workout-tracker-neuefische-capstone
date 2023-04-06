@@ -34,15 +34,19 @@ export default function HomePage() {
   const [currentDay, setCurrentDay] = useLocalStorageState("currentDay", {
     defaultValue: new Date().getDate(),
   });
+
   setInterval(() => {
     const today = new Date();
     if (today.getDate() !== currentDay) {
-      const day = today.getDate().toString().padStart(2, "0");
-      const month = (today.getMonth() + 1).toString().padStart(2, "0");
-      const year = today.getFullYear().toString();
-      const dateStr = `${day}.${month}.${year}`;
-      addHistoryEntry(dateStr, isGoalExceeded);
+      addHistoryEntry(
+        new Date().getFullYear(),
+        new Date().getMonth(),
+        new Date().getDate(),
+        isGoalExceeded
+      );
       setCurrentDay(today);
+      setDailyCount(0);
+      resetDailyMeals();
     }
   }, 5000);
   // <----------------------------------------
@@ -72,6 +76,7 @@ export default function HomePage() {
     setDailyCount(0);
     resetDailyMeals();
   }
+
   useEffect(() => {
     setIsLoading(false);
   }, [dailyCount]); // because dailyCount is causing hydration errors
@@ -83,18 +88,22 @@ export default function HomePage() {
 
   return (
     <StyledDiv>
-      <button // only for test purpose
+      <button /* Only for testing of success-marker for past days,
+        it creates the saved daily entry for yesterday.
+        Clicking with default local storage values will mark yesterday either
+        red or green depending on the currently displayed calorie count.
+        The history with entries is also logged in the console.*/
         onClick={() => {
           const today = new Date();
-          const day = today.getDate().toString().padStart(2, "0");
-          const month = (today.getMonth() + 1).toString().padStart(2, "0");
-          const year = today.getFullYear().toString();
-          const dateStr = `${day}.${month}.${year}`;
-          addHistoryEntry(dateStr, isGoalExceeded);
+          const day = today.getDate() - 1;
+          const month = today.getMonth();
+          const year = today.getFullYear();
+          addHistoryEntry(year, month, day, isGoalExceeded);
           console.log("history: ", history);
+          console.log("timeStamp: ", new Date(year, month, day));
         }}
       >
-        test button
+        history test button
       </button>
       <StyledButtonCalorieCounter
         isTrue={!isGoalExceeded}

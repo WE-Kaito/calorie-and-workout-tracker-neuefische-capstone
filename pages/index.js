@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddCalories from "../components/AddCalories/AddCalories";
 import useCalorieStore from "../utils/useCalorieStore";
 import { unixDate } from "../utils/useCalorieStore";
@@ -66,21 +68,6 @@ export default function HomePage() {
 
   return (
     <StyledDiv>
-      <p
-        style={{
-          fontSize: 10,
-          color: "lightpink",
-          display: "inline-block",
-          position: "absolute",
-          top: 0,
-          margin: 0,
-          textAlign: "center",
-        }}
-      >
-        note for QA: <br />
-        As for past logged days the current day will also mark the success
-        depending on counted calories
-      </p>
       <StyledButtonCalorieCounter
         isTrue={getGoalExceeded()}
         onClick={(event) => {
@@ -99,7 +86,10 @@ export default function HomePage() {
           setIsFormVisible(true);
         }}
       >
-        +
+        <FontAwesomeIcon
+          style={{ width: 15, filter: "drop-shadow(0 0 0.5rem ghostwhite)" }}
+          icon={faPlus}
+        />
       </OpenCalorieFormButton>
       <FormContainer
         isTrue={isFormVisible}
@@ -117,7 +107,7 @@ export default function HomePage() {
       >
         <ConsumedList />
       </ConsumedContainer>
-      <HomeCalendar getTileColor={getGoalExceeded} />
+      <HomeCalendar getTileColor={getGoalExceeded} isVisible={isListVisible} />
     </StyledDiv>
   );
 }

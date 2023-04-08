@@ -5,6 +5,7 @@ import {
   StyledListItem,
   ShiftedSpan,
   CorrectionDiv,
+  NameSpan,
 } from "./styles";
 import { uid } from "uid";
 
@@ -24,7 +25,7 @@ export default function ConsumedList() {
                 entry.time_stamp
               }`}
             >
-              <span>{`${entry.meal}`}</span>
+              <NameSpan>{`${entry.meal}`}</NameSpan>
               <ShiftedSpan>{`${entry.calories} kcal`}</ShiftedSpan>
               <span>{`${entry.time_stamp}`}</span>
               <button

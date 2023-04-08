@@ -24,6 +24,7 @@ export default function AddCalories({ onClose }) {
       <input
         type="text"
         name="meal"
+        maxLength={20}
         placeholder={`meal: "${
           examples[Math.abs((Math.round(Math.random() * 10) / 10) * 10 - 1)]
         }"`}

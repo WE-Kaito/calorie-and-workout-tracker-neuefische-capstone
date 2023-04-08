@@ -54,7 +54,7 @@ export const StyledButtonCalorieCounter = styled.button`
 
 export const OpenCalorieFormButton = styled.button`
   box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2);
-  background-color: green;
+  background-color: forestgreen;
   color: white;
   border: none;
   border-radius: 50%;

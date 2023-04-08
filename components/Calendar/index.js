@@ -74,6 +74,8 @@ const formatMonthYear = (locale, date) => {
 };
 
 const CalendarWrapper = styled.div`
+  z-index: 0;
+
   .react-calendar__tile--wasExceeded {
     background-color: crimson;
   }

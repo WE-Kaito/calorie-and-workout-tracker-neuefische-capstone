@@ -7,6 +7,7 @@ export const StyledList = styled.div`
   align-self: center;
   gap: 0.8rem;
   width: 250px;
+  z-index: 10;
 `;
 export const StyledListItem = styled.div`
 display: grid;

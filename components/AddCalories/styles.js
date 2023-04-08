@@ -25,6 +25,7 @@ export const AddCalorieForm = styled.form`
   gap: 10px;
   margin-top: 10%;
   margin-left: 12.5%;
+  z-index: 10;
 `;
 
 export const FixedInput = styled.input`

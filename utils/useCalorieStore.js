@@ -1,63 +1,57 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+export const unixDate = new Date(
+  new Date().getFullYear(),
+  new Date().getMonth(),
+  new Date().getDate()
+).getTime();
+
 const useCalorieStore = create(
   persist(
-    (set, get) => ({
-      dailyCount: 0,
-      dailyMeals: [],
-      calorieGoal: 1600,
-      history: [],
+    (set) => {
+      const hour = new Date().getHours();
+      const minute = new Date().getMinutes();
 
-      resetDailyMeals: () => set(() => ({ dailyMeals: [] })),
+      return {
+        history: [],
+        calorieGoals: [{ date: unixDate, goal: 1600 }],
 
-      setDailyCount: (count) => set(() => ({ dailyCount: count })),
+        setCalorieGoal: (userInput) =>
+          set((state) => ({
+            calorieGoals: [
+              state.calorieGoals
+                .slice()
+                .filter((goalEntry) => goalEntry.date !== unixDate),
+              { date: unixDate, goal: userInput },
+            ],
+          })),
 
-      addDailyCount: (userInput) =>
-        set((state) => ({ dailyCount: state.dailyCount + userInput })),
-
-      addDailyMeal: (nameUserInput, caloriesUserInput, hour, minute) =>
-        set((state) => ({
-          dailyMeals: [
-            ...state.dailyMeals,
-            {
-              name: `${nameUserInput}`,
-              calories: `${caloriesUserInput}`,
-              time_stamp: `${hour < 10 ? "0" + hour : hour}:${
-                minute < 10 ? "0" + minute : minute
-              }`,
-            },
-          ],
-        })),
-
-      deleteDailyMeal: (index1) =>
-        set((state) => ({
-          dailyMeals: state.dailyMeals.filter(
-            (meal, index) => index !== index1
-          ),
-        })),
-
-      setCalorieGoal: (userInput) => set(() => ({ calorieGoal: userInput })),
-
-      addHistoryEntry: (year, month, day, isGoalExceeded) =>
-        set((state) => ({
-          history: [
-            ...state.history,
-            {
-              date: new Date(year, month, day).getTime(),
-              entry: {
-                wasExceeded: isGoalExceeded,
-                dailyCount: state.dailyCount,
-                dailyMeals: state.dailyMeals,
-                calorieGoal: state.calorieGoal,
-                // states for home ui
+        addHistoryEntry: (caloriesInput, mealInput = "⚡️") =>
+          set((state) => ({
+            history: [
+              ...state.history,
+              {
+                date: unixDate,
+                meal: `${mealInput}`,
+                calories: `${caloriesInput}`,
+                time_stamp: `${hour < 10 ? "0" + hour : hour}:${
+                  minute < 10 ? "0" + minute : minute
+                }`,
               },
-            },
-          ],
-        })),
-    }),
+            ],
+          })),
+
+        deleteHistoryEntry: (entryToDelete) =>
+          set((state) => ({
+            history: state.history
+              .slice()
+              .filter((entry) => entry !== entryToDelete),
+          })),
+      };
+    },
     {
-      name: "dailyCountStorage",
+      name: "trackedDataStorage",
     }
   )
 );

@@ -9,6 +9,12 @@ export const AddCalorieButton = styled.button`
   font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
+
+  &:hover,
+  &:active {
+    background-color: lightgreen;
+    filter: drop-shadow(0 0 0.08rem #32de84);
+  }
 `;
 
 export const AddCalorieForm = styled.form`

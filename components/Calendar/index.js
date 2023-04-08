@@ -1,43 +1,49 @@
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useState } from "react";
+import { unixDate } from "../../utils/useCalorieStore";
 import useCalorieStore from "../../utils/useCalorieStore";
 import styled from "styled-components";
 
-export default function HomeCalendar() {
-  const [date, setDate] = useState(new Date());
+export default function HomeCalendar({ getTileColor }) {
   const { history } = useCalorieStore();
+  const [date, setDate] = useState(new Date());
 
   function getTileClassName(date) {
-    if (
-      history.find(
-        (entry) => entry.date === date.getTime() && entry.entry.wasExceeded
-      )
-    ) {
-      return "react-calendar__tile--wasExceeded";
-    } else if (
-      history.find(
-        (entry) => entry.date === date.getTime() && !entry.entry.wasExceeded
-      )
-    ) {
-      return "react-calendar__tile--wasNotExceeded";
+    const unixTileDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    ).getTime();
+    if (history.find((entry) => entry.date === unixTileDate)) {
+      if (date <= unixDate) {
+        // remove the `=` later, it's only for proving the feature
+        if (getTileColor(unixTileDate)) {
+          return "react-calendar__tile--wasNotExceeded";
+        } else {
+          return "react-calendar__tile--wasExceeded";
+        }
+      }
     }
   }
+
+  const earliestDate =
+    history.length >= 1 ? new Date(history[0].date) : new Date();
 
   return (
     <CalendarWrapper>
       <Calendar
+        aria-label="Calendar with tracked data"
         value={date}
         selectRange={false}
-        maxDate={new Date(2025, 4, 4)} // replace with today + X later
-        minDate={new Date(2023, 3, 1)} // replace with earliest stored date later
+        maxDate={lastDate}
+        minDate={earliestDate}
         minDetail="month"
         formatShortWeekday={formatShortWeekday}
         formatMonthYear={formatMonthYear}
         // ---
         onChange={(date) => {
           setDate(date);
-          console.log(date);
         }}
         // ---
         className="calendar-style"
@@ -48,6 +54,12 @@ export default function HomeCalendar() {
 }
 
 // calendar styling:
+
+const lastDate = new Date(
+  new Date().getFullYear(),
+  new Date().getMonth() + 3,
+  new Date().getDate()
+);
 
 const formatShortWeekday = (locale, date) => {
   const weekdays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];

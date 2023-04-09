@@ -121,6 +121,7 @@ const CalendarWrapper = styled.div`
 
     .react-calendar__month-view__days__day--neighboringMonth {
       color: darkgrey !important;
+      box-shadow: none !important;
     }
 
     .react-calendar__tile {

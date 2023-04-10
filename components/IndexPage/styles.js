@@ -10,19 +10,24 @@ export const StyledDiv = styled.div`
 export const ConsumedContainer = styled.div`
   visibility: ${(props) => (props.isTrue ? "visible" : "hidden")};
   position: absolute;
-  top: 3.5rem;
-  width: 274px;
+  top: 3rem;
+  width: 306px;
   height: 80%;
   left: 50%;
   transform: translateX(-50%) scale(0.85);
-  background: grey;
-  opacity: 0.8;
+
+  padding: 2rem;
+  border-radius: 25px;
+  background-color: #b2c8df;
+
+  filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
 `;
 
 export const FormContainer = styled.div`
   visibility: ${(props) => (props.isTrue ? "visible" : "hidden")};
   position: absolute;
   width: fit-content;
+  filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
 `;
 
 export const StyledButtonCalorieCounter = styled.button`
@@ -35,11 +40,11 @@ export const StyledButtonCalorieCounter = styled.button`
   border-radius: 100%;
   cursor: pointer;
   background-color: #b2c8df;
-
   box-shadow: rgba(158, 158, 158, 0.2) 0 -25px 18px -14px inset,
     rgba(158, 158, 158, 0.15) 0 1px 2px, rgba(158, 158, 158, 0.15) 0 2px 4px,
     rgba(158, 158, 158, 0.15) 0 4px 8px, rgba(158, 158, 158, 0.15) 0 8px 16px,
     rgba(158, 158, 158, 0.15) 0 16px 32px;
+
   &:active,
   &:hover {
     background-color: #f8f9d7;

@@ -21,9 +21,14 @@ export const EditMaxContainer = styled.section`
   align-items: center;
   width: 100%;
   height: 30%;
-  background-color: grey;
   margin: 15% 0 15% 0;
-  background-color: lightgreen;
+
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 2%,
+    rgba(178, 200, 223, 1) 50%,
+    rgba(0, 0, 0, 0) 98%
+  );
 `;
 
 export const EditLinkContainer = styled.section`
@@ -55,4 +60,15 @@ export const StyledForm = styled.form`
 
 export const StyledSaveButton = styled.button`
   cursor: pointer;
+  color: navy;
+  background: #f8f9d7;
+  border: none;
+  font-style: italic;
+  font-weight: bold;
+  padding-left: 0.9rem;
+  padding-right: 0.9rem;
+
+  &:hover {
+    background: aquamarine;
+  }
 `;

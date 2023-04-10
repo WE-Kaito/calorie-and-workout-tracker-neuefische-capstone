@@ -42,7 +42,7 @@ export default function AddCalories({ onClose }) {
           onClose(false);
         }}
       >
-        <span>+</span>
+        <span style={{ color: "navy" }}>+</span>
       </AddCalorieButton>
     </AddCalorieForm>
   );

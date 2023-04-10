@@ -4,7 +4,7 @@ import {
   StyledList,
   StyledListItem,
   ShiftedSpan,
-  CorrectionDiv,
+  Wrapper,
   NameSpan,
 } from "./styles";
 import { uid } from "uid";
@@ -13,7 +13,7 @@ export default function ConsumedList() {
   const { history, deleteHistoryEntry } = useCalorieStore();
 
   return (
-    <CorrectionDiv>
+    <Wrapper>
       <StyledList aria-label="Opened List with todays entries. Click anywhere outside to close.">
         {history
           .slice()
@@ -40,6 +40,6 @@ export default function ConsumedList() {
             </StyledListItem>
           ))}
       </StyledList>
-    </CorrectionDiv>
+    </Wrapper>
   );
 }

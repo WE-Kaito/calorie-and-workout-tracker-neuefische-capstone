@@ -6,20 +6,20 @@ export const StyledList = styled.div`
   justify-content: space-between;
   align-self: center;
   gap: 0.8rem;
-  width: 250px;
+  width: fit-content;
 `;
 export const StyledListItem = styled.div`
   display: grid;
   grid-template-columns: 6fr 2fr 2fr 1fr;
-  padding: 0.2rem;
-  background-color: lightskyblue;
-  border: 1px solid black;
-  filter: drop-shadow(0 0 0.05rem black);
+  align-items: center;
+  width: 270px;
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  border-radius: 15px;
+  background-color: #f8f9d7;
 `;
 
 export const NameSpan = styled.span`
   text-overflow: ellipsis;
-  max-width: 2rem;
 `;
 
 export const ShiftedSpan = styled.span`
@@ -29,7 +29,7 @@ export const ShiftedSpan = styled.span`
   transform: translateX(-1rem);
 `;
 
-export const CorrectionDiv = styled.div`
+export const Wrapper = styled.div`
   padding: 1rem;
   position: absolute;
   left: 50%;

@@ -17,7 +17,7 @@ export default function Navigation() {
           borderRight: url === "/" ? "2px solid ghostwhite" : "none",
           borderBottom: url === "/" ? "2px solid ghostwhite" : "none",
           borderImage: "linear-gradient(to top, ghostwhite, #6E85B7) 1",
-        }} // for testing this style is applied inline
+        }}
       >
         <StyledLink href="/">
           <FontAwesomeIcon

@@ -25,9 +25,9 @@ export const EditMaxContainer = styled.section`
 
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0) 2%,
-    rgba(178, 200, 223, 1) 50%,
-    rgba(0, 0, 0, 0) 98%
+    rgba(0, 0, 0, 0),
+    rgba(178, 200, 223, 1),
+    rgba(0, 0, 0, 0)
   );
 `;
 

@@ -16,7 +16,7 @@ export default function HomeCalendar({ getCaloriesConsumed, isVisible }) {
       date.getDate()
     ).getTime();
     if (history.some((entry) => entry.date === unixTileDate)) {
-      if (date < unixDate) {
+      if (date <= unixDate) {
         if (
           getCaloriesConsumed(unixTileDate) <=
           calorieGoals.find((goalEntry) => goalEntry.date === unixTileDate).goal

@@ -6,7 +6,7 @@ const CalendarWrapper = styled.div`
   border-radius: 20px;
 
   .react-calendar {
-    width: 350px;
+    width: 280px;
     background-color: rgba(255, 255, 255, 0);
     border: 1px solid #a0a096;
     font-family: Arial, Helvetica, sans-serif;
@@ -14,7 +14,6 @@ const CalendarWrapper = styled.div`
     border: none;
     visibility: ${(props) => (props.isVisible ? "hidden" : "visible")};
     border-radius: 20px;
-    padding: 0.35rem;
 
     .react-calendar--doubleView {
       width: 700px;
@@ -132,38 +131,44 @@ const CalendarWrapper = styled.div`
       background-color: rgba(255, 255, 255, 0);
       text-align: center;
       border-radius: 30px;
-      height: 3.1rem;
-      font-size: 1.18em;
-      transform: scale(0.85);
+      height: 40px;
+      font-size: 14;
+      font-weight: 500;
+    }
+    button {
+      border: 5px solid var(--2);
     }
 
     .react-calendar__tile:disabled {
       color: ghostwhite;
-      background-color: rgba(255, 255, 255, 0);
       cursor: pointer;
     }
 
-    .react-calendar__tile--now,
     .react-calendar__tile--now abbr {
-      background: #b2c8df !important;
-      box-shadow: inset 0 0 10px lightsteelblue;
-      color: black;
+      color: var(--3) !important;
+
+      background-color: rgba(255, 255, 255, 0) !important;
+    }
+    .react-calendar__tile--now {
+      border: 2px solid var(--6);
+
+      background-color: rgba(255, 255, 255, 0) !important;
     }
 
-    .react-calendar__month-view__days__day--weekend:enabled:focus {
-      color: azure !important;
+    .react-calendar__month-view__days__day {
+      padding: 0;
     }
 
     // custom classes
 
     .react-calendar__tile--wasExceeded,
     .react-calendar__tile--wasExceeded abbr {
-      background-color: lightpink !important;
+      background-color: lightpink;
       color: black;
     }
     .react-calendar__tile--wasNotExceeded,
     .react-calendar__tile--wasNotExceeded abbr {
-      background-color: aquamarine !important;
+      background-color: aquamarine;
       color: black;
     }
   }

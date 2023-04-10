@@ -6,6 +6,8 @@ import { unixDate } from "../utils/useCalorieStore";
 import ConsumedList from "../components/ConsumedList/ConsumedList";
 import HomeCalendar from "../components/Calendar";
 import { useState, useEffect } from "react";
+import styled from "styled-components";
+import Backdrop from "../assets/backdrop.svg";
 import {
   StyledDiv,
   StyledButtonCalorieCounter,
@@ -67,8 +69,17 @@ export default function HomePage() {
     return <LoadingDisplay>█████████████████████████████▒▒▒▒▒</LoadingDisplay>;
   }
 
+  const StyledBackdrop = styled.div`
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+  `;
+
   return (
     <StyledDiv>
+      <StyledBackdrop>
+        <Backdrop />
+      </StyledBackdrop>
       <StyledButtonCalorieCounter
         isTrue={getGoalExceeded()}
         onClick={(event) => {

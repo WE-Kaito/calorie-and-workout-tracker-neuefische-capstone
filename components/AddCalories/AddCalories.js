@@ -2,29 +2,39 @@ import useCalorieStore from "../../utils/useCalorieStore";
 import { AddCalorieButton, AddCalorieForm, FixedInput } from "./styles";
 
 export default function AddCalories({ onClose }) {
-  const { addDailyCount, addDailyMeal } = useCalorieStore();
+  const { addHistoryEntry } = useCalorieStore();
 
   function handleSubmit(event) {
     event.preventDefault();
     const formdata = new FormData(event.target);
     const data = Object.fromEntries(formdata);
+    console.log(data);
     const calories = parseInt(data.calories);
-    const hour = new Date().getHours();
-    const minute = new Date().getMinutes();
-    addDailyCount(calories);
-    addDailyMeal(data.name, calories, hour, minute);
+    data.meal
+      ? addHistoryEntry(calories, data.meal)
+      : addHistoryEntry(calories);
     event.target.reset();
   }
 
   return (
-    <AddCalorieForm onSubmit={handleSubmit}>
-      <input type="text" name="name" placeholder="meal" required />
+    <AddCalorieForm
+      aria-label="Opened Form to add a meal. Click anywhere outside to close."
+      onSubmit={handleSubmit}
+    >
+      <input
+        type="text"
+        name="meal"
+        maxLength={20}
+        placeholder={`meal: "${
+          examples[Math.abs((Math.round(Math.random() * 10) / 10) * 10 - 1)]
+        }"`}
+      />
       <FixedInput
         type="number"
         min={1}
-        max={9999}
+        max={7000}
         name="calories"
-        placeholder="kcal"
+        placeholder={`kcal: "450"`}
         required
       />
       <AddCalorieButton
@@ -37,3 +47,16 @@ export default function AddCalories({ onClose }) {
     </AddCalorieForm>
   );
 }
+
+const examples = [
+  "Pizza",
+  "Salad",
+  "Pasta",
+  "Sushi",
+  "Ice Cream",
+  "Chocolate",
+  "Coffee",
+  "Smoothie",
+  "Rice",
+  "Banana",
+];

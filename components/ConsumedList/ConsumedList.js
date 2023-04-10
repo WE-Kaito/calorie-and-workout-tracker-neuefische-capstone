@@ -1,38 +1,44 @@
 import useCalorieStore from "../../utils/useCalorieStore";
+import { unixDate } from "../../utils/useCalorieStore";
 import {
   StyledList,
   StyledListItem,
   ShiftedSpan,
   CorrectionDiv,
+  NameSpan,
 } from "./styles";
+import { uid } from "uid";
 
 export default function ConsumedList() {
-  const { dailyMeals, addDailyCount, deleteDailyMeal } = useCalorieStore();
+  const { history, deleteHistoryEntry } = useCalorieStore();
 
   return (
     <CorrectionDiv>
-      <StyledList>
-        {dailyMeals.map((meal, index) => (
-          <StyledListItem
-            key={meal.name}
-            aria-label={`delete meal: ${meal.name}`}
-          >
-            <span>{`${meal.name}`}</span>
-            <ShiftedSpan>{`${meal.calories} kcal`}</ShiftedSpan>
-            <span>{`${meal.time_stamp}`}</span>
-            <button
-              style={{ border: "none", background: "none" }}
-              aria-label={`delete meal: ${meal.name}`}
-              onClick={(event) => {
-                event.stopPropagation();
-                addDailyCount(-meal.calories);
-                deleteDailyMeal(index);
-              }}
+      <StyledList aria-label="Opened List with todays entries. Click anywhere outside to close.">
+        {history
+          .slice()
+          .filter((entry) => entry.date === unixDate)
+          .map((entry, index) => (
+            <StyledListItem
+              key={uid()}
+              aria-label={`${index + 1}. meal: ${entry.meal} from ${
+                entry.time_stamp
+              }`}
             >
-              ❌
-            </button>
-          </StyledListItem>
-        ))}
+              <NameSpan>{`${entry.meal}`}</NameSpan>
+              <ShiftedSpan>{`${entry.calories} kcal`}</ShiftedSpan>
+              <span>{`${entry.time_stamp}`}</span>
+              <button
+                style={{ border: "none", background: "none" }}
+                aria-label={`delete ${entry.meal}`}
+                onClick={() => {
+                  deleteHistoryEntry(entry);
+                }}
+              >
+                ❌
+              </button>
+            </StyledListItem>
+          ))}
       </StyledList>
     </CorrectionDiv>
   );

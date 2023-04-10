@@ -1,8 +1,10 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddCalories from "../components/AddCalories/AddCalories";
 import useCalorieStore from "../utils/useCalorieStore";
+import { unixDate } from "../utils/useCalorieStore";
 import ConsumedList from "../components/ConsumedList/ConsumedList";
 import HomeCalendar from "../components/Calendar";
-import useLocalStorageState from "use-local-storage-state";
 import { useState, useEffect } from "react";
 import {
   StyledDiv,
@@ -10,45 +12,16 @@ import {
   ConsumedContainer,
   FormContainer,
   OpenCalorieFormButton,
+  LoadingDisplay,
 } from "../components/IndexPage/styles";
 
 export default function HomePage() {
-  const {
-    dailyCount,
-    dailyMeals,
-    resetDailyMeals,
-    calorieGoal,
-    setDailyCount,
-    addHistoryEntry,
-    history,
-  } = useCalorieStore();
+  const { history, calorieGoals, setCalorieGoal } = useCalorieStore();
+  calorieGoals.at(-1).date !== unixDate && setCalorieGoal();
 
   const [isLoading, setIsLoading] = useState(true);
-
   const [isListVisible, setIsListVisible] = useState(false);
-  const [isGoalExceeded, setIsGoalExceeded] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
-
-  // reset the daily calorie count & save history entry
-  const [currentDay, setCurrentDay] = useLocalStorageState("currentDay", {
-    defaultValue: new Date().getDate(),
-  });
-
-  setInterval(() => {
-    const today = new Date();
-    if (today.getDate() !== currentDay) {
-      addHistoryEntry(
-        new Date().getFullYear(),
-        new Date().getMonth(),
-        new Date().getDate(),
-        isGoalExceeded
-      );
-      setCurrentDay(today);
-      setDailyCount(0);
-      resetDailyMeals();
-    }
-  }, 5000);
-  // <----------------------------------------
 
   function handleWindowClosing() {
     setIsListVisible(false);
@@ -56,66 +29,57 @@ export default function HomePage() {
   }
 
   useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (!history.some((entry) => entry.date === unixDate)) {
+      setIsListVisible(false);
+    }
+  }, [history]);
+
+  useEffect(() => {
     isListVisible || isFormVisible
       ? document.addEventListener("click", handleWindowClosing)
       : document.removeEventListener("click", handleWindowClosing);
   }, [isListVisible, isFormVisible]);
 
-  useEffect(() => {
-    dailyMeals.length === 0 && setIsListVisible(false);
-    calorieGoal >= dailyCount && setIsGoalExceeded(false);
-    calorieGoal < dailyCount && setIsGoalExceeded(true);
-  }, [dailyMeals]);
-
-  // error handling
-  if (
-    (dailyMeals.length === 0 && dailyCount !== 0) ||
-    (dailyMeals.length !== 0 && dailyCount === 0)
-  ) {
-    setDailyCount(0);
-    resetDailyMeals();
+  function getCaloriesConsumed(day = unixDate) {
+    return history.find((entry) => entry.date === day)
+      ? history
+          .slice()
+          .filter((entry) => entry.date === day)
+          .map((entry) => parseInt(entry.calories))
+          .reduce((accumulator, current) => {
+            return accumulator + current;
+          })
+      : 0; // returns the sum of calories consumed
   }
 
-  useEffect(() => {
-    setIsLoading(false);
-  }, [dailyCount]); // because dailyCount is causing hydration errors
+  function getGoalExceeded() {
+    return history.find((entry) => entry.date === unixDate)
+      ? calorieGoals.find((entry) => entry.date === unixDate).goal >=
+          getCaloriesConsumed() // returns true if the sum of calories is less than the corresponding goal
+      : true;
+  }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingDisplay>█████████████████████████████▒▒▒▒▒</LoadingDisplay>;
   }
-  // <----------------------------------------
 
   return (
     <StyledDiv>
-      <button /* Creates the saved daily entry for yesterday.
-        Clicking with default local storage values will mark yesterday either
-        red or green depending on the currently displayed calorie count.
-        The history with entries is also logged in the console.*/
-        onClick={() => {
-          const today = new Date();
-          const day = today.getDate() - 1;
-          const month = today.getMonth();
-          const year = today.getFullYear();
-          addHistoryEntry(year, month, day, isGoalExceeded);
-          console.log("history: ", history);
-        }}
-      >
-        simuliere:
-        <br />
-        Gestern 23:59 {`==>`} Heute 00:00 mit heutigen Werten.
-        <br />
-        Zum erneuten Testen bitte local storage löschen.
-      </button>
       <StyledButtonCalorieCounter
-        isTrue={!isGoalExceeded}
+        isTrue={getGoalExceeded()}
         onClick={(event) => {
           event.stopPropagation();
-          dailyMeals.length !== 0 && setIsListVisible(true);
+          history.find((entry) => entry.date === unixDate) &&
+            setIsListVisible(!isListVisible);
         }}
       >
-        {`${Math.abs(calorieGoal - dailyCount)}`}
+        {Math.abs(calorieGoals.at(-1).goal - getCaloriesConsumed())}
         <br />
-        {!isGoalExceeded ? "left" : "over"}
+        {getGoalExceeded() ? "left" : "over"}
       </StyledButtonCalorieCounter>
       <OpenCalorieFormButton
         onClick={(event) => {
@@ -123,7 +87,10 @@ export default function HomePage() {
           setIsFormVisible(true);
         }}
       >
-        +
+        <FontAwesomeIcon
+          style={{ width: 15, filter: "drop-shadow(0 0 0.5rem ghostwhite)" }}
+          icon={faPlus}
+        />
       </OpenCalorieFormButton>
       <FormContainer
         isTrue={isFormVisible}
@@ -141,7 +108,11 @@ export default function HomePage() {
       >
         <ConsumedList />
       </ConsumedContainer>
-      <HomeCalendar></HomeCalendar>
+      <HomeCalendar
+        getTileColor={getGoalExceeded}
+        getCaloriesConsumed={getCaloriesConsumed}
+        isVisible={isListVisible}
+      />
     </StyledDiv>
   );
 }

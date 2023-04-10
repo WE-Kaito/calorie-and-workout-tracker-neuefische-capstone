@@ -10,7 +10,7 @@ import {
 } from "../../components/EditPage/styles";
 
 export default function EditPage() {
-  const { calorieGoal, setCalorieGoal } = useCalorieStore();
+  const { calorieGoals, setCalorieGoal } = useCalorieStore();
   function handleSubmit(event) {
     event.preventDefault();
     const formdata = new FormData(event.target);
@@ -31,7 +31,7 @@ export default function EditPage() {
           <StyledInput
             type="number"
             min={0}
-            placeholder={`${calorieGoal} kcal`}
+            placeholder={`${calorieGoals.at(-1).goal} kcal`}
             name="calorieGoalInput"
             required
           ></StyledInput>

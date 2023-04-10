@@ -3,13 +3,16 @@ import styled from "styled-components";
 export const AddCalorieForm = styled.form`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 200px;
   gap: 10px;
-  margin-top: 10%;
-  margin-left: 12.5%;
   z-index: 10;
   position: absolute;
+  background-color: #b2c8df;
+  border-radius: 25px;
+  padding: 2rem;
+  transform: translate(-50%, +80%);
 `;
 
 export const FixedInput = styled.input`
@@ -21,18 +24,16 @@ export const FixedInput = styled.input`
 `;
 
 export const AddCalorieButton = styled.button`
-  background-color: #32de84;
+  background-color: #f8f9d7;
   color: white;
   border: none;
   width: 50px;
-  height: 20px;
+  height: 22px;
   font-size: 1.2rem;
-  font-weight: bold;
   cursor: pointer;
 
   &:hover,
   &:active {
-    background-color: lightgreen;
-    filter: drop-shadow(0 0 0.08rem #32de84);
+    background-color: aquamarine;
   }
 `;

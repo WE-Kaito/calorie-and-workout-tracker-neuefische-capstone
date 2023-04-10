@@ -10,7 +10,9 @@ export default createGlobalStyle`
   body {
     margin: 0;
     font-family: "Roboto", sans-serif, system-ui;
-    background-color: black;
-
+    background-color: #6E85B7;
   }
+  ::placeholder {
+  color: lightsteelblue;
+}
 `;

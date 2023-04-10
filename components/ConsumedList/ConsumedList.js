@@ -1,10 +1,12 @@
 import useCalorieStore from "../../utils/useCalorieStore";
 import { unixDate } from "../../utils/useCalorieStore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import {
   StyledList,
   StyledListItem,
   ShiftedSpan,
-  CorrectionDiv,
+  Wrapper,
   NameSpan,
 } from "./styles";
 import { uid } from "uid";
@@ -13,7 +15,7 @@ export default function ConsumedList() {
   const { history, deleteHistoryEntry } = useCalorieStore();
 
   return (
-    <CorrectionDiv>
+    <Wrapper>
       <StyledList aria-label="Opened List with todays entries. Click anywhere outside to close.">
         {history
           .slice()
@@ -35,11 +37,18 @@ export default function ConsumedList() {
                   deleteHistoryEntry(entry);
                 }}
               >
-                ❌
+                <FontAwesomeIcon
+                  icon={faCircleXmark}
+                  style={{
+                    fontSize: 22,
+                    transform: `translateX(7px)`,
+                    color: "lightcoral",
+                  }}
+                />
               </button>
             </StyledListItem>
           ))}
       </StyledList>
-    </CorrectionDiv>
+    </Wrapper>
   );
 }

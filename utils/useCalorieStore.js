@@ -34,7 +34,7 @@ const useCalorieStore = create(
             };
           }),
 
-        addHistoryEntry: (caloriesInput, mealInput = "⚡️") =>
+        addHistoryEntry: (caloriesInput, mealInput = "⚡️ ---") =>
           set((state) => ({
             history: [
               ...state.history,

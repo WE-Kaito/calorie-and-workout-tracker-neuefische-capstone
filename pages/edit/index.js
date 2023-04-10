@@ -35,7 +35,9 @@ export default function EditPage() {
             name="calorieGoalInput"
             required
           ></StyledInput>
-          <StyledSaveButton type="submit">💾</StyledSaveButton>
+          <StyledSaveButton type="submit">
+            save <span style={{ fontSize: 10 }}>➤</span>
+          </StyledSaveButton>
         </StyledForm>
       </EditMaxContainer>
       <EditLinkContainer>platzhalter</EditLinkContainer>

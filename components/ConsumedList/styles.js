@@ -16,6 +16,7 @@ export const StyledListItem = styled.div`
   padding: 0.3rem 0.5rem 0.3rem 0.5rem;
   border-radius: 15px;
   background-color: #f8f9d7;
+  color: navy;
 `;
 
 export const NameSpan = styled.span`

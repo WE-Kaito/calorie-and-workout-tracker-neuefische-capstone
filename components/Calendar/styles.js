@@ -70,12 +70,17 @@ const CalendarWrapper = styled.div`
       background-color: #c4d7e0;
       border-radius: 15px;
       padding: 0px;
+
+      &:active,
+      &:focus {
+        color: navy;
+      }
     }
 
     .react-calendar__navigation button {
       min-width: 44px;
       background: none;
-      text-shadow: 1px 1px 1px #a9d4ff;
+      text-shadow: 1px 1px 1px lightsteelblue;
     }
 
     .react-calendar__navigation button:disabled {

@@ -1,5 +1,7 @@
 import useCalorieStore from "../../utils/useCalorieStore";
 import { unixDate } from "../../utils/useCalorieStore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import {
   StyledList,
   StyledListItem,
@@ -35,7 +37,14 @@ export default function ConsumedList() {
                   deleteHistoryEntry(entry);
                 }}
               >
-                ❌
+                <FontAwesomeIcon
+                  icon={faCircleXmark}
+                  style={{
+                    fontSize: 22,
+                    transform: `translateX(7px)`,
+                    color: "lightcoral",
+                  }}
+                />
               </button>
             </StyledListItem>
           ))}

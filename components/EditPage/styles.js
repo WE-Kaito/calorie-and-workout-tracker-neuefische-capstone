@@ -22,13 +22,8 @@ export const EditMaxContainer = styled.section`
   width: 100%;
   height: 30%;
   margin: 15% 0 15% 0;
-
-  background: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0),
-    rgba(178, 200, 223, 1),
-    rgba(0, 0, 0, 0)
-  );
+  background: #b2c8df;
+  border-radius: 25px;
 `;
 
 export const EditLinkContainer = styled.section`

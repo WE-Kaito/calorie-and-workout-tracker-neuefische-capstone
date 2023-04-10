@@ -39,15 +39,11 @@ export const StyledButtonCalorieCounter = styled.button`
   border: none;
   border-radius: 100%;
   cursor: pointer;
-  background-color: #b2c8df;
-  box-shadow: rgba(158, 158, 158, 0.2) 0 -25px 18px -14px inset,
-    rgba(158, 158, 158, 0.15) 0 1px 2px, rgba(158, 158, 158, 0.15) 0 2px 4px,
-    rgba(158, 158, 158, 0.15) 0 4px 8px, rgba(158, 158, 158, 0.15) 0 8px 16px,
-    rgba(158, 158, 158, 0.15) 0 16px 32px;
+  background: #b2c8df;
 
   &:active,
   &:hover {
-    background-color: #f8f9d7;
+    background: radial-gradient(#f8f9d7, lightsteelblue);
     ${(props) => (props.isTrue ? "#32de84" : "crimson")};
   }
 `;
@@ -63,7 +59,8 @@ export const OpenCalorieFormButton = styled.button`
 
   &:hover,
   &:active {
-    background-color: #f8f9d7;
+    background: radial-gradient(#f8f9d7, lightsteelblue);
+    color: navy;
   }
 `;
 

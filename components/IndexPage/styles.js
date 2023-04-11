@@ -22,11 +22,7 @@ export const ConsumedContainer = styled.div`
 export const FormContainer = styled.div`
   visibility: ${(props) => (props.isTrue ? "visible" : "hidden")};
   position: absolute;
-  top: 18%;
-  width: 274px;
-  height: 17%;
-  left: 50%;
-  border-radius: 25px;
+  width: fit-content;
 `;
 
 export const StyledButtonCalorieCounter = styled.button`

@@ -12,4 +12,7 @@ export default createGlobalStyle`
     font-family: "Roboto", sans-serif, system-ui;
     background-color: #6E85B7;
   }
+  ::placeholder {
+  color: lightsteelblue;
+}
 `;

@@ -3,13 +3,17 @@ import styled from "styled-components";
 export const AddCalorieForm = styled.form`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 200px;
   gap: 10px;
-  margin-top: 10%;
-  margin-left: 12.5%;
   z-index: 10;
   position: absolute;
+  background-color: #b2c8df;
+  border-radius: 25px;
+  padding: 2rem;
+  transform: translate(-50%, +80%);
+  filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
 `;
 
 export const FixedInput = styled.input`

@@ -6,6 +6,8 @@ import { unixDate } from "../utils/useCalorieStore";
 import ConsumedList from "../components/ConsumedList/ConsumedList";
 import HomeCalendar from "../components/Calendar";
 import { useState, useEffect } from "react";
+import styled from "styled-components";
+import Backdrop from "../assets/backdrop.svg";
 import {
   StyledDiv,
   StyledButtonCalorieCounter,
@@ -13,6 +15,8 @@ import {
   FormContainer,
   OpenCalorieFormButton,
   LoadingDisplay,
+  CalendarSection,
+  StyledBackdrop,
 } from "../components/IndexPage/styles";
 
 export default function HomePage() {
@@ -87,7 +91,12 @@ export default function HomePage() {
           setIsFormVisible(true);
         }}
       >
-        <FontAwesomeIcon style={{ transform: `scale(${1.5})` }} icon={faPlus} />
+        <FontAwesomeIcon
+          style={{
+            transform: `scale(${1.85})`,
+          }}
+          icon={faPlus}
+        />
       </OpenCalorieFormButton>
       <FormContainer
         isTrue={isFormVisible}
@@ -105,11 +114,16 @@ export default function HomePage() {
       >
         <ConsumedList />
       </ConsumedContainer>
-      <HomeCalendar
-        getTileColor={getGoalExceeded}
-        getCaloriesConsumed={getCaloriesConsumed}
-        isVisible={isListVisible}
-      />
+      <CalendarSection isVisible={isListVisible}>
+        <StyledBackdrop>
+          <Backdrop />
+        </StyledBackdrop>
+        <HomeCalendar
+          getTileColor={getGoalExceeded}
+          getCaloriesConsumed={getCaloriesConsumed}
+          isVisible={isListVisible}
+        />
+      </CalendarSection>
     </StyledDiv>
   );
 }

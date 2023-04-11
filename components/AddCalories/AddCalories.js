@@ -1,5 +1,12 @@
 import useCalorieStore from "../../utils/useCalorieStore";
-import { AddCalorieButton, AddCalorieForm, FixedInput } from "./styles";
+import {
+  AddCalorieButton,
+  AddCalorieForm,
+  NumberInput,
+  NameInput,
+} from "./styles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function AddCalories({ onClose }) {
   const { addHistoryEntry } = useCalorieStore();
@@ -21,7 +28,7 @@ export default function AddCalories({ onClose }) {
       aria-label="Opened Form to add a meal. Click anywhere outside to close."
       onSubmit={handleSubmit}
     >
-      <input
+      <NameInput
         type="text"
         name="meal"
         maxLength={20}
@@ -29,7 +36,7 @@ export default function AddCalories({ onClose }) {
           examples[Math.abs((Math.round(Math.random() * 10) / 10) * 10 - 1)]
         }"`}
       />
-      <FixedInput
+      <NumberInput
         type="number"
         min={1}
         max={7000}
@@ -42,7 +49,13 @@ export default function AddCalories({ onClose }) {
           onClose(false);
         }}
       >
-        <span style={{ color: "navy" }}>+</span>
+        <FontAwesomeIcon
+          style={{
+            transform: `scale(${1.2})`,
+            color: "var(--2)",
+          }}
+          icon={faPlus}
+        />
       </AddCalorieButton>
     </AddCalorieForm>
   );

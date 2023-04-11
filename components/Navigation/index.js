@@ -11,14 +11,7 @@ export default function Navigation() {
   const url = router.pathname;
   return (
     <Nav>
-      <LinkContainer
-        style={{
-          borderLeft: url === "/" ? "2px solid ghostwhite" : "none",
-          borderRight: url === "/" ? "2px solid ghostwhite" : "none",
-          borderBottom: url === "/" ? "2px solid ghostwhite" : "none",
-          borderImage: "linear-gradient(to top, ghostwhite, #6E85B7) 1",
-        }}
-      >
+      <LinkContainer>
         <StyledLink href="/">
           <FontAwesomeIcon
             style={{ color: url === "/" ? "ghostwhite" : "#C4D7E0" }}
@@ -27,14 +20,7 @@ export default function Navigation() {
         </StyledLink>
       </LinkContainer>
 
-      <LinkContainer
-        style={{
-          borderLeft: url === "/edit" ? "2px solid ghostwhite" : "none",
-          borderRight: url === "/edit" ? "2px solid ghostwhite" : "none",
-          borderBottom: url === "/edit" ? "2px solid ghostwhite" : "none",
-          borderImage: "linear-gradient(to top, ghostwhite, #6E85B7) 1",
-        }}
-      >
+      <LinkContainer>
         <StyledLink href="/edit">
           <FontAwesomeIcon
             style={{ color: url === "/edit" ? "ghostwhite" : "#C4D7E0" }}

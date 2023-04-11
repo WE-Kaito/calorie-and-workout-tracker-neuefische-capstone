@@ -9,20 +9,34 @@ export default function HomeCalendar({ getCaloriesConsumed, isVisible }) {
   const { history, calorieGoals } = useCalorieStore();
   const [date, setDate] = useState(new Date());
 
-  function getTileClassName(date) {
+  function getTileClassName(date, view) {
     const unixTileDate = new Date(
       date.getFullYear(),
       date.getMonth(),
       date.getDate()
     ).getTime();
+
     if (history.some((entry) => entry.date === unixTileDate)) {
       if (date <= unixDate) {
         if (
           getCaloriesConsumed(unixTileDate) <=
           calorieGoals.find((goalEntry) => goalEntry.date === unixTileDate).goal
         ) {
-          return "react-calendar__tile--wasNotExceeded";
+          if (view === "month" && unixDate === unixTileDate) {
+            return (
+              "react-calendar__tile--wasNotExceeded" &&
+              "react-calendar__tile--now--wasNotExceeded"
+            );
+          } else {
+            return "react-calendar__tile--wasNotExceeded";
+          }
         } else {
+          if (view === "month" && unixDate === unixTileDate) {
+            return (
+              "react-calendar__tile--wasExceeded" &&
+              "react-calendar__tile--now--wasExceeded"
+            );
+          }
           return "react-calendar__tile--wasExceeded";
         }
       }
@@ -47,8 +61,11 @@ export default function HomeCalendar({ getCaloriesConsumed, isVisible }) {
         onChange={(date) => {
           setDate(date);
         }}
+        onClick={(event) => {
+          event.target.stopPropagation();
+        }}
         // ---
-        tileClassName={({ date }) => getTileClassName(date)}
+        tileClassName={({ date, view }) => getTileClassName(date, view)}
       />
     </CalendarWrapper>
   );

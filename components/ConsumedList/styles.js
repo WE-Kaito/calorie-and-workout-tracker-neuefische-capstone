@@ -7,6 +7,18 @@ export const StyledList = styled.div`
   align-self: center;
   gap: 0.8rem;
   width: fit-content;
+  max-height: 522px;
+  overflow-y: scroll;
+  z-index: 100;
+
+  padding: 1.5rem 0.4rem 1.5rem 1.5rem;
+  border-radius: 25px;
+  background: var(--8);
+  border: 5px solid var(--2);
+
+  ::-webkit-scrollbar {
+    background: none;
+  }
 `;
 export const StyledListItem = styled.div`
   display: grid;

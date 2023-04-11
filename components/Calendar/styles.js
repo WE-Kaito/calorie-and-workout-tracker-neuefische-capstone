@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 const CalendarWrapper = styled.div`
   width: fit-content;
-  transform: scale(0.9) translateY(-1.3rem);
+  /* transform: scale(0.9) translateY(-1.3rem); */
   border-radius: 20px;
 
   .react-calendar {
     width: 350px;
-    max-width: 100%;
     background-color: rgba(255, 255, 255, 0);
     border: 1px solid #a0a096;
     font-family: Arial, Helvetica, sans-serif;
@@ -60,18 +59,17 @@ const CalendarWrapper = styled.div`
 
     .react-calendar__navigation__label__labelText {
       color: black;
-      visibility: visible !important;
-      background: lightsteelblue;
+      visibility: ${(props) => (props.isVisible ? "hidden" : "visible")};
+      background: ghostwhite;
       border-radius: 15px;
       padding: 0.25em 2em 0.25em 2em;
-      filter: drop-shadow(0px 0px 3px lightskyblue);
     }
 
     .react-calendar__navigation__arrow:enabled {
-      background-color: lightsteelblue;
+      color: ghostwhite;
+      background-color: #c4d7e0;
       border-radius: 15px;
       padding: 0px;
-      filter: drop-shadow(0px 0px 3px lightskyblue);
     }
 
     .react-calendar__navigation button {
@@ -87,7 +85,7 @@ const CalendarWrapper = styled.div`
 
     .react-calendar__navigation button:enabled:hover,
     .react-calendar__navigation button:enabled:focus {
-      background-color: #e6e6e6;
+      background-color: #f8f9d7;
     }
 
     .react-calendar__month-view__weekdays {
@@ -95,13 +93,12 @@ const CalendarWrapper = styled.div`
       text-transform: none;
       font-weight: bold;
       font-size: 0.6em;
-      filter: drop-shadow(0px 0px 3px lightskyblue);
     }
 
     .react-calendar__month-view__weekdays__weekday abbr {
-      padding: 0.2em 0.6em 0.2em 0.6em;
+      padding: 0.2em 0.6em 0em 0.6em;
       text-decoration: none;
-      background: lightsteelblue;
+      background: ghostwhite;
       border-radius: 15px;
     }
 
@@ -116,26 +113,23 @@ const CalendarWrapper = styled.div`
     .react-calendar__month-view__days__day--weekend,
     .react-calendar__month-view__days__day--weekend abbr,
     .react-calendar__month-view__days__day--weekend button:enabled:focus {
-      color: lightpink;
+      color: ghostwhite;
     }
 
-    .react-calendar__month-view__days__day--neighboringMonth {
-      color: darkgrey !important;
+    .react-calendar__month-view__days__day--neighboringMonth,
+    .react-calendar__month-view__days__day--neighboringMonth abbr {
+      color: lightsteelblue !important;
       box-shadow: none !important;
     }
 
     .react-calendar__tile {
-      max-width: 100%;
-      padding: 10px 6.6667px;
       color: ghostwhite;
       background-color: rgba(255, 255, 255, 0);
-      box-shadow: inset 0 0 3px lightsteelblue;
       text-align: center;
-      line-height: 16px;
       border-radius: 30px;
-      width: 0.8rem;
       height: 3.1rem;
-      font-size: 1em;
+      font-size: 1.18em;
+      transform: scale(0.85);
     }
 
     .react-calendar__tile:disabled {
@@ -144,10 +138,11 @@ const CalendarWrapper = styled.div`
       cursor: pointer;
     }
 
-    .react-calendar__tile--now {
-      border: 1px 1px 1px lightsteelblue;
-      background: white;
+    .react-calendar__tile--now,
+    .react-calendar__tile--now abbr {
+      background: #b2c8df !important;
       box-shadow: inset 0 0 10px lightsteelblue;
+      color: black;
     }
 
     .react-calendar__month-view__days__day--weekend:enabled:focus {
@@ -156,13 +151,15 @@ const CalendarWrapper = styled.div`
 
     // custom classes
 
-    .react-calendar__tile--wasExceeded {
-      background-color: crimson !important;
-      color: ghostwhite !important;
+    .react-calendar__tile--wasExceeded,
+    .react-calendar__tile--wasExceeded abbr {
+      background-color: lightpink !important;
+      color: black;
     }
-    .react-calendar__tile--wasNotExceeded {
-      background-color: #32de84 !important;
-      color: ghostwhite !important;
+    .react-calendar__tile--wasNotExceeded,
+    .react-calendar__tile--wasNotExceeded abbr {
+      background-color: aquamarine !important;
+      color: black;
     }
   }
 `;

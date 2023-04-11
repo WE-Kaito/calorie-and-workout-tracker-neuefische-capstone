@@ -87,10 +87,7 @@ export default function HomePage() {
           setIsFormVisible(true);
         }}
       >
-        <FontAwesomeIcon
-          style={{ width: 15, filter: "drop-shadow(0 0 0.5rem ghostwhite)" }}
-          icon={faPlus}
-        />
+        <FontAwesomeIcon style={{ transform: `scale(${1.5})` }} icon={faPlus} />
       </OpenCalorieFormButton>
       <FormContainer
         isTrue={isFormVisible}

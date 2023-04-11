@@ -26,13 +26,11 @@ export const FormContainer = styled.div`
   width: 274px;
   height: 17%;
   left: 50%;
-  transform: translateX(-50%);
-  background: grey;
   border-radius: 25px;
 `;
 
 export const StyledButtonCalorieCounter = styled.button`
-  color: ${(props) => (props.isTrue ? "#32de84" : "crimson")};
+  color: ${(props) => (props.isTrue ? "aquamarine" : "tomato")};
   font-size: 2rem;
   font-weight: bold;
   width: 160px;
@@ -40,32 +38,31 @@ export const StyledButtonCalorieCounter = styled.button`
   border: none;
   border-radius: 100%;
   cursor: pointer;
+  background-color: #b2c8df;
 
   box-shadow: rgba(158, 158, 158, 0.2) 0 -25px 18px -14px inset,
     rgba(158, 158, 158, 0.15) 0 1px 2px, rgba(158, 158, 158, 0.15) 0 2px 4px,
     rgba(158, 158, 158, 0.15) 0 4px 8px, rgba(158, 158, 158, 0.15) 0 8px 16px,
     rgba(158, 158, 158, 0.15) 0 16px 32px;
+  &:active,
   &:hover {
-    background-color: ghostwhite;
-    text-shadow: 0 0 0.05rem
-      ${(props) => (props.isTrue ? "#32de84" : "crimson")};
+    background-color: #f8f9d7;
+    ${(props) => (props.isTrue ? "#32de84" : "crimson")};
   }
 `;
 
 export const OpenCalorieFormButton = styled.button`
-  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2);
-  background-color: forestgreen;
+  background-color: #c4d7e0;
   color: white;
   border: none;
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  font-size: 3rem;
   cursor: pointer;
 
   &:hover,
   &:active {
-    background-color: limegreen;
+    background-color: #f8f9d7;
   }
 `;
 

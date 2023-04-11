@@ -15,7 +15,6 @@ export const LinkContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 50%;
-  box-shadow: inset 0em 1em 1.5em black;
 `;
 
 export const StyledLink = styled(Link)`

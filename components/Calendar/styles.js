@@ -137,12 +137,14 @@ const CalendarWrapper = styled.div`
 
     .react-calendar__tile--now abbr {
       color: var(--3) !important;
-      border: 2px solid var(--3);
+      border: 2px solid var(--2);
       padding: 6px;
       border-radius: 25px;
+      background: var(--2);
     }
     .react-calendar__tile--now {
-      border: 4px solid var(--2);
+      border: 2.5px solid var(--2);
+      background: var(--3);
     }
 
     .react-calendar__month-view__days__day {
@@ -152,21 +154,25 @@ const CalendarWrapper = styled.div`
     // custom classes
 
     .react-calendar__tile--now--wasExceeded abbr {
-      border: 2px solid var(--7);
-      padding: 6px;
+      border: 2.5px solid var(--2);
+      padding: 5.5px;
       border-radius: 25px;
+      background: var(--2);
     }
     .react-calendar__tile--now--wasExceeded {
-      border: 4px solid var(--2);
+      border: 2.5px solid var(--2);
+      background: var(--7);
     }
 
     .react-calendar__tile--now--wasNotExceeded abbr {
-      border: 2px solid var(--6);
-      padding: 6px;
+      border: 2.5px solid var(--2);
+      padding: 5.5px;
       border-radius: 25px;
+      background: var(--2);
     }
     .react-calendar__tile--now--wasNotExceeded {
-      border: 4px solid var(--2);
+      border: 2.5px solid var(--2);
+      background: var(--6);
     }
 
     .react-calendar__tile--wasExceeded,

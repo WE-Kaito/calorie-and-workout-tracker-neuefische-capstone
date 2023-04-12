@@ -4,6 +4,7 @@ import { useState } from "react";
 import { unixDate } from "../../utils/useCalorieStore";
 import useCalorieStore from "../../utils/useCalorieStore";
 import CalendarWrapper from "./styles";
+import styled from "styled-components";
 
 export default function HomeCalendar({ getCaloriesConsumed, isVisible }) {
   const { history, calorieGoals } = useCalorieStore();
@@ -45,9 +46,19 @@ export default function HomeCalendar({ getCaloriesConsumed, isVisible }) {
 
   const earliestDate =
     history.length >= 1 ? new Date(history[0].date) : new Date();
-
+  const invisible =
+    history.slice().filter((entry) => entry.date === unixDate).length > 4 &&
+    isVisible;
   return (
-    <CalendarWrapper isVisible={isVisible}>
+    <CalendarWrapper isVisible={invisible}>
+      <StrokeWrapper isVisible={invisible}>
+        <span>|</span>
+        <span>|</span>
+        <span>|</span>
+        <span>|</span>
+        <span>|</span>
+        <span>|</span>
+      </StrokeWrapper>
       <Calendar
         aria-label="Calendar with tracked data"
         value={date}
@@ -90,3 +101,18 @@ const formatMonthYear = (locale, date) => {
     month: "long",
   }).format(date);
 };
+
+const StrokeWrapper = styled.div`
+  visibility: ${({ isVisible }) => (isVisible ? "hidden" : "visible")};
+  color: #424f69;
+  opacity: 0.7;
+  position: absolute;
+  display: flex;
+  gap: 36.5px;
+
+  transform: scaleY(1.3);
+  font-weight: 200;
+
+  bottom: 206.5px;
+  left: 40px;
+`;

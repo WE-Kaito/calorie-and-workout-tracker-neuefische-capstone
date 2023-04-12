@@ -19,12 +19,14 @@ export const AddCalorieForm = styled.form`
 export const NameInput = styled.input`
   background: var(--3);
   border: none;
+  border-radius: 6px;
 `;
 
 export const NumberInput = styled.input`
   background: var(--3);
   border: none;
   width: 74%;
+  border-radius: 6px;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

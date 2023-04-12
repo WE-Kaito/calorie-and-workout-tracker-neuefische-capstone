@@ -1,13 +1,149 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 export const StyledDiv = styled.div`
+  position: relative;
   padding-top: 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
   max-height: 667px;
+  max-width: 375px;
 `;
+
+// Navigation & Settings -------------------------------
+
+export const HeadingButtons = styled.div`
+  z-index: 20;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 375;
+
+  display: flex;
+  gap: 265px;
+
+  .head-buttons {
+    filter: hue-rotate(180deg);
+  }
+`;
+
+export const SettingsButton = styled.button`
+  border: none;
+  background: none;
+`;
+export const PagesButton = styled.button`
+  border: none;
+  background: none;
+`;
+
+export const Nav = styled.nav`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  top: 0px;
+  right: 0px;
+  width: 280px;
+  height: 260px;
+  z-index: 3;
+  background: var(--2);
+  border-bottom-left-radius: 30px;
+  filter: drop-shadow(2px 2px 5px black);
+
+  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
+`;
+
+export const LinkContainer = styled.div`
+  margin-left: 20px;
+  margin-bottom: 20px;
+  width: fit-content;
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: var(--2);
+  font-size: 14;
+  font-weight: 700;
+`;
+
+export const StyledNavSpan = styled.span`
+  color: var(--3);
+  font-size: 3rem;
+  position: absolute;
+  right: 55px;
+  transform: translateY(-58px);
+`;
+
+export const StyledNavButton = styled.button`
+  width: 150px;
+  height: 55px;
+  background: var(--8);
+  border-radius: 15px;
+  border: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SettingsSection = styled.nav`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  top: 0px;
+  left: 0px;
+  width: 280px;
+  height: 220px;
+  z-index: 3;
+  background: var(--8);
+  border-bottom-right-radius: 30px;
+  filter: drop-shadow(2px 2px 5px black);
+
+  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
+`;
+
+export const StyledForm = styled.form`
+  display: flex;
+  margin: 15px 30px 50px 0px;
+  gap: 15px;
+`;
+
+export const StyledInput = styled.input`
+  height: 2rem;
+  width: 5rem;
+  background-color: var(--3);
+  border: none;
+  border-radius: 7px;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+`;
+
+export const StyledSaveButton = styled.button`
+  cursor: pointer;
+  color: navy;
+  background: #f8f9d7;
+  border: none;
+  font-style: italic;
+  font-weight: bold;
+  padding-left: 0.9rem;
+  padding-right: 0.9rem;
+  border-radius: 7px;
+
+  &:hover {
+    background: aquamarine;
+  }
+`;
+
+// main content -----------------------------------------------
 
 export const ConsumedContainer = styled.div`
   visibility: ${(props) => (props.isTrue ? "visible" : "hidden")};
@@ -83,8 +219,10 @@ export const LoadingDisplay = styled.p`
 export const StyledBackdrop = styled.div`
   position: absolute;
   bottom: -127px;
+  box-shadow: inset 0 -10px 0 0 var(--2);
   left: -47.5px;
   z-index: -1;
+  margin: 0;
 
   /* bottom: -430px;
   left: -110px;

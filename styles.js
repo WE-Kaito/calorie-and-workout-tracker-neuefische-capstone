@@ -30,8 +30,10 @@ export default createGlobalStyle`
     margin: 0;
     font-family: var(--font1), sans-serif, system-ui;
     background-color: var(--1);
+    overflow: hidden;
   }
   ::placeholder {
   color: lightsteelblue;
+  text-align: center;
 }
 `;

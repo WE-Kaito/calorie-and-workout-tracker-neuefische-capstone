@@ -16,6 +16,7 @@ const useCalorieStore = create(
       return {
         history: [],
         calorieGoals: [{ date: unixDate, goal: 1600 }],
+        dishes: [],
 
         setCalorieGoal: (userInput) =>
           set((state) => {
@@ -54,6 +55,28 @@ const useCalorieStore = create(
             history: state.history
               .slice()
               .filter((entry) => entry !== entryToDelete),
+          })),
+
+        addDish: (
+          mealInput,
+          caloriesInput,
+          massInput = 0,
+          proteinsInput = 0,
+          carbsInput = 0,
+          notesInput = ""
+        ) =>
+          set((state) => ({
+            dishes: [
+              ...state.dishes,
+              {
+                meal: `${mealInput}`,
+                calories: `${caloriesInput}`,
+                mass: `${massInput}`,
+                proteins: `${proteinsInput}`,
+                carbs: `${carbsInput}`,
+                notes: `${notesInput}`,
+              },
+            ],
           })),
       };
     },

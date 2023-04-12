@@ -15,7 +15,6 @@ export default function AddCalories({ onClose }) {
     event.preventDefault();
     const formdata = new FormData(event.target);
     const data = Object.fromEntries(formdata);
-    console.log(data);
     const calories = parseInt(data.calories);
     data.meal
       ? addHistoryEntry(calories, data.meal)

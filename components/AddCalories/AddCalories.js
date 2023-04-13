@@ -50,6 +50,7 @@ export default function AddCalories({
       >
         <OpenQSButton
           type="button"
+          disabled={dishes[0] ? false : true}
           onClick={() => {
             toggleQSVisibility(true);
 

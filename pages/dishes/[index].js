@@ -30,12 +30,12 @@ export default function DishDetails() {
 
   const [formVisibility, toggleFormVisibility] = useState(false);
 
-  const [inputMeal, setInputMeal] = useState(dishes[index].meal);
-  const [inputCal, setInputCal] = useState(dishes[index].calories);
-  const [inputMass, setInputMass] = useState(dishes[index].mass);
-  const [inputProteins, setInputProteins] = useState(dishes[index].proteins);
-  const [inputCarbs, setInputCarbs] = useState(dishes[index].carbs);
-  const [inputNotes, setInputNotes] = useState(dishes[index].notes);
+  const [inputMeal, setInputMeal] = useState(dishes[0]?.meal || "");
+  const [inputCal, setInputCal] = useState(dishes[0]?.calories || 0);
+  const [inputMass, setInputMass] = useState(dishes[0]?.mass || 0);
+  const [inputProteins, setInputProteins] = useState(dishes[0]?.proteins || 0);
+  const [inputCarbs, setInputCarbs] = useState(dishes[0]?.carbs || 0);
+  const [inputNotes, setInputNotes] = useState(dishes[0]?.notes || "");
 
   function handleSubmit(event) {
     event.preventDefault();

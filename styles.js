@@ -31,9 +31,14 @@ export default createGlobalStyle`
     font-family: var(--font1), sans-serif, system-ui;
     background-color: var(--1);
     overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   ::placeholder {
   color: lightsteelblue;
   text-align: center;
 }
+
 `;

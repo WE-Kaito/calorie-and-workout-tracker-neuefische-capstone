@@ -46,7 +46,7 @@ export const Nav = styled.nav`
   justify-content: flex-end;
   align-items: flex-start;
   top: 0px;
-  right: 0px;
+  right: -47.5px;
   width: 280px;
   height: 260px;
   z-index: 3;
@@ -97,7 +97,7 @@ export const SettingsSection = styled.nav`
   justify-content: flex-end;
   align-items: flex-end;
   top: 0px;
-  left: 0px;
+  left: -47.5px;
   width: 280px;
   height: 220px;
   z-index: 3;

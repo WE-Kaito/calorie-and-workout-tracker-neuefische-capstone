@@ -67,7 +67,6 @@ const useCalorieStore = create(
         ) =>
           set((state) => ({
             dishes: [
-              ...state.dishes,
               {
                 meal: `${mealInput}`,
                 calories: `${caloriesInput}`,
@@ -76,7 +75,15 @@ const useCalorieStore = create(
                 carbs: `${carbsInput}`,
                 notes: `${notesInput}`,
               },
+              ...state.dishes,
             ],
+          })),
+
+        deleteDish: (dishToDelete) =>
+          set((state) => ({
+            dishes: state.dishes
+              .slice()
+              .filter((dish) => dish !== dishToDelete),
           })),
       };
     },

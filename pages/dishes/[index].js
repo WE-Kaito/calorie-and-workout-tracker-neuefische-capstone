@@ -99,7 +99,7 @@ export default function DishDetails() {
             name="meal"
             type="text"
             required
-            placeholder={`${dishes[index].meal}`}
+            value={`${dishes[index].meal}`}
           ></Input>
 
           <Label for="calories">{`Calories (kcal):`}</Label>
@@ -108,7 +108,7 @@ export default function DishDetails() {
             name="calories"
             type="number"
             required
-            placeholder={`${dishes[index].calories}`}
+            value={`${dishes[index].calories}`}
           ></Input>
 
           <Label for="mass">{`Mass (g):`}</Label>
@@ -116,7 +116,7 @@ export default function DishDetails() {
             id="mass"
             name="mass"
             type="number"
-            placeholder={`${dishes[index].mass}`}
+            value={`${dishes[index].mass}`}
           ></Input>
 
           <Label for="proteins">{`Proteins (g):`}</Label>
@@ -124,7 +124,7 @@ export default function DishDetails() {
             if="proteins"
             name="proteins"
             type="number"
-            placeholder={`${dishes[index].proteins}`}
+            value={`${dishes[index].proteins}`}
           ></Input>
 
           <Label for="carbs">{`Carbs (g):`}</Label>
@@ -132,7 +132,7 @@ export default function DishDetails() {
             id="carbs"
             name="carbs"
             type="number"
-            placeholder={`${dishes[index].carbs}`}
+            value={`${dishes[index].carbs}`}
           ></Input>
 
           <Label for="notes">Notes:</Label>
@@ -140,7 +140,7 @@ export default function DishDetails() {
             id="notes"
             name="notes"
             type="text"
-            placeholder={`${dishes[index].notes}`}
+            value={`${dishes[index].notes}`}
             style={{ textAlign: "center" }}
           ></Input>
           <ButtonWrapper>

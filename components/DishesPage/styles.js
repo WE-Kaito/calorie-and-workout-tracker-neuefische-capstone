@@ -123,6 +123,11 @@ export const Input = styled.input`
   text-align: center;
 
   height: 1.3rem;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
 `;
 
 export const ButtonWrapper = styled.div`

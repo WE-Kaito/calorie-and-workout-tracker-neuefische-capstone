@@ -57,7 +57,7 @@ export default function DishesPage() {
         <BackButton>🔙</BackButton>
       </Link>
       <List invisible={formVisibility}>
-        {dishes.slice().map((dish, index) => (
+        {dishes.map((dish, index) => (
           <ListItem
             href={`/dishes/${index}`}
             key={index}

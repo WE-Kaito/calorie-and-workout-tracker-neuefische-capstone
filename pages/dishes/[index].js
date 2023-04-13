@@ -43,16 +43,18 @@ export default function DishDetails() {
         <BackButton>🔙</BackButton>
       </Link>
       <List invisible={formVisibility}>
-        <DetailsList>
-          <Detail>
-            <DishHeadline>{dishes[index].meal}</DishHeadline>
-            {` (${dishes[index].calories}g)`}
-          </Detail>
-          <Detail>{`Calories: ${dishes[index].calories}kcal`}</Detail>
-          <Detail>{`Proteins: ${dishes[index].proteins}g`}</Detail>
-          <Detail>{`Carbs: ${dishes[index].carbs}g`}</Detail>
-          <Detail>{`Notes: ${dishes[index].notes}`}</Detail>
-        </DetailsList>
+        {dishes[0] && (
+          <DetailsList>
+            <Detail>
+              <DishHeadline>{dishes[index].meal}</DishHeadline>
+              {` (${dishes[index].calories}g)`}
+            </Detail>
+            <Detail>{`Calories: ${dishes[index].calories}kcal`}</Detail>
+            <Detail>{`Proteins: ${dishes[index].proteins}g`}</Detail>
+            <Detail>{`Carbs: ${dishes[index].carbs}g`}</Detail>
+            <Detail>{`Notes: ${dishes[index].notes}`}</Detail>
+          </DetailsList>
+        )}
         <DetailsBackButton href="/dishes">CLOSE</DetailsBackButton>
       </List>
     </Wrapper>

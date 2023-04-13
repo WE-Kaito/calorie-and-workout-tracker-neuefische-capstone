@@ -25,10 +25,17 @@ import { useRouter } from "next/router";
 export default function DishDetails() {
   const { dishes, addDish, deleteDish } = useCalorieStore();
 
-  const [formVisibility, toggleFormVisibility] = useState(false);
-
   const router = useRouter();
   const { index = 0 } = router.query;
+
+  const [formVisibility, toggleFormVisibility] = useState(false);
+
+  const [inputMeal, setInputMeal] = useState(dishes[index].meal);
+  const [inputCal, setInputCal] = useState(dishes[index].calories);
+  const [inputMass, setInputMass] = useState(dishes[index].mass);
+  const [inputProteins, setInputProteins] = useState(dishes[index].proteins);
+  const [inputCarbs, setInputCarbs] = useState(dishes[index].carbs);
+  const [inputNotes, setInputNotes] = useState(dishes[index].notes);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -99,7 +106,8 @@ export default function DishDetails() {
             name="meal"
             type="text"
             required
-            value={`${dishes[index].meal}`}
+            value={inputMeal}
+            onChange={(event) => setInputMeal(event.target.value)}
           ></Input>
 
           <Label for="calories">{`Calories (kcal):`}</Label>
@@ -108,7 +116,8 @@ export default function DishDetails() {
             name="calories"
             type="number"
             required
-            value={`${dishes[index].calories}`}
+            value={inputCal}
+            onChange={(event) => setInputCal(event.target.value)}
           ></Input>
 
           <Label for="mass">{`Mass (g):`}</Label>
@@ -116,7 +125,8 @@ export default function DishDetails() {
             id="mass"
             name="mass"
             type="number"
-            value={`${dishes[index].mass}`}
+            value={inputMass}
+            onChange={(event) => setInputMass(event.target.value)}
           ></Input>
 
           <Label for="proteins">{`Proteins (g):`}</Label>
@@ -124,7 +134,8 @@ export default function DishDetails() {
             if="proteins"
             name="proteins"
             type="number"
-            value={`${dishes[index].proteins}`}
+            value={inputProteins}
+            onChange={(event) => setInputProteins(event.target.value)}
           ></Input>
 
           <Label for="carbs">{`Carbs (g):`}</Label>
@@ -132,7 +143,8 @@ export default function DishDetails() {
             id="carbs"
             name="carbs"
             type="number"
-            value={`${dishes[index].carbs}`}
+            value={inputCarbs}
+            onChange={(event) => setInputCarbs(event.target.value)}
           ></Input>
 
           <Label for="notes">Notes:</Label>
@@ -140,8 +152,9 @@ export default function DishDetails() {
             id="notes"
             name="notes"
             type="text"
-            value={`${dishes[index].notes}`}
+            value={inputNotes}
             style={{ textAlign: "center" }}
+            onChange={(event) => setInputNotes(event.target.value)}
           ></Input>
           <ButtonWrapper>
             <CloseFormButton

@@ -57,12 +57,13 @@ export default function DishesPage() {
         <BackButton>🔙</BackButton>
       </Link>
       <List invisible={formVisibility}>
-        {dishes.map((dish, index) => (
-          <ListItem
-            href={`/dishes/${index}`}
-            key={index}
-          >{`${dish.meal} --- ${dish.calories}kcal`}</ListItem>
-        ))}
+        {dishes[0] &&
+          dishes.map((dish, index) => (
+            <ListItem
+              href={`/dishes/${index}`}
+              key={index}
+            >{`${dish.meal} --- ${dish.calories}kcal`}</ListItem>
+          ))}
         <ListAddButton
           onClick={() => {
             toggleFormVisibility(!formVisibility);

@@ -94,7 +94,7 @@ export const AddDishForm = styled.form`
   position: ${({ visible }) => (visible ? "relative" : "absolute")};
 
   width: 70%;
-  height: 70%;
+  height: 63%;
   background: lightsteelblue;
   border-radius: 20px;
   transform: translateY(5%);

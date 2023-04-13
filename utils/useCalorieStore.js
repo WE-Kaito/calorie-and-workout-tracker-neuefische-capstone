@@ -85,6 +85,28 @@ const useCalorieStore = create(
               .slice()
               .filter((dish) => dish !== dishToDelete),
           })),
+
+        updateDish: (
+          dishToUpdate,
+          mealInput,
+          caloriesInput,
+          massInput,
+          proteinsInput,
+          carbsInput,
+          notesInput
+        ) => {
+          useCalorieStore
+            .getState()
+            .addDish(
+              mealInput,
+              caloriesInput,
+              massInput,
+              proteinsInput,
+              carbsInput,
+              notesInput
+            );
+          useCalorieStore.getState().deleteDish(dishToUpdate);
+        },
       };
     },
     {

@@ -76,7 +76,7 @@ export default function DishDetails() {
           <DetailsList>
             <Detail>
               <DishHeadline>{dishes[index].meal}</DishHeadline>
-              {` (${dishes[index].calories} g)`}
+              {` (${dishes[index].mass} g)`}
             </Detail>
             <Detail>{`Calories: ${dishes[index].calories} kcal`}</Detail>
             <Detail>{`Proteins: ${dishes[index].proteins} g`}</Detail>

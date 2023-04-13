@@ -23,7 +23,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 export default function DishDetails() {
-  const { dishes, deleteDish, updateDish } = useCalorieStore();
+  const { dishes, addDish, deleteDish } = useCalorieStore();
 
   const [formVisibility, toggleFormVisibility] = useState(false);
 
@@ -38,15 +38,15 @@ export default function DishDetails() {
     const mass = parseInt(data.mass);
     const proteins = parseInt(data.proteins);
     const carbs = parseInt(data.carbs);
-    updateDish(
-      dishes[index],
+    addDish(
       data.meal,
       calories,
-      mass ? mass : null,
-      proteins ? proteins : null,
-      carbs ? carbs : null,
-      data.notes ? data.notes : null
+      mass ? mass : undefined,
+      proteins ? proteins : undefined,
+      carbs ? carbs : undefined,
+      data.notes ? data.notes : undefined
     );
+    deleteDish(dishes[index]);
     toggleFormVisibility(false);
     event.target.reset();
   }

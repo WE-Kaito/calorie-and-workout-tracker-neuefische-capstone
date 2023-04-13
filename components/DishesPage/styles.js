@@ -187,8 +187,7 @@ export const DetailsBackButton = styled(Link)`
   color: var(--2);
   position: absolute;
   bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 20%;
   padding: 10px;
   border-radius: 7px;
   text-decoration: none;
@@ -198,6 +197,22 @@ export const DetailsBackButton = styled(Link)`
   }
   &:visited {
     color: var(--2);
+  }
+`;
+
+export const DetailsEditButton = styled.button`
+  border: none;
+  background: var(--3);
+  color: var(--2);
+  position: absolute;
+  bottom: 20px;
+  left: 60%;
+  padding: 10px;
+  border-radius: 7px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--8);
   }
 `;
 

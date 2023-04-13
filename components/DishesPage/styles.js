@@ -35,12 +35,16 @@ export const List = styled.section`
   position: ${({ invisible }) => (invisible ? "absolute" : "relative")};
 
   width: 70%;
-  height: 70%;
+  height: 63%;
   background: var(--1);
   border-radius: 20px;
   transform: translateY(5%);
   overflow-y: scroll;
   gap: 10px;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
 `;
 
 export const ListItem = styled(Link)`

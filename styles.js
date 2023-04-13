@@ -32,7 +32,9 @@ export default createGlobalStyle`
     background-color: var(--1);
     overflow: hidden;
 
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   ::placeholder {
   color: lightsteelblue;

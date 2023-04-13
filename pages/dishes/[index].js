@@ -33,8 +33,8 @@ export default function DishDetails() {
     <Wrapper>
       <DeleteButton
         onClick={() => {
-          router.push("/dishes");
           deleteDish(dishes[index]);
+          router.push("/dishes");
         }}
       >
         DELETE ENTRY

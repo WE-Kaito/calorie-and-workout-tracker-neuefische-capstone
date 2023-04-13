@@ -89,17 +89,25 @@ export const QuickSelection = styled.ul`
   visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
   list-style: none;
   align-items: center;
-  width: 200px;
+  width: 240px;
+
   gap: 10px;
   z-index: 10;
   position: absolute;
   background-color: var(--8);
   border-radius: 25px;
   padding: 0.75rem;
+  padding-bottom: 0;
   border: 10px solid var(--2);
   transform: translate(-50%);
-
+  overflow-y: scroll;
+  max-height: 330px;
   top: -9px;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    visibility: hidden;
+  }
 `;
 
 export const StyledListItem = styled.button`
@@ -108,13 +116,14 @@ export const StyledListItem = styled.button`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 160px;
+  width: 185px;
   height: 30px;
   padding: 0.3rem 0.5rem 0.3rem 0.5rem;
   border-radius: 15px;
   background: var(--3);
   color: var(--2);
   margin-bottom: 10px;
+  margin-left: 7px;
 
   &:hover,
   &:active {

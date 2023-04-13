@@ -31,11 +31,16 @@ export default function AddCalories({
     event.target.reset();
   }
 
-  const nameCounts = history.slice().reduce((acc, curr) => {
-    acc[curr.meal] = (acc[curr.meal] || 0) + 1;
-    return acc;
+  const nameCount = history.reduce((count, { meal }) => {
+    count[meal] = (count[meal] || 0) + 1;
+    return count;
   }, {});
-  const score = (obj) => nameCounts[obj.name] || 0;
+
+  const sortedDishes = dishes.slice().sort((a, b) => {
+    const aIndex = nameCount[a.meal] || 0;
+    const bIndex = nameCount[b.meal] || 0;
+    return bIndex - aIndex;
+  });
 
   return (
     <>
@@ -85,21 +90,18 @@ export default function AddCalories({
         </AddCalorieButton>
       </AddCalorieForm>
       <QuickSelection visible={qSVisibility}>
-        {dishes
-          .slice()
-          .sort((a, b) => score(b) - score(a) || a.meal.localeCompare(b.meal))
-          .map((dish) => (
-            <StyledListItem
-              key={uid()}
-              onClick={() => {
-                addHistoryEntry(dish.calories, dish.meal);
-                toggleQSVisibility(false);
-              }}
-            >
-              <span>{`${dish.meal}`}</span>
-              <span>{`${dish.calories} kcal`}</span>
-            </StyledListItem>
-          ))}
+        {sortedDishes.map((dish) => (
+          <StyledListItem
+            key={uid()}
+            onClick={() => {
+              addHistoryEntry(dish.calories, dish.meal);
+              toggleQSVisibility(false);
+            }}
+          >
+            <span>{`${dish.meal}`}</span>
+            <span>{`${dish.calories} kcal`}</span>
+          </StyledListItem>
+        ))}
       </QuickSelection>
     </>
   );

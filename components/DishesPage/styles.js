@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import Link from "next/link";
+
 export const Wrapper = styled.div`
   width: 375px;
   height: 667px;
@@ -37,13 +39,14 @@ export const List = styled.section`
   background: var(--1);
   border-radius: 20px;
   transform: translateY(5%);
-
+  overflow-y: scroll;
   gap: 10px;
 `;
 
-export const ListItem = styled.button`
+export const ListItem = styled(Link)`
   width: 100%;
   height: 10%;
+  color: var(--2);
 
   display: flex;
   justify-content: center;
@@ -51,8 +54,16 @@ export const ListItem = styled.button`
   border-radius: 20px;
   border: none;
   margin-bottom: 15px;
+  text-decoration: none;
 
   background: var(--8);
+
+  &:hover {
+    background-color: var(--3);
+  }
+  &:visited {
+    color: var(--2);
+  }
 `;
 
 export const ListAddButton = styled.button`
@@ -67,6 +78,7 @@ export const ListAddButton = styled.button`
   color: var(--2);
   border-radius: 20px;
   border: none;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--8);
@@ -139,5 +151,61 @@ export const SubmitButton = styled.button`
 
   &:hover {
     background-color: var(--8);
+  }
+`;
+
+// Details
+
+export const DetailsList = styled.ul`
+  list-style: none;
+`;
+
+export const Detail = styled.li`
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 10px;
+`;
+
+export const DishHeadline = styled.h1`
+  margin-bottom: 0;
+`;
+
+export const DetailsBackButton = styled(Link)`
+  background: var(--3);
+  color: var(--2);
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  border-radius: 7px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--8);
+  }
+  &:visited {
+    color: var(--2);
+  }
+`;
+
+export const DeleteButton = styled.button`
+  border: none;
+  background: var(--7);
+  color: var(--3);
+  position: absolute;
+  top: 40px;
+  left: 15%;
+  padding: 8px;
+  border-radius: 6px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--8);
+    color: crimson;
+    font-weight: 800;
   }
 `;

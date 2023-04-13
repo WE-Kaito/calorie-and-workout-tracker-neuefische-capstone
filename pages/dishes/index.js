@@ -11,9 +11,10 @@ import {
   CloseFormButton,
   ButtonWrapper,
 } from "../../components/DishesPage/styles.js";
+import { LoadingDisplay } from "../../components/IndexPage/styles.js";
 import useCalorieStore from "../../utils/useCalorieStore.js";
 import Link from "next/link.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function DishesPage() {
   const { dishes, addDish } = useCalorieStore();
@@ -31,14 +32,25 @@ export default function DishesPage() {
     addDish(
       data.meal,
       calories,
-      mass ? mass : null,
-      proteins ? proteins : null,
-      carbs ? carbs : null,
-      data.notes ? data.notes : null
+      mass ? mass : undefined,
+      proteins ? proteins : undefined,
+      carbs ? carbs : undefined,
+      data.notes ? data.notes : undefined
     );
     toggleFormVisibility(false);
     event.target.reset();
   }
+
+  // hydration error handling
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+  if (isLoading) {
+    return <LoadingDisplay>█████████████████████████████▒▒▒▒▒</LoadingDisplay>;
+  }
+  // --------------------------------
+
   return (
     <Wrapper>
       <Link href="/">
@@ -47,6 +59,7 @@ export default function DishesPage() {
       <List invisible={formVisibility}>
         {dishes.map((dish, index) => (
           <ListItem
+            href={`/dishes/${index}`}
             key={index}
           >{`${dish.meal} --- ${dish.calories}kcal`}</ListItem>
         ))}
@@ -84,9 +97,7 @@ export default function DishesPage() {
           id="notes"
           name="notes"
           type="text"
-          style={{
-            height: "3.6rem",
-          }}
+          style={{ textAlign: "center" }}
         ></Input>
         <ButtonWrapper>
           <CloseFormButton

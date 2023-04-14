@@ -105,11 +105,14 @@ export default function DishDetails() {
             type="text"
             required
             value={inputMeal}
+            maxLength={20}
             onChange={(event) => setInputMeal(event.target.value)}
           ></Input>
 
           <Label for="calories">{`Calories (kcal):`}</Label>
           <Input
+            min={0}
+            max={7000}
             id="calories"
             name="calories"
             type="number"
@@ -124,15 +127,18 @@ export default function DishDetails() {
             name="mass"
             type="number"
             value={inputMass}
+            min={0}
+            max={7000}
             onChange={(event) => setInputMass(event.target.value)}
           ></Input>
 
           <Label for="proteins">{`Proteins (g):`}</Label>
           <Input
-            if="proteins"
+            id="proteins"
             name="proteins"
             type="number"
             value={inputProteins}
+            max={7000}
             onChange={(event) => setInputProteins(event.target.value)}
           ></Input>
 
@@ -142,6 +148,8 @@ export default function DishDetails() {
             name="carbs"
             type="number"
             value={inputCarbs}
+            min={0}
+            max={7000}
             onChange={(event) => setInputCarbs(event.target.value)}
           ></Input>
 
@@ -151,6 +159,7 @@ export default function DishDetails() {
             name="notes"
             type="text"
             value={inputNotes}
+            maxLength={140}
             style={{ textAlign: "center" }}
             onChange={(event) => setInputNotes(event.target.value)}
           ></Input>

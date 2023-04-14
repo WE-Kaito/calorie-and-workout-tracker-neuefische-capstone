@@ -43,10 +43,12 @@ export default function HomePage() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [isPagesVisible, setIsPagesVisible] = useState(false);
+  const [isQSVisible, setIsQSVisible] = useState(false);
 
   function handleWindowClosing() {
     setIsListVisible(false);
     setIsFormVisible(false);
+    setIsQSVisible(false);
   }
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export default function HomePage() {
     isListVisible || isFormVisible
       ? document.addEventListener("click", handleWindowClosing)
       : document.removeEventListener("click", handleWindowClosing);
-  }, [isListVisible, isFormVisible]);
+  }, [isListVisible, isFormVisible, isQSVisible]);
 
   function getCaloriesConsumed(day = unixDate) {
     return history.find((entry) => entry.date === day)
@@ -192,7 +194,12 @@ export default function HomePage() {
           event.stopPropagation();
         }}
       >
-        <AddCalories onClose={setIsFormVisible} />
+        <AddCalories
+          onClose={setIsFormVisible}
+          qSVisibility={isQSVisible}
+          toggleQSVisibility={setIsQSVisible}
+          toggleFormVisibility={setIsFormVisible}
+        />
       </FormContainer>
       <ConsumedContainer
         isTrue={isListVisible}

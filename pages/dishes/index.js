@@ -78,21 +78,58 @@ export default function DishesPage() {
         }}
       >
         <Label for="meal">Your Meal:</Label>
-        <Input id="meal" name="meal" type="text" required></Input>
+        <Input
+          id="meal"
+          name="meal"
+          type="text"
+          required
+          maxLength={20}
+        ></Input>
 
         <Label for="calories">{`Calories (kcal):`}</Label>
-        <Input id="calories" name="calories" type="number" required></Input>
+        <Input
+          id="calories"
+          name="calories"
+          type="number"
+          required
+          min={0}
+          max={7000}
+          style={{ width: "140px" }}
+        ></Input>
 
         <Label for="mass">{`Mass (g):`}</Label>
-        <Input id="mass" name="mass" type="number"></Input>
+        <Input
+          id="mass"
+          name="mass"
+          type="number"
+          min={0}
+          max={7000}
+          style={{ width: "140px" }}
+        ></Input>
 
         <Label for="proteins">{`Proteins (g):`}</Label>
-        <Input if="proteins" name="proteins" type="number"></Input>
+        <Input
+          if="proteins"
+          name="proteins"
+          type="number"
+          min={0}
+          max={7000}
+          style={{ width: "140px" }}
+        ></Input>
 
         <Label for="carbs">{`Carbs (g):`}</Label>
-        <Input id="carbs" name="carbs" type="number"></Input>
+        <Input
+          id="carbs"
+          name="carbs"
+          type="number"
+          min={0}
+          max={7000}
+          style={{ width: "140px" }}
+        ></Input>
 
-        <Label for="notes">Notes:</Label>
+        <Label for="notes" maxLength={140}>
+          Notes:
+        </Label>
         <Input
           id="notes"
           name="notes"

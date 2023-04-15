@@ -5,8 +5,8 @@ import { unixDate } from "../../utils/useCalorieStore";
 import useCalorieStore from "../../utils/useCalorieStore";
 import CalendarWrapper from "./styles";
 
-export default function HomeCalendar({ getTileColor, isVisible }) {
-  const { history } = useCalorieStore();
+export default function HomeCalendar({ getCaloriesConsumed, isVisible }) {
+  const { history, calorieGoals } = useCalorieStore();
   const [date, setDate] = useState(new Date());
 
   function getTileClassName(date) {
@@ -15,10 +15,12 @@ export default function HomeCalendar({ getTileColor, isVisible }) {
       date.getMonth(),
       date.getDate()
     ).getTime();
-    if (history.find((entry) => entry.date === unixTileDate)) {
-      if (date <= unixDate) {
-        // remove the `=` later, it's only for proving the feature
-        if (getTileColor(unixTileDate)) {
+    if (history.some((entry) => entry.date === unixTileDate)) {
+      if (date < unixDate) {
+        if (
+          getCaloriesConsumed(unixTileDate) <=
+          calorieGoals.find((goalEntry) => goalEntry.date === unixTileDate).goal
+        ) {
           return "react-calendar__tile--wasNotExceeded";
         } else {
           return "react-calendar__tile--wasExceeded";

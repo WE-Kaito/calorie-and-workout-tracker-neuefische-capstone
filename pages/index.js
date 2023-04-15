@@ -16,7 +16,8 @@ import {
 } from "../components/IndexPage/styles";
 
 export default function HomePage() {
-  const { history, calorieGoals } = useCalorieStore();
+  const { history, calorieGoals, setCalorieGoal } = useCalorieStore();
+  calorieGoals.at(-1).date !== unixDate && setCalorieGoal();
 
   const [isLoading, setIsLoading] = useState(true);
   const [isListVisible, setIsListVisible] = useState(false);
@@ -55,9 +56,9 @@ export default function HomePage() {
       : 0; // returns the sum of calories consumed
   }
 
-  function getGoalExceeded(day = unixDate) {
-    return history.find((entry) => entry.date === day)
-      ? calorieGoals.find((entry) => entry.date === day).goal >=
+  function getGoalExceeded() {
+    return history.find((entry) => entry.date === unixDate)
+      ? calorieGoals.find((entry) => entry.date === unixDate).goal >=
           getCaloriesConsumed() // returns true if the sum of calories is less than the corresponding goal
       : true;
   }
@@ -107,7 +108,11 @@ export default function HomePage() {
       >
         <ConsumedList />
       </ConsumedContainer>
-      <HomeCalendar getTileColor={getGoalExceeded} isVisible={isListVisible} />
+      <HomeCalendar
+        getTileColor={getGoalExceeded}
+        getCaloriesConsumed={getCaloriesConsumed}
+        isVisible={isListVisible}
+      />
     </StyledDiv>
   );
 }

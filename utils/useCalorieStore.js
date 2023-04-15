@@ -9,7 +9,7 @@ export const unixDate = new Date(
 
 const useCalorieStore = create(
   persist(
-    (set) => {
+    (set, get) => {
       const hour = new Date().getHours();
       const minute = new Date().getMinutes();
 
@@ -18,14 +18,21 @@ const useCalorieStore = create(
         calorieGoals: [{ date: unixDate, goal: 1600 }],
 
         setCalorieGoal: (userInput) =>
-          set((state) => ({
-            calorieGoals: [
-              state.calorieGoals
-                .slice()
-                .filter((goalEntry) => goalEntry.date !== unixDate),
-              { date: unixDate, goal: userInput },
-            ],
-          })),
+          set((state) => {
+            const newGoal =
+              userInput !== undefined
+                ? userInput
+                : state.calorieGoals.at(-1).goal;
+
+            return {
+              calorieGoals: [
+                ...state.calorieGoals
+                  .slice()
+                  .filter((goalEntry) => goalEntry.date !== unixDate),
+                { date: unixDate, goal: newGoal },
+              ],
+            };
+          }),
 
         addHistoryEntry: (caloriesInput, mealInput = "⚡️") =>
           set((state) => ({

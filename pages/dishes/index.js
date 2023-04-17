@@ -53,6 +53,18 @@ export default function DishesPage() {
 
   return (
     <Wrapper>
+      <h1
+        style={{
+          position: "absolute",
+          top: "85px",
+          left: "70px",
+          zIndex: "10",
+          color: "var(--3)",
+          fontSize: 28,
+        }}
+      >
+        Dishes
+      </h1>
       <Link href="/">
         <BackButton>🔙</BackButton>
       </Link>

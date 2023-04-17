@@ -130,7 +130,10 @@ export default function Exercise({
               onChange={(event) => setInputReps(event.target.value)}
             ></ExerciseInput>
             <ExerciseLabel for="weight" style={{ margin: "0" }}>
-              <FontAwesomeIcon icon={faDumbbell} />
+              <FontAwesomeIcon
+                icon={faDumbbell}
+                style={{ color: "var(--2)" }}
+              />
             </ExerciseLabel>
             <ExerciseInput
               id="weight"
@@ -143,7 +146,10 @@ export default function Exercise({
           </ExerciseInputWrapper>
           <ExerciseInputWrapper style={{ width: "75%", margin: "0 0 5px 0" }}>
             <ExerciseLabel for="time">
-              <FontAwesomeIcon icon={faStopwatch} />
+              <FontAwesomeIcon
+                icon={faStopwatch}
+                style={{ color: "var(--2)" }}
+              />
             </ExerciseLabel>
             <Input
               id="time"

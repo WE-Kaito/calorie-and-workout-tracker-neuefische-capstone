@@ -188,4 +188,65 @@ const CalendarWrapper = styled.div`
   }
 `;
 
+export const StrokeWrapper = styled.div`
+  visibility: ${({ isVisible }) => (isVisible ? "hidden" : "visible")};
+  color: #424f69;
+  opacity: 0.7;
+  position: absolute;
+  display: flex;
+  gap: 36.5px;
+
+  transform: scaleY(1.3);
+  font-weight: 200;
+
+  bottom: 206.5px;
+  left: 40px;
+`;
+
+export const StyledMoodle = styled.div`
+  position: absolute;
+  bottom: 200px;
+  left: 5px;
+  background: var(--8);
+  width: 270px;
+  max-height: 340px;
+  padding: 15px;
+  border-radius: 15px;
+  border: 3px solid var(--2);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 200;
+
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+`;
+
+export const StyledListItem = styled.div`
+  display: grid;
+  grid-template-columns: 6fr 2fr 2fr;
+  align-items: center;
+  width: 237.5px;
+  padding: 0.4em 0.7rem 0.4rem 0.7rem;
+  border-radius: 20px;
+  background: var(--3);
+  color: var(--2);
+  margin-bottom: 10px;
+`;
+
+export const StyledListHeadline = styled.h2`
+  color: var(--2);
+  width: 237.5px;
+  text-align: center;
+  margin-top: 8px;
+`;
+
+export const StyledListSpan = styled.p`
+  color: var(--1);
+  width: 237.5px;
+  text-align: center;
+  margin: 0;
+  transform: translateY(-13px);
+`;
+
 export default CalendarWrapper;

@@ -22,6 +22,8 @@ export default createGlobalStyle`
     --6: aquamarine;
     --7: lightcoral;
     --8: #c4d7e0;
+    --9: #00A36C;
+    --10: crimson;
 
     --font1: ${roboto.style.fontFamily}, serif;
   }

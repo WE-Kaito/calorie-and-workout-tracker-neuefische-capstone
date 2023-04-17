@@ -182,7 +182,7 @@ export const StyledButtonCalorieCounter = styled.button`
   &:active,
   &:hover {
     background: var(--8);
-    color: ${(props) => (props.isTrue ? "#00A36C" : "crimson")};
+    color: ${(props) => (props.isTrue ? "var(--9)" : "var(--10)")};
   }
   &:active {
     box-shadow: inset 0px 0px 2px var(--2);

@@ -132,7 +132,7 @@ export default function Exercise({
             <ExerciseLabel for="weight" style={{ margin: "0" }}>
               <FontAwesomeIcon
                 icon={faDumbbell}
-                style={{ color: "var(--2)" }}
+                style={{ color: "var(--2)", transform: "translate(5px, 1px)" }}
               />
             </ExerciseLabel>
             <ExerciseInput

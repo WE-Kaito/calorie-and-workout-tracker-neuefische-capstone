@@ -1,7 +1,16 @@
 import GlobalStyle from "../styles";
 import Head from "next/head";
+import useCalorieStore from "../utils/useCalorieStore";
 
 export default function App({ Component, pageProps }) {
+  const { exercises } = useCalorieStore();
+  const filteredExercises = exercises
+    .slice()
+    .filter(
+      (exercise, index, self) =>
+        index === self.findIndex((e) => e.workout === exercise.workout)
+    );
+
   return (
     <>
       <Head>
@@ -11,7 +20,7 @@ export default function App({ Component, pageProps }) {
         />
       </Head>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <Component {...pageProps} workouts={filteredExercises} />
     </>
   );
 }

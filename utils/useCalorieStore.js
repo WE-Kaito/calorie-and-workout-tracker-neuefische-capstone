@@ -1,3 +1,4 @@
+import { uid } from "uid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -17,6 +18,7 @@ const useCalorieStore = create(
         history: [],
         calorieGoals: [{ date: unixDate, goal: 1600 }],
         dishes: [],
+        exercises: [],
 
         setCalorieGoal: (userInput) =>
           set((state) => {
@@ -84,6 +86,60 @@ const useCalorieStore = create(
             dishes: state.dishes
               .slice()
               .filter((dish) => dish !== dishToDelete),
+          })),
+
+        addWorkout: (workoutTitle) =>
+          set((state) => ({
+            exercises: [
+              {
+                id: uid(),
+                workout: workoutTitle,
+                title: " NEW ",
+                sets: 0,
+                reps: 0,
+                weight: 0,
+                time: "00:00",
+                notes: "",
+              },
+              ...state.exercises,
+            ],
+          })),
+
+        addExercise: (workoutTitle) =>
+          set((state) => ({
+            exercises: [
+              ...state.exercises,
+              {
+                id: uid(),
+                workout: workoutTitle,
+                title: " NEW ",
+                sets: 0,
+                reps: 0,
+                weight: 0,
+                time: "00:00",
+                notes: "",
+              },
+            ],
+          })),
+
+        setExercise: (index, formData) => {
+          const exercises = useCalorieStore.getState().exercises;
+          exercises.splice(index, 1, formData);
+          set(() => ({
+            exercises: exercises,
+          }));
+        },
+
+        deleteWorkout: (workoutTitle) =>
+          set((state) => ({
+            exercises: state.exercises.filter(
+              (exercise) => exercise.workout !== workoutTitle
+            ),
+          })),
+
+        deleteExercise: (id) =>
+          set((state) => ({
+            exercises: state.exercises.filter((exercise) => exercise.id !== id),
           })),
       };
     },

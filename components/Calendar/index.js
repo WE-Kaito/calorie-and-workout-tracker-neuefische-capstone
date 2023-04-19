@@ -65,8 +65,7 @@ export default function HomeCalendar({
       date.getMonth(),
       date.getDate()
     ).getTime();
-    console.log("date:", date);
-    console.log("event:", event.clientX);
+
     if (history.some((entry) => entry.date === unixTileDate)) {
       if (date < unixDate) {
         {
@@ -130,7 +129,6 @@ export default function HomeCalendar({
         minDetail="month"
         formatShortWeekday={formatShortWeekday}
         formatMonthYear={formatMonthYear}
-        // ---
         onChange={(date) => {
           setDate(date);
         }}
@@ -138,7 +136,6 @@ export default function HomeCalendar({
           event.target.stopPropagation();
         }}
         onClickDay={handleClickDay}
-        // ---
         tileClassName={({ date, view }) => getTileClassName(date, view)}
       />
       {showHistoryEntry && (

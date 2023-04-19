@@ -44,6 +44,8 @@ export default function HomePage() {
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [isPagesVisible, setIsPagesVisible] = useState(false);
   const [isQSVisible, setIsQSVisible] = useState(false);
+  const [isAddCaloriesButtonVisible, setIsAddCaloriesButtonVisible] =
+    useState(true);
 
   function handleWindowClosing() {
     setIsListVisible(false);
@@ -175,7 +177,11 @@ export default function HomePage() {
         <br />
         {getGoalExceeded() ? "left" : "over"}
       </StyledButtonCalorieCounter>
+
       <OpenCalorieFormButton
+        style={{
+          visibility: isAddCaloriesButtonVisible ? "visible" : "hidden",
+        }}
         onClick={(event) => {
           event.stopPropagation();
           setIsFormVisible(true);
@@ -188,6 +194,7 @@ export default function HomePage() {
           icon={faPlus}
         />
       </OpenCalorieFormButton>
+
       <FormContainer
         isTrue={isFormVisible}
         onClick={(event) => {
@@ -217,6 +224,8 @@ export default function HomePage() {
           getTileColor={getGoalExceeded}
           getCaloriesConsumed={getCaloriesConsumed}
           isVisible={isListVisible}
+          setCalorieButton={setIsAddCaloriesButtonVisible}
+          calorieButtonVisibility={isAddCaloriesButtonVisible}
         />
       </CalendarSection>
     </StyledDiv>

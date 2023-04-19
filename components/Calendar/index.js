@@ -1,14 +1,29 @@
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { unixDate } from "../../utils/useCalorieStore";
 import useCalorieStore from "../../utils/useCalorieStore";
-import CalendarWrapper from "./styles";
-import styled from "styled-components";
+import CalendarWrapper, {
+  StyledMoodle,
+  StyledListItem,
+  StyledListHeadline,
+  StyledListSpan,
+  StrokeWrapper,
+} from "./styles";
+import { NameSpan, ShiftedSpan } from "../ConsumedList/styles";
 
-export default function HomeCalendar({ getCaloriesConsumed, isVisible }) {
+export default function HomeCalendar({
+  getCaloriesConsumed,
+  isVisible,
+  setCalorieButton,
+  calorieButtonVisibility,
+}) {
   const { history, calorieGoals } = useCalorieStore();
   const [date, setDate] = useState(new Date());
+  const [showHistoryEntry, setShowHistoryEntry] = useState(false);
+  const [historyEntryData, setHistoryEntryData] = useState([
+    { date: null, meal: null, calories: null, time_stamp: null },
+  ]);
 
   function getTileClassName(date, view) {
     const unixTileDate = new Date(
@@ -44,6 +59,53 @@ export default function HomeCalendar({ getCaloriesConsumed, isVisible }) {
     }
   }
 
+  function handleClickDay(date, event) {
+    const unixTileDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    ).getTime();
+    console.log("date:", date);
+    console.log("event:", event.clientX);
+    if (history.some((entry) => entry.date === unixTileDate)) {
+      if (date < unixDate) {
+        {
+          setCalorieButton(!calorieButtonVisibility);
+          setHistoryEntryData(
+            history.slice().filter((entry) => entry.date === unixTileDate)
+          );
+          setShowHistoryEntry(!showHistoryEntry);
+        }
+      }
+    }
+  }
+
+  function getFormattedDate(unixTime) {
+    const dateObj = new Date(unixTime);
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const monthIndex = dateObj.getMonth();
+    const year = dateObj.getFullYear();
+    const day = dateObj.getDate();
+    const formattedDate = `${day} ${months[monthIndex]} ${year}`.replace(
+      /,/g,
+      ""
+    );
+    return formattedDate;
+  }
+
   const earliestDate =
     history.length >= 1 ? new Date(history[0].date) : new Date();
   const invisible =
@@ -75,9 +137,42 @@ export default function HomeCalendar({ getCaloriesConsumed, isVisible }) {
         onClick={(event) => {
           event.target.stopPropagation();
         }}
+        onClickDay={handleClickDay}
         // ---
         tileClassName={({ date, view }) => getTileClassName(date, view)}
       />
+      {showHistoryEntry && (
+        <StyledMoodle>
+          {historyEntryData.map((entry, index) => (
+            <>
+              {index === 0 && (
+                <>
+                  <StyledListHeadline
+                    style={{
+                      color:
+                        calorieGoals.find((goal) => goal.date === entry.date)
+                          .goal > getCaloriesConsumed(entry.date)
+                          ? "var(--9)"
+                          : "var(--10)",
+                    }}
+                  >
+                    {getFormattedDate(entry.date)}
+                  </StyledListHeadline>
+                  <StyledListSpan>{`${getCaloriesConsumed(entry.date)} / ${
+                    calorieGoals.find((goal) => goal.date === entry.date).goal
+                  }`}</StyledListSpan>
+                </>
+              )}
+
+              <StyledListItem key={index}>
+                <NameSpan>{`${entry.meal}`}</NameSpan>
+                <ShiftedSpan>{`${entry.calories} kcal`}</ShiftedSpan>
+                <span>{`${entry.time_stamp}`}</span>
+              </StyledListItem>
+            </>
+          ))}
+        </StyledMoodle>
+      )}
     </CalendarWrapper>
   );
 }
@@ -101,18 +196,3 @@ const formatMonthYear = (locale, date) => {
     month: "long",
   }).format(date);
 };
-
-const StrokeWrapper = styled.div`
-  visibility: ${({ isVisible }) => (isVisible ? "hidden" : "visible")};
-  color: #424f69;
-  opacity: 0.7;
-  position: absolute;
-  display: flex;
-  gap: 36.5px;
-
-  transform: scaleY(1.3);
-  font-weight: 200;
-
-  bottom: 206.5px;
-  left: 40px;
-`;

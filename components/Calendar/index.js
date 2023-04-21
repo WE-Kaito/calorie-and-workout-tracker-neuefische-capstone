@@ -11,7 +11,7 @@ import CalendarWrapper, {
   StrokeWrapper,
 } from "./styles";
 import { NameSpan, ShiftedSpan } from "../ConsumedList/styles";
-import Lottie from "react-lottie";
+import Lottie from "lottie-react";
 import animationData from "../../public/lottie/circle.json";
 
 export default function HomeCalendar({
@@ -26,14 +26,6 @@ export default function HomeCalendar({
   const [historyEntryData, setHistoryEntryData] = useState([
     { date: null, meal: null, calories: null, time_stamp: null },
   ]);
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
 
   function getTileClassName(date, view) {
     const unixTileDate = new Date(
@@ -91,13 +83,28 @@ export default function HomeCalendar({
       unixTileDate === unixDate
     ) {
       return (
-        <Lottie
-          options={defaultOptions}
-          style={{
-            position: "absolute",
-            transform: "scale(0.2) translate(-612px, -698px)",
-          }}
-        />
+        <>
+          <Lottie
+            animationData={animationData}
+            autoplay
+            loop
+            speed={1.5}
+            style={{
+              position: "absolute",
+              transform: "scale(0.45) translate(-91.5px, -150.5px)",
+            }}
+          />
+          <Lottie
+            animationData={animationData}
+            autoplay
+            loop
+            speed={1.5}
+            style={{
+              position: "absolute",
+              transform: "scale(0.45) translate(-91.5px, -150.5px)",
+            }}
+          />
+        </>
       );
     }
   }

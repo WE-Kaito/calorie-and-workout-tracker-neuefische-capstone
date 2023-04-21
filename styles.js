@@ -18,7 +18,7 @@ export default createGlobalStyle`
     --2: #14244E;
     --3: #F8F9D7;
     --4: #191A1C;
-    --5: #F8F9D7;
+    --5: ghostwhite;
     --6: aquamarine;
     --7: lightcoral;
     --8: #c4d7e0;

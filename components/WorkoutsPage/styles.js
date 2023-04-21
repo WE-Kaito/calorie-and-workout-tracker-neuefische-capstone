@@ -15,6 +15,7 @@ export const Wrapper = styled.div`
 `;
 
 export const BackButton = styled.button`
+  cursor: pointer;
   background: var(--3);
   border-radius: 50%;
   padding: 16.5px 20px 16.5px 20px;
@@ -289,4 +290,87 @@ export const DeleteExerciseButton = styled.button`
   &:hover {
     background-color: var(--8);
   }
+`;
+
+// set intervall "form"
+
+export const SetIntervalSection = styled.section`
+  transform: translateY(20px);
+  width: 70%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: var(--3);
+  color: var(--2);
+  border-radius: 20px;
+`;
+
+export const IntervalHeadline = styled.h2`
+  margin-bottom: 0;
+  font-size: 0.96em;
+`;
+
+export const Interval = styled.div`
+  display: flex;
+  width: 240px;
+  gap: 4px;
+  flex-wrap: wrap;
+  max-height: 58px;
+  overflow-y: scroll;
+
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    height: 1em;
+    position: absolute;
+    transform: translateY(-10px);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--2);
+    border-radius: 25px;
+    border: 2px solid var(--1);
+  }
+`;
+
+export const ListItemEditMode = styled.button`
+  width: 100%;
+  height: 10%;
+  color: var(--2);
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  border: none;
+  margin-bottom: 15px;
+  font-size: 1.02em;
+
+  background: var(--3);
+
+  &:hover,
+  &:active {
+    background-color: var(--6);
+    color: (var--4);
+  }
+`;
+
+export const IntervalItem = styled.span`
+  height: 20px;
+  background: var(--1);
+  color: var(--5);
+  border-radius: 6px;
+  padding: 0px 4px 0px 4px;
+  box-shadow: inset 0 0 2px ghostwhite;
+`;
+
+export const IntervalButton = styled.button`
+  border: none;
+  background: var(--8);
+  color: var(--4);
+  padding: 5px;
+  border-radius: 7px;
 `;

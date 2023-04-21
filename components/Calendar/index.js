@@ -11,6 +11,8 @@ import CalendarWrapper, {
   StrokeWrapper,
 } from "./styles";
 import { NameSpan, ShiftedSpan } from "../ConsumedList/styles";
+import Lottie from "react-lottie";
+import animationData from "../../public/lottie/circle.json";
 
 export default function HomeCalendar({
   getCaloriesConsumed,
@@ -18,12 +20,20 @@ export default function HomeCalendar({
   setCalorieButton,
   calorieButtonVisibility,
 }) {
-  const { history, calorieGoals } = useCalorieStore();
+  const { history, calorieGoals, routine } = useCalorieStore();
   const [date, setDate] = useState(new Date());
   const [showHistoryEntry, setShowHistoryEntry] = useState(false);
   const [historyEntryData, setHistoryEntryData] = useState([
     { date: null, meal: null, calories: null, time_stamp: null },
   ]);
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   function getTileClassName(date, view) {
     const unixTileDate = new Date(
@@ -56,6 +66,39 @@ export default function HomeCalendar({
           return "react-calendar__tile--wasExceeded";
         }
       }
+    }
+    if (
+      routine
+        .slice()
+        .filter((entry) => entry.id !== "free")
+        .some((entry) => entry.date === unixTileDate)
+    ) {
+      return "react-calendar__tile--workout";
+    }
+  }
+
+  function tileContent({ date, view }) {
+    const unixTileDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    ).getTime();
+    if (
+      routine
+        .slice()
+        .filter((entry) => entry.id !== "free")
+        .some((entry) => entry.date === unixTileDate) &&
+      unixTileDate === unixDate
+    ) {
+      return (
+        <Lottie
+          options={defaultOptions}
+          style={{
+            position: "absolute",
+            transform: "scale(0.2) translate(-612px, -698px)",
+          }}
+        />
+      );
     }
   }
 
@@ -137,6 +180,7 @@ export default function HomeCalendar({
         }}
         onClickDay={handleClickDay}
         tileClassName={({ date, view }) => getTileClassName(date, view)}
+        tileContent={({ date, view }) => tileContent({ date, view })}
       />
       {showHistoryEntry && (
         <StyledMoodle>

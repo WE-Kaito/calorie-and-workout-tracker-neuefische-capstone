@@ -20,6 +20,7 @@
     "react": "18.2.0",
     "react-calendar": "^4.2.0",
     "react-dom": "18.2.0",
+    "react-lottie": "^1.2.3",
     "styled-components": "^5.3.9",
     "uid": "^2.0.2",
     "use-local-storage": "^2.3.6",

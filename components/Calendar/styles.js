@@ -178,12 +178,18 @@ const CalendarWrapper = styled.div`
     .react-calendar__tile--wasExceeded,
     .react-calendar__tile--wasExceeded abbr {
       background-color: var(--7);
-      color: black;
+      color: var(--4);
     }
     .react-calendar__tile--wasNotExceeded,
     .react-calendar__tile--wasNotExceeded abbr {
       background-color: var(--6);
-      color: black;
+      color: var(--4);
+    }
+
+    .react-calendar__tile--workout,
+    .react-calendar__tile--workout abbr {
+      background: var(--1);
+      color: var(--3);
     }
   }
 `;

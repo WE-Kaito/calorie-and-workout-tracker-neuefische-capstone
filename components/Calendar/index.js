@@ -63,7 +63,8 @@ export default function HomeCalendar({
       routine
         .slice()
         .filter((entry) => entry.id !== "free")
-        .some((entry) => entry.date === unixTileDate)
+        .some((entry) => entry.date === unixTileDate) &&
+      unixTileDate !== unixDate
     ) {
       return "react-calendar__tile--workout";
     }

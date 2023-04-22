@@ -195,6 +195,8 @@ const CalendarWrapper = styled.div`
   }
 `;
 
+export default CalendarWrapper;
+
 export const StrokeWrapper = styled.div`
   visibility: ${({ isVisible }) => (isVisible ? "hidden" : "visible")};
   color: #424f69;
@@ -256,4 +258,24 @@ export const StyledListSpan = styled.p`
   transform: translateY(-13px);
 `;
 
-export default CalendarWrapper;
+export const CompleteButton = styled.button`
+  border: none;
+  background: var(--9);
+  width: 30px;
+  height: 30px;
+  font-size: x-large;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transform: translateX(200px);
+  :hover {
+    background-color: var(--6);
+  }
+  :active {
+    background-color: var(--6);
+    color: var(--3);
+    box-shadow: inset 0 0 3px var(--2);
+  }
+`;

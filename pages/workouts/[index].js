@@ -63,6 +63,7 @@ export default function ExercisesPage({ workouts }) {
                 key={index}
                 index={index}
                 id={exercise.id}
+                exercise={exercise}
                 workoutTitle={exercise.workout}
                 title={exercise.title}
                 sets={exercise.sets}
@@ -75,6 +76,7 @@ export default function ExercisesPage({ workouts }) {
           <DetailsEditButton
             onClick={() => {
               addExercise(workouts[index].workout);
+              console.log("exercises", exercises);
             }}
           >
             ADD EXERCISE

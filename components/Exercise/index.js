@@ -18,6 +18,7 @@ import { useState } from "react";
 
 export default function Exercise({
   id,
+  exercise,
   workoutTitle,
   title,
   sets,
@@ -86,9 +87,9 @@ export default function Exercise({
         onClick={() => {
           toggleFormVisibility(!formVisibility);
         }}
-      >{`${title}: ${sets} × ${reps}, ${weight}kg, ${
-        time !== "00:00" ? `${time}, ` : ""
-      }Notes: ${notes}`}</ListItemExercise>
+      >{`${title}: ${sets} × ${reps}, ${weight}kg${
+        time !== "00:00" ? `, ${time}` : ""
+      }${notes !== "" ? `, ${notes}` : ""}`}</ListItemExercise>
 
       <ExerciseFormWrapper
         visible={formVisibility}

@@ -35,7 +35,8 @@ import {
 } from "../components/IndexPage/styles";
 
 export default function HomePage() {
-  const { history, calorieGoals, setCalorieGoal } = useCalorieStore();
+  const { history, calorieGoals, setCalorieGoal, exercises } =
+    useCalorieStore();
   calorieGoals.at(-1).date !== unixDate && setCalorieGoal();
 
   const [isLoading, setIsLoading] = useState(true);

@@ -19,6 +19,8 @@ const useCalorieStore = create(
         calorieGoals: [{ date: unixDate, goal: 1600 }],
         dishes: [],
         exercises: [],
+        routine: [],
+        routineDisplay: [],
 
         setCalorieGoal: (userInput) =>
           set((state) => {
@@ -141,6 +143,39 @@ const useCalorieStore = create(
           set((state) => ({
             exercises: state.exercises.filter((exercise) => exercise.id !== id),
           })),
+
+        setRoutine: (routineArr) => {
+          const calendarRoutine = [];
+
+          const datedWorkouts = routineArr.map((workout, index) => ({
+            id: workout.id,
+            workout: workout.workout,
+            date: unixDate + index * 86400000,
+          }));
+
+          for (let i = 0; i < 100; i++) {
+            datedWorkouts.forEach((workout) => {
+              if (calendarRoutine.length < 1000) {
+                if (true) {
+                  calendarRoutine.push({
+                    id: workout.id,
+                    workout: workout.workout,
+                    date: workout.date + i * (datedWorkouts.length * 86400000),
+                  });
+                }
+              }
+            });
+          }
+          set(() => ({
+            routine: calendarRoutine,
+          }));
+        },
+
+        setRoutineDisplay: (routineArr) => {
+          set(() => ({
+            routineDisplay: routineArr,
+          }));
+        },
       };
     },
     {

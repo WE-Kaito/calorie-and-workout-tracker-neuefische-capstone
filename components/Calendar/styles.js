@@ -136,15 +136,16 @@ const CalendarWrapper = styled.div`
     }
 
     .react-calendar__tile--now abbr {
-      color: var(--3) !important;
+      color: var(--3);
       border: 2px solid var(--2);
-      padding: 6px;
       border-radius: 25px;
       background: var(--2);
+      padding: ${({ digit1 }) => (digit1 ? "6px 9.25px 6px 9.25px" : "6px")};
     }
     .react-calendar__tile--now {
       border: 2.5px solid var(--2);
-      background: var(--3);
+      background: ${({ workoutToday }) =>
+        workoutToday ? "var(--1)" : "var(--3)"};
     }
 
     .react-calendar__month-view__days__day {
@@ -178,12 +179,18 @@ const CalendarWrapper = styled.div`
     .react-calendar__tile--wasExceeded,
     .react-calendar__tile--wasExceeded abbr {
       background-color: var(--7);
-      color: black;
+      color: var(--4);
     }
     .react-calendar__tile--wasNotExceeded,
     .react-calendar__tile--wasNotExceeded abbr {
       background-color: var(--6);
-      color: black;
+      color: var(--4);
+    }
+
+    .react-calendar__tile--workout,
+    .react-calendar__tile--workout abbr {
+      background: var(--1);
+      color: var(--3);
     }
   }
 `;

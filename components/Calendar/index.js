@@ -11,6 +11,8 @@ import CalendarWrapper, {
   StrokeWrapper,
 } from "./styles";
 import { NameSpan, ShiftedSpan } from "../ConsumedList/styles";
+import Lottie from "lottie-react";
+import animationData from "../../public/lottie/circle.json";
 
 export default function HomeCalendar({
   getCaloriesConsumed,
@@ -18,7 +20,7 @@ export default function HomeCalendar({
   setCalorieButton,
   calorieButtonVisibility,
 }) {
-  const { history, calorieGoals } = useCalorieStore();
+  const { history, calorieGoals, routine } = useCalorieStore();
   const [date, setDate] = useState(new Date());
   const [showHistoryEntry, setShowHistoryEntry] = useState(false);
   const [historyEntryData, setHistoryEntryData] = useState([
@@ -56,6 +58,59 @@ export default function HomeCalendar({
           return "react-calendar__tile--wasExceeded";
         }
       }
+    }
+    if (
+      routine
+        .slice()
+        .filter((entry) => entry.id !== "free")
+        .some((entry) => entry.date === unixTileDate) &&
+      unixTileDate > unixDate
+    ) {
+      return "react-calendar__tile--workout";
+    }
+  }
+
+  function tileContent({ date, view }) {
+    const unixTileDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    ).getTime();
+    if (
+      routine
+        .slice()
+        .filter((entry) => entry.id !== "free")
+        .some((entry) => entry.date === unixTileDate) &&
+      unixTileDate === unixDate
+    ) {
+      return (
+        <>
+          <Lottie
+            animationData={animationData}
+            autoplay
+            loop
+            speed={1.5}
+            style={{
+              position: "fixed",
+              zIndex: "20",
+              width: "52px",
+              transform: "translate(-8.5px, -34px)",
+            }}
+          />
+          <Lottie
+            animationData={animationData}
+            autoplay
+            loop
+            speed={1.5}
+            style={{
+              position: "fixed",
+              zIndex: "20",
+              width: "44px",
+              transform: "translate(-4.5px, -30px)",
+            }}
+          />
+        </>
+      );
     }
   }
 
@@ -110,8 +165,18 @@ export default function HomeCalendar({
   const invisible =
     history.slice().filter((entry) => entry.date === unixDate).length > 4 &&
     isVisible;
+  const isDate1Digit = new Date(unixDate).getDate().toString().length === 1;
+  const isWorkoutToday = routine
+    .slice()
+    .filter((entry) => entry.id !== "free")
+    .some((entry) => entry.date === unixDate);
+
   return (
-    <CalendarWrapper isVisible={invisible}>
+    <CalendarWrapper
+      isVisible={invisible}
+      digit1={isDate1Digit}
+      workoutToday={isWorkoutToday}
+    >
       <StrokeWrapper isVisible={invisible}>
         <span>|</span>
         <span>|</span>
@@ -137,6 +202,7 @@ export default function HomeCalendar({
         }}
         onClickDay={handleClickDay}
         tileClassName={({ date, view }) => getTileClassName(date, view)}
+        tileContent={({ date, view }) => tileContent({ date, view })}
       />
       {showHistoryEntry && (
         <StyledMoodle>

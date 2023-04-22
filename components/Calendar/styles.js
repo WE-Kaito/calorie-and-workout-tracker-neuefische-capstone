@@ -138,9 +138,9 @@ const CalendarWrapper = styled.div`
     .react-calendar__tile--now abbr {
       color: var(--3) !important;
       border: 2px solid var(--2);
-      padding: 6px;
       border-radius: 25px;
       background: var(--2);
+      padding: ${({ digit1 }) => (digit1 ? "6px 9.25px 6px 9.25px" : "6px")};
     }
     .react-calendar__tile--now {
       border: 2.5px solid var(--2);
@@ -190,6 +190,11 @@ const CalendarWrapper = styled.div`
     .react-calendar__tile--workout abbr {
       background: var(--1);
       color: var(--3);
+    }
+
+    .react-calendar__tile--now--workout,
+    .react-calendar__tile--now--workout abbr {
+      text-shadow: 0px 0px 2px var(--1);
     }
   }
 `;

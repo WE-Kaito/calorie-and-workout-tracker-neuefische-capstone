@@ -63,10 +63,14 @@ export default function HomeCalendar({
       routine
         .slice()
         .filter((entry) => entry.id !== "free")
-        .some((entry) => entry.date === unixTileDate) &&
-      unixTileDate !== unixDate
+        .some((entry) => entry.date === unixTileDate)
     ) {
-      return "react-calendar__tile--workout";
+      if (unixTileDate > unixDate) {
+        return "react-calendar__tile--workout";
+      }
+      if (unixTileDate === unixDate) {
+        return "react-calendar__tile--now--workout";
+      }
     }
   }
 
@@ -91,8 +95,10 @@ export default function HomeCalendar({
             loop
             speed={1.5}
             style={{
-              position: "absolute",
-              transform: "scale(0.45) translate(-91.5px, -150.5px)",
+              position: "fixed",
+              zIndex: "20",
+              width: "52px",
+              transform: "translate(-8.5px, -34px)",
             }}
           />
           <Lottie
@@ -101,8 +107,10 @@ export default function HomeCalendar({
             loop
             speed={1.5}
             style={{
-              position: "absolute",
-              transform: "scale(0.45) translate(-91.5px, -150.5px)",
+              position: "fixed",
+              zIndex: "20",
+              width: "44px",
+              transform: "translate(-4.5px, -30px)",
             }}
           />
         </>
@@ -161,8 +169,10 @@ export default function HomeCalendar({
   const invisible =
     history.slice().filter((entry) => entry.date === unixDate).length > 4 &&
     isVisible;
+  const isDate1Digit = new Date(unixDate).getDate().toString().length === 1;
+
   return (
-    <CalendarWrapper isVisible={invisible}>
+    <CalendarWrapper isVisible={invisible} digit1={isDate1Digit}>
       <StrokeWrapper isVisible={invisible}>
         <span>|</span>
         <span>|</span>

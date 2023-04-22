@@ -136,7 +136,7 @@ const CalendarWrapper = styled.div`
     }
 
     .react-calendar__tile--now abbr {
-      color: var(--3) !important;
+      color: var(--3);
       border: 2px solid var(--2);
       border-radius: 25px;
       background: var(--2);
@@ -144,7 +144,8 @@ const CalendarWrapper = styled.div`
     }
     .react-calendar__tile--now {
       border: 2.5px solid var(--2);
-      background: var(--3);
+      background: ${({ workoutToday }) =>
+        workoutToday ? "var(--1)" : "var(--3)"};
     }
 
     .react-calendar__month-view__days__day {
@@ -190,11 +191,6 @@ const CalendarWrapper = styled.div`
     .react-calendar__tile--workout abbr {
       background: var(--1);
       color: var(--3);
-    }
-
-    .react-calendar__tile--now--workout,
-    .react-calendar__tile--now--workout abbr {
-      text-shadow: 0px 0px 2px var(--1);
     }
   }
 `;

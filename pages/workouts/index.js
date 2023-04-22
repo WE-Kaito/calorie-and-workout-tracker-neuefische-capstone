@@ -129,7 +129,7 @@ export default function WorkoutsPage({ workouts }) {
       </List>
       <AddWorkoutForm
         visible={formVisibility}
-        style={{ height: "386px", transform: "translateY(2px)" }}
+        style={{ height: "386px", transform: "translateY(-18.5px)" }}
         onSubmit={(event) => {
           handleSubmit(event);
         }}
@@ -154,7 +154,7 @@ export default function WorkoutsPage({ workouts }) {
           <SubmitButton>ADD WORKOUT</SubmitButton>
         </ButtonWrapper>
       </AddWorkoutForm>
-      {!isEditMode && (
+      {!formVisibility && !isEditMode && (
         <ListAddButton
           style={{
             width: "260px",

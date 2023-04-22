@@ -63,14 +63,10 @@ export default function HomeCalendar({
       routine
         .slice()
         .filter((entry) => entry.id !== "free")
-        .some((entry) => entry.date === unixTileDate)
+        .some((entry) => entry.date === unixTileDate) &&
+      unixTileDate > unixDate
     ) {
-      if (unixTileDate > unixDate) {
-        return "react-calendar__tile--workout";
-      }
-      if (unixTileDate === unixDate) {
-        return "react-calendar__tile--now--workout";
-      }
+      return "react-calendar__tile--workout";
     }
   }
 
@@ -170,9 +166,17 @@ export default function HomeCalendar({
     history.slice().filter((entry) => entry.date === unixDate).length > 4 &&
     isVisible;
   const isDate1Digit = new Date(unixDate).getDate().toString().length === 1;
+  const isWorkoutToday = routine
+    .slice()
+    .filter((entry) => entry.id !== "free")
+    .some((entry) => entry.date === unixDate);
 
   return (
-    <CalendarWrapper isVisible={invisible} digit1={isDate1Digit}>
+    <CalendarWrapper
+      isVisible={invisible}
+      digit1={isDate1Digit}
+      workoutToday={isWorkoutToday}
+    >
       <StrokeWrapper isVisible={invisible}>
         <span>|</span>
         <span>|</span>

@@ -76,7 +76,6 @@ export default function ExercisesPage({ workouts }) {
           <DetailsEditButton
             onClick={() => {
               addExercise(workouts[index].workout);
-              console.log("exercises", exercises);
             }}
           >
             ADD EXERCISE

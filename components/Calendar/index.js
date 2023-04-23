@@ -162,7 +162,6 @@ export default function HomeCalendar({
       );
     }
   }
-  console.log("cw", completedWorkouts);
   function handleClickDay(date, event) {
     const unixTileDate = new Date(
       date.getFullYear(),
@@ -212,10 +211,7 @@ export default function HomeCalendar({
     );
     return formattedDate;
   }
-  console.log(
-    exercises.slice().filter((exercise) => exercise.workout === todaysWorkout)
-  );
-  console.log(showWorkout);
+
   return (
     <CalendarWrapper
       isVisible={invisible}

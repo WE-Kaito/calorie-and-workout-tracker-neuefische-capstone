@@ -21,6 +21,7 @@ const useCalorieStore = create(
         exercises: [],
         routine: [],
         routineDisplay: [],
+        completedWorkouts: [],
 
         setCalorieGoal: (userInput) =>
           set((state) => {
@@ -107,12 +108,16 @@ const useCalorieStore = create(
             ],
           })),
 
-        addExercise: (workoutTitle) =>
+        addExercise: (workoutTitle) => {
+          const id = uid();
           set((state) => ({
             exercises: [
               ...state.exercises,
               {
-                id: uid(),
+                id:
+                  id === state.exercises.some((exercise) => exercise.id === id)
+                    ? `${id}abc`
+                    : id,
                 workout: workoutTitle,
                 title: " NEW ",
                 sets: 0,
@@ -122,7 +127,8 @@ const useCalorieStore = create(
                 notes: "",
               },
             ],
-          })),
+          }));
+        },
 
         setExercise: (index, formData) => {
           const exercises = useCalorieStore.getState().exercises;
@@ -174,6 +180,12 @@ const useCalorieStore = create(
         setRoutineDisplay: (routineArr) => {
           set(() => ({
             routineDisplay: routineArr,
+          }));
+        },
+        setCompletedWorkouts: (date) => {
+          set((state) => ({
+            completedWorkouts: [...state.completedWorkouts, { date: date }],
+            routine: state.routine.filter((workout) => workout.date !== date),
           }));
         },
       };

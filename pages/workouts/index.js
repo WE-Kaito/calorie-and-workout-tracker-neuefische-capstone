@@ -134,7 +134,7 @@ export default function WorkoutsPage({ workouts }) {
           handleSubmit(event);
         }}
       >
-        <Label for="title">Title:</Label>
+        <Label htmlFor="title">Title:</Label>
         <Input
           id="title"
           name="title"

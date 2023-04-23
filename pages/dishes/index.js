@@ -73,7 +73,14 @@ export default function DishesPage() {
           <ListItem
             href={`/dishes/${index}`}
             key={index}
-          >{`${dish.meal} --- ${dish.calories}kcal`}</ListItem>
+            style={{
+              justifyContent: "space-between",
+              padding: "0px 30px 0px 30px",
+            }}
+          >
+            <span>{dish.meal}</span>
+            <span>{`${dish.calories}kcal`}</span>
+          </ListItem>
         ))}
         <ListAddButton
           onClick={() => {
@@ -89,7 +96,7 @@ export default function DishesPage() {
           handleSubmit(event);
         }}
       >
-        <Label for="meal">Your Meal:</Label>
+        <Label htmlFor="meal">Your Meal:</Label>
         <Input
           id="meal"
           name="meal"
@@ -98,7 +105,7 @@ export default function DishesPage() {
           maxLength={20}
         ></Input>
 
-        <Label for="calories">{`Calories (kcal):`}</Label>
+        <Label htmlFor="calories">{`Calories (kcal):`}</Label>
         <Input
           id="calories"
           name="calories"
@@ -109,7 +116,7 @@ export default function DishesPage() {
           style={{ width: "140px" }}
         ></Input>
 
-        <Label for="mass">{`Mass (g):`}</Label>
+        <Label htmlFor="mass">{`Mass (g):`}</Label>
         <Input
           id="mass"
           name="mass"
@@ -119,7 +126,7 @@ export default function DishesPage() {
           style={{ width: "140px" }}
         ></Input>
 
-        <Label for="proteins">{`Proteins (g):`}</Label>
+        <Label htmlFor="proteins">{`Proteins (g):`}</Label>
         <Input
           if="proteins"
           name="proteins"
@@ -129,7 +136,7 @@ export default function DishesPage() {
           style={{ width: "140px" }}
         ></Input>
 
-        <Label for="carbs">{`Carbs (g):`}</Label>
+        <Label htmlFor="carbs">{`Carbs (g):`}</Label>
         <Input
           id="carbs"
           name="carbs"
@@ -139,7 +146,7 @@ export default function DishesPage() {
           style={{ width: "140px" }}
         ></Input>
 
-        <Label for="notes" maxLength={140}>
+        <Label htmlFor="notes" maxLength={140}>
           Notes:
         </Label>
         <Input

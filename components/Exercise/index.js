@@ -1,5 +1,8 @@
 import {
   ListItemExercise,
+  ListItemHeadline,
+  ListItemValue,
+  ListItemNotes,
   Input,
   Label,
   SubmitButton,
@@ -12,33 +15,28 @@ import {
   DeleteExerciseButton,
 } from "../../components/WorkoutsPage/styles.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDumbbell, faStopwatch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDumbbell,
+  faStopwatch,
+  faRotateRight,
+} from "@fortawesome/free-solid-svg-icons";
 import useCalorieStore from "../../utils/useCalorieStore.js";
 import { useState } from "react";
 
-export default function Exercise({
-  id,
-  exercise,
-  workoutTitle,
-  title,
-  sets,
-  reps,
-  weight,
-  time,
-  notes,
-  index,
-}) {
-  const { setExercise, deleteExercise } = useCalorieStore();
-
+export default function Exercise({ id, index }) {
+  const { setExercise, deleteExercise, exercises } = useCalorieStore();
+  const exercise = exercises.find((exercise) => exercise.id === id);
   const [formVisibility, toggleFormVisibility] = useState(false);
-  const [inputExercise, setInputExercise] = useState(title);
-  const [inputSets, setInputSets] = useState(sets);
-  const [inputReps, setInputReps] = useState(reps);
-  const [inputWeight, setInputWeight] = useState(weight);
+  const [inputExercise, setInputExercise] = useState(exercise.title);
+  const [inputSets, setInputSets] = useState(exercise.sets);
+  const [inputReps, setInputReps] = useState(exercise.reps);
+  const [inputWeight, setInputWeight] = useState(exercise.weight);
   const [inputTime, setInputTime] = useState(
-    typeof time === "string" ? timeToSeconds(time) : time
+    typeof exercise.time === "string"
+      ? timeToSeconds(exercise.time)
+      : exercise.time
   );
-  const [inputNotes, setInputNotes] = useState(notes);
+  const [inputNotes, setInputNotes] = useState(exercise.notes);
 
   function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
@@ -67,8 +65,8 @@ export default function Exercise({
     const time = formatTime(data.time);
 
     setExercise(index, {
-      id: id,
-      workout: workoutTitle,
+      id: exercise.id,
+      workout: exercise.workout,
       title: data.title,
       sets: sets,
       reps: reps,
@@ -83,13 +81,60 @@ export default function Exercise({
 
   return (
     <>
-      <ListItemExercise
-        onClick={() => {
-          toggleFormVisibility(!formVisibility);
-        }}
-      >{`${title}: ${sets} × ${reps}, ${weight}kg${
-        time !== "00:00" ? `, ${time}` : ""
-      }${notes !== "" ? `, ${notes}` : ""}`}</ListItemExercise>
+      {!formVisibility && (
+        <ListItemExercise
+          onClick={() => {
+            toggleFormVisibility(!formVisibility);
+          }}
+        >
+          {
+            <>
+              <ListItemHeadline>{inputExercise}</ListItemHeadline>
+              <div style={{ flexDirection: "row" }}>
+                <ListItemValue>
+                  <FontAwesomeIcon
+                    icon={faRotateRight}
+                    style={{
+                      color: "var(--2)",
+                      transform: "translate(-5px, 0.2px)",
+                      scale: "0.9",
+                    }}
+                  />
+                  {`${inputSets} × ${inputReps}`}
+                </ListItemValue>
+
+                {inputWeight !== 0 && (
+                  <>
+                    <FontAwesomeIcon
+                      icon={faDumbbell}
+                      style={{
+                        color: "var(--2)",
+                        transform: "translate(6px, 0.4px)",
+                        scale: "0.9",
+                      }}
+                    />
+                    <ListItemValue>{inputWeight}</ListItemValue>
+                  </>
+                )}
+                {inputTime !== 0 && (
+                  <>
+                    <FontAwesomeIcon
+                      icon={faStopwatch}
+                      style={{
+                        color: "var(--2)",
+                        transform: "translate(6px, 0.4px)",
+                        scale: "0.95",
+                      }}
+                    />
+                    <ListItemValue>{formatTime(inputTime)}</ListItemValue>
+                  </>
+                )}
+              </div>
+              {inputNotes !== "" && <ListItemNotes>{inputNotes}</ListItemNotes>}
+            </>
+          }
+        </ListItemExercise>
+      )}
 
       <ExerciseFormWrapper
         visible={formVisibility}
@@ -118,7 +163,7 @@ export default function Exercise({
               value={inputSets}
               onChange={(event) => setInputSets(event.target.value)}
             ></ExerciseInput>
-            <ExerciseLabel for="reps" style={{ margin: "0" }}>
+            <ExerciseLabel htmlFor="reps" style={{ margin: "0" }}>
               ×
             </ExerciseLabel>
             <ExerciseInput
@@ -130,7 +175,7 @@ export default function Exercise({
               max={100}
               onChange={(event) => setInputReps(event.target.value)}
             ></ExerciseInput>
-            <ExerciseLabel for="weight" style={{ margin: "0" }}>
+            <ExerciseLabel htmlFor="weight" style={{ margin: "0" }}>
               <FontAwesomeIcon
                 icon={faDumbbell}
                 style={{ color: "var(--2)", transform: "translate(5px, 1px)" }}
@@ -146,7 +191,7 @@ export default function Exercise({
             ></ExerciseInput>
           </ExerciseInputWrapper>
           <ExerciseInputWrapper style={{ width: "75%", margin: "0 0 5px 0" }}>
-            <ExerciseLabel for="time">
+            <ExerciseLabel htmlFor="time">
               <FontAwesomeIcon
                 icon={faStopwatch}
                 style={{ color: "var(--2)" }}
@@ -163,7 +208,7 @@ export default function Exercise({
             ></Input>
             <span>{formatTime(inputTime)}</span>
           </ExerciseInputWrapper>
-          <Label for="notes">Notes:</Label>
+          <Label htmlFor="notes">Notes:</Label>
           <Input
             id="notes"
             name="notes"
@@ -178,7 +223,7 @@ export default function Exercise({
               <DeleteExerciseButton
                 onClick={() => {
                   toggleFormVisibility(false);
-                  deleteExercise(id);
+                  deleteExercise(exercise.id);
                 }}
               >
                 DELETE

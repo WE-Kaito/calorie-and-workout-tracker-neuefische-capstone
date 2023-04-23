@@ -1,22 +1,15 @@
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { unixDate } from "../../utils/useCalorieStore";
 import useCalorieStore from "../../utils/useCalorieStore";
-import CalendarWrapper, {
-  StyledMoodle,
-  StyledListItem,
-  StyledListHeadline,
-  StyledListSpan,
-  StrokeWrapper,
-  CompleteButton,
-} from "./styles";
-import { NameSpan, ShiftedSpan } from "../ConsumedList/styles";
-import Lottie from "lottie-react";
-import circleAnimation from "../../public/lottie/circle.json";
-import starAnimation from "../../public/lottie/star.json";
-import completeAnimation from "../../public/lottie/completeStar.json";
-import Exercise from "../Exercise";
+import CalendarWrapper, { StrokeWrapper } from "./styles";
+import AnimationWorkoutCompleted from "./AnimationWorkoutCompleted";
+import CalendarExercises from "./CalendarExercises";
+import CalendarEntry from "./CalendarEntry";
+import getTileClassName from "../../utils/tileClassHandler";
+import tileContent from "../../utils/tileContentHandler";
+import handleClickDay from "../../utils/tileClickHandler";
 
 export default function HomeCalendar({
   getCaloriesConsumed,
@@ -24,14 +17,8 @@ export default function HomeCalendar({
   setCalorieButton,
   calorieButtonVisibility,
 }) {
-  const {
-    history,
-    calorieGoals,
-    routine,
-    exercises,
-    completedWorkouts,
-    setCompletedWorkouts,
-  } = useCalorieStore();
+  const { history, calorieGoals, routine, completedWorkouts } =
+    useCalorieStore();
   const [date, setDate] = useState(new Date());
   const [showHistoryEntry, setShowHistoryEntry] = useState(false);
   const [historyEntryData, setHistoryEntryData] = useState([
@@ -42,175 +29,17 @@ export default function HomeCalendar({
 
   const earliestDate =
     history.length >= 1 ? new Date(history[0].date) : new Date();
+
   const invisible =
     history.slice().filter((entry) => entry.date === unixDate).length > 4 &&
     isVisible;
+
   const isDate1Digit = new Date(unixDate).getDate().toString().length === 1;
+
   const isWorkoutToday = routine
     .slice()
     .filter((entry) => entry.id !== "free")
     .some((entry) => entry.date === unixDate);
-  const todaysWorkout = routine
-    .slice()
-    .filter((entry) => entry.id !== "free")
-    .find((entry) => entry.date === unixDate)?.workout;
-
-  function getTileClassName(date, view) {
-    const unixTileDate = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate()
-    ).getTime();
-
-    if (history.some((entry) => entry.date === unixTileDate)) {
-      if (date <= unixDate) {
-        if (
-          getCaloriesConsumed(unixTileDate) <=
-          calorieGoals.find((goalEntry) => goalEntry.date === unixTileDate).goal
-        ) {
-          if (view === "month" && unixDate === unixTileDate) {
-            return (
-              "react-calendar__tile--wasNotExceeded" &&
-              "react-calendar__tile--now--wasNotExceeded"
-            );
-          } else {
-            return "react-calendar__tile--wasNotExceeded";
-          }
-        } else {
-          if (view === "month" && unixDate === unixTileDate) {
-            return (
-              "react-calendar__tile--wasExceeded" &&
-              "react-calendar__tile--now--wasExceeded"
-            );
-          }
-          return "react-calendar__tile--wasExceeded";
-        }
-      }
-    }
-    if (
-      routine
-        .slice()
-        .filter((entry) => entry.id !== "free")
-        .some((entry) => entry.date === unixTileDate) &&
-      unixTileDate > unixDate
-    ) {
-      return "react-calendar__tile--workout";
-    }
-  }
-
-  function tileContent({ date, view }) {
-    const unixTileDate = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate()
-    ).getTime();
-
-    if (
-      routine
-        .slice()
-        .filter((entry) => entry.id !== "free")
-        .some((entry) => entry.date === unixTileDate) &&
-      unixTileDate === unixDate
-    ) {
-      return (
-        <>
-          <Lottie
-            animationData={circleAnimation}
-            autoplay
-            loop
-            speed={1.5}
-            style={{
-              position: "fixed",
-              zIndex: "20",
-              width: "52px",
-              transform: "translate(-8.5px, -34px)",
-            }}
-          />
-          <Lottie
-            animationData={circleAnimation}
-            autoplay
-            loop
-            speed={1.5}
-            style={{
-              position: "fixed",
-              zIndex: "20",
-              width: "44px",
-              transform: "translate(-4.4px, -30px)",
-            }}
-          />
-        </>
-      );
-    }
-
-    if (
-      completedWorkouts.some((entry) => entry.date === unixTileDate) &&
-      unixTileDate <= unixDate
-    ) {
-      return (
-        <Lottie
-          animationData={starAnimation}
-          autoplay
-          loop
-          speed={10}
-          style={{
-            position: "fixed",
-            zIndex: "20",
-            width: "20px",
-            transform: "translate(18.5px, -28px)",
-          }}
-        />
-      );
-    }
-  }
-  function handleClickDay(date, event) {
-    const unixTileDate = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate()
-    ).getTime();
-
-    if (
-      history.some((entry) => entry.date === unixTileDate) &&
-      date < unixDate
-    ) {
-      setCalorieButton(!calorieButtonVisibility);
-      setHistoryEntryData(
-        history.slice().filter((entry) => entry.date === unixTileDate)
-      );
-      setShowHistoryEntry(!showHistoryEntry);
-    }
-
-    if (isWorkoutToday && unixTileDate === unixDate) {
-      setShowWorkout(!showWorkout);
-      setCalorieButton(!calorieButtonVisibility);
-    }
-  }
-
-  function getFormattedDate(unixTime) {
-    const dateObj = new Date(unixTime);
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    const monthIndex = dateObj.getMonth();
-    const year = dateObj.getFullYear();
-    const day = dateObj.getDate();
-    const formattedDate = `${day} ${months[monthIndex]} ${year}`.replace(
-      /,/g,
-      ""
-    );
-    return formattedDate;
-  }
 
   return (
     <CalendarWrapper
@@ -241,90 +70,54 @@ export default function HomeCalendar({
         onClick={(event) => {
           event.target.stopPropagation();
         }}
-        onClickDay={handleClickDay}
-        tileClassName={({ date, view }) => getTileClassName(date, view)}
-        tileContent={({ date, view }) => tileContent({ date, view })}
+        onClickDay={() => {
+          handleClickDay(
+            date,
+            history,
+            unixDate,
+            setCalorieButton,
+            calorieButtonVisibility,
+            setShowWorkout,
+            setShowHistoryEntry,
+            setHistoryEntryData,
+            showHistoryEntry,
+            isWorkoutToday,
+            showWorkout
+          );
+        }}
+        tileClassName={({ date, view }) =>
+          getTileClassName(
+            date,
+            view,
+            history,
+            calorieGoals,
+            routine,
+            unixDate,
+            getCaloriesConsumed
+          )
+        }
+        tileContent={({ date }) =>
+          tileContent({ date }, unixDate, routine, completedWorkouts)
+        }
       />
       {showHistoryEntry && (
-        <StyledMoodle>
-          {historyEntryData.map((entry, index) => (
-            <>
-              {index === 0 && (
-                <>
-                  <StyledListHeadline
-                    style={{
-                      color:
-                        calorieGoals.find((goal) => goal.date === entry.date)
-                          .goal > getCaloriesConsumed(entry.date)
-                          ? "var(--9)"
-                          : "var(--10)",
-                    }}
-                  >
-                    {getFormattedDate(entry.date)}
-                  </StyledListHeadline>
-                  <StyledListSpan>{`${getCaloriesConsumed(entry.date)} / ${
-                    calorieGoals.find((goal) => goal.date === entry.date).goal
-                  }`}</StyledListSpan>
-                </>
-              )}
-
-              <StyledListItem key={index}>
-                <NameSpan>{`${entry.meal}`}</NameSpan>
-                <ShiftedSpan>{`${entry.calories} kcal`}</ShiftedSpan>
-                <span>{`${entry.time_stamp}`}</span>
-              </StyledListItem>
-            </>
-          ))}
-        </StyledMoodle>
+        <CalendarEntry
+          getCaloriesConsumed={getCaloriesConsumed}
+          historyEntryData={historyEntryData}
+        />
       )}
       {showWorkout && isWorkoutToday && (
-        <StyledMoodle>
-          <StyledListHeadline>{todaysWorkout}</StyledListHeadline>
-          {exercises
-            .slice()
-            .filter((exercise) => exercise.workout === todaysWorkout)
-            .map((exercise, index) => (
-              <Exercise
-                key={index}
-                index={index}
-                id={exercise.id}
-                workoutTitle={exercise.workout}
-                title={exercise.title}
-                sets={exercise.sets}
-                reps={exercise.reps}
-                weight={exercise.weight}
-                time={exercise.time}
-                notes={exercise.notes}
-              />
-            ))}
-          <CompleteButton
-            onClick={() => {
-              setCompletedWorkouts(unixDate);
-              setShowWorkout(false);
-              setPlayState("play");
-              setCalorieButton(!calorieButtonVisibility);
-            }}
-          >
-            ✓
-          </CompleteButton>
-        </StyledMoodle>
+        <CalendarExercises
+          setPlayState={setPlayState}
+          setShowWorkout={setShowWorkout}
+          setCalorieButton={setCalorieButton}
+          calorieButtonVisibility={calorieButtonVisibility}
+        />
       )}
       {playState === "play" && (
-        <Lottie
-          animationData={completeAnimation}
+        <AnimationWorkoutCompleted
           playState={playState}
-          loop={false}
-          onComplete={() => {
-            setPlayState("stopped");
-          }}
-          style={{
-            width: 240,
-            height: 240,
-            position: "absolute",
-            zIndex: "100",
-            bottom: "135px",
-            left: "22px",
-          }}
+          setPlayState={setPlayState}
         />
       )}
     </CalendarWrapper>

@@ -93,6 +93,8 @@ export const ExerciseFormWrapper = styled.form`
   border-radius: 20px;
   transform: translateY(-15px);
 
+  margin-top: 15px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -260,15 +262,17 @@ export const ListItem = styled(Link)`
 
 export const ListItemExercise = styled.button`
   width: 100%;
-  height: 10%;
+  height: fit-content;
   color: var(--2);
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
   border: none;
   margin-bottom: 15px;
+  padding: 5px;
 
   background: var(--8);
 
@@ -276,6 +280,21 @@ export const ListItemExercise = styled.button`
   &:hover {
     background-color: var(--3);
   }
+`;
+
+export const ListItemHeadline = styled.h3`
+  color: var(--2);
+  grid-row: 1;
+  margin: 2px;
+`;
+export const ListItemValue = styled.span`
+  color: var(--2);
+  grid-row: 2;
+  margin: 0px 13px 0px 13px;
+`;
+export const ListItemNotes = styled.span`
+  color: var(--2);
+  grid-row: 1;
 `;
 
 export const DeleteExerciseButton = styled.button`

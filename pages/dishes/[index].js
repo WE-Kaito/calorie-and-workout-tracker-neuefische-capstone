@@ -79,7 +79,7 @@ export default function DishDetails() {
             <Detail>{`Calories: ${dishes[index].calories} kcal`}</Detail>
             <Detail>{`Proteins: ${dishes[index].proteins} g`}</Detail>
             <Detail>{`Carbs: ${dishes[index].carbs} g`}</Detail>
-            <Detail>{`Notes: ${dishes[index].notes}`}</Detail>
+            <Detail>{dishes[index].notes}</Detail>
           </DetailsList>
 
           <DetailsBackButton href="/dishes">←</DetailsBackButton>
@@ -98,7 +98,7 @@ export default function DishDetails() {
             handleSubmit(event);
           }}
         >
-          <Label for="meal">Your Meal:</Label>
+          <Label htmlFor="meal">Your Meal:</Label>
           <Input
             id="meal"
             name="meal"
@@ -109,7 +109,7 @@ export default function DishDetails() {
             onChange={(event) => setInputMeal(event.target.value)}
           ></Input>
 
-          <Label for="calories">{`Calories (kcal):`}</Label>
+          <Label htmlFor="calories">{`Calories (kcal):`}</Label>
           <Input
             min={0}
             max={7000}
@@ -121,7 +121,7 @@ export default function DishDetails() {
             onChange={(event) => setInputCal(event.target.value)}
           ></Input>
 
-          <Label for="mass">{`Mass (g):`}</Label>
+          <Label htmlFor="mass">{`Mass (g):`}</Label>
           <Input
             id="mass"
             name="mass"
@@ -132,7 +132,7 @@ export default function DishDetails() {
             onChange={(event) => setInputMass(event.target.value)}
           ></Input>
 
-          <Label for="proteins">{`Proteins (g):`}</Label>
+          <Label htmlFor="proteins">{`Proteins (g):`}</Label>
           <Input
             id="proteins"
             name="proteins"
@@ -142,7 +142,7 @@ export default function DishDetails() {
             onChange={(event) => setInputProteins(event.target.value)}
           ></Input>
 
-          <Label for="carbs">{`Carbs (g):`}</Label>
+          <Label htmlFor="carbs">{`Carbs (g):`}</Label>
           <Input
             id="carbs"
             name="carbs"
@@ -153,7 +153,7 @@ export default function DishDetails() {
             onChange={(event) => setInputCarbs(event.target.value)}
           ></Input>
 
-          <Label for="notes">Notes:</Label>
+          <Label htmlFor="notes">Notes:</Label>
           <Input
             id="notes"
             name="notes"

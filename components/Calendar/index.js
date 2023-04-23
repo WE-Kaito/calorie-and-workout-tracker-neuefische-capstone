@@ -302,6 +302,7 @@ export default function HomeCalendar({
               setCompletedWorkouts(unixDate);
               setShowWorkout(false);
               setPlayState("play");
+              setCalorieButton(!calorieButtonVisibility);
             }}
           >
             ✓

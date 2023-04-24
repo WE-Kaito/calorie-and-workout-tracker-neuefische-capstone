@@ -22,10 +22,20 @@ import useCalorieStore from "../../utils/useCalorieStore.js";
 import Link from "next/link.js";
 import { useState, useEffect } from "react";
 
-export default function WorkoutsPage({ workouts }) {
-  const { addWorkout, setRoutine, routineDisplay, setRoutineDisplay } =
-    useCalorieStore();
-
+export default function WorkoutsPage() {
+  const {
+    addWorkout,
+    setRoutine,
+    routineDisplay,
+    setRoutineDisplay,
+    exercises,
+  } = useCalorieStore();
+  const workouts = exercises
+    .slice()
+    .filter(
+      (exercise, index, self) =>
+        index === self.findIndex((e) => e.workout === exercise.workout)
+    );
   const [formVisibility, toggleFormVisibility] = useState(false);
 
   const [isEditMode, setIsEditMode] = useState(false);

@@ -12,12 +12,17 @@ import Link from "next/link.js";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-export default function ExercisesPage({ workouts }) {
-  const { exercises, deleteWorkout, addExercise } = useCalorieStore();
+export default function ExercisesPage() {
+  const { exercises, deleteExercise, addExercise } = useCalorieStore();
 
   const router = useRouter();
   const { index = 0 } = router.query;
-
+  const workouts = exercises
+    .slice()
+    .filter(
+      (exercise, index, self) =>
+        index === self.findIndex((e) => e.workout === exercise.workout)
+    );
   // hydration error handling
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -45,7 +50,7 @@ export default function ExercisesPage({ workouts }) {
         </h1>
         <DeleteButton
           onClick={() => {
-            deleteWorkout(workouts[index].workout);
+            deleteExercise(workouts[index].id);
             router.push(`/workouts/`);
           }}
         >

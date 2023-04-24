@@ -22,22 +22,30 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import useCalorieStore from "../../utils/useCalorieStore.js";
 import { useState } from "react";
+import { uid } from "uid";
 
-export default function Exercise({ id, index }) {
+export default function Exercise({
+  id,
+  index,
+  title,
+  sets,
+  reps,
+  weight,
+  time,
+  notes,
+  workout,
+}) {
   const { setExercise, deleteExercise, exercises } = useCalorieStore();
-  const exercise = exercises.find((exercise) => exercise.id === id);
   const [formVisibility, toggleFormVisibility] = useState(false);
-  const [inputExercise, setInputExercise] = useState(exercise.title);
-  const [inputSets, setInputSets] = useState(exercise.sets);
-  const [inputReps, setInputReps] = useState(exercise.reps);
-  const [inputWeight, setInputWeight] = useState(exercise.weight);
+  const [inputExercise, setInputExercise] = useState(title);
+  const [inputSets, setInputSets] = useState(sets);
+  const [inputReps, setInputReps] = useState(reps);
+  const [inputWeight, setInputWeight] = useState(weight);
   const [inputTime, setInputTime] = useState(
-    typeof exercise.time === "string"
-      ? timeToSeconds(exercise.time)
-      : exercise.time
+    typeof time === "string" ? timeToSeconds(time) : time
   );
-  const [inputNotes, setInputNotes] = useState(exercise.notes);
-
+  const [inputNotes, setInputNotes] = useState(notes);
+  console.log(exercises);
   function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -59,19 +67,19 @@ export default function Exercise({ id, index }) {
     event.preventDefault();
     const formdata = new FormData(event.target);
     const data = Object.fromEntries(formdata);
-    const sets = parseInt(data.sets);
-    const reps = parseInt(data.reps);
-    const weight = parseFloat(data.weight).toFixed(1);
-    const time = formatTime(data.time);
+    const datasets = parseInt(data.sets);
+    const datareps = parseInt(data.reps);
+    const dataweight = parseFloat(data.weight).toFixed(1);
+    const datatime = formatTime(data.time);
 
     setExercise(index, {
-      id: exercise.id,
-      workout: exercise.workout,
+      id: uid(),
+      workout: workout,
       title: data.title,
-      sets: sets,
-      reps: reps,
-      weight: weight,
-      time: time,
+      sets: datasets,
+      reps: datareps,
+      weight: dataweight,
+      time: datatime,
       notes: data.notes,
     });
 
@@ -223,7 +231,7 @@ export default function Exercise({ id, index }) {
               <DeleteExerciseButton
                 onClick={() => {
                   toggleFormVisibility(false);
-                  deleteExercise(exercise.id);
+                  deleteExercise(id);
                 }}
               >
                 DELETE

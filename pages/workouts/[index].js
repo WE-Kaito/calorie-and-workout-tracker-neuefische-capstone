@@ -59,7 +59,18 @@ export default function ExercisesPage({ workouts }) {
             .slice()
             .filter((exercise) => exercise.workout === workouts[index].workout)
             .map((exercise, index) => (
-              <Exercise key={exercise.id} id={exercise.id} index={index} />
+              <Exercise
+                key={exercise.id}
+                index={index}
+                id={exercise.id}
+                workout={exercise.workout}
+                title={exercise.title}
+                sets={exercise.sets}
+                reps={exercise.reps}
+                weight={exercise.weight}
+                time={exercise.time}
+                notes={exercise.notes}
+              />
             ))}
           <DetailsEditButton
             onClick={() => {

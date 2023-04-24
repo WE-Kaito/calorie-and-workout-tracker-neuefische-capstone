@@ -5,7 +5,7 @@ import useCalorieStore from "../utils/useCalorieStore";
 import { unixDate } from "../utils/useCalorieStore";
 import ConsumedList from "../components/ConsumedList/ConsumedList";
 import HomeCalendar from "../components/Calendar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Backdrop from "../assets/backdrop.svg";
 import Pages from "../assets/pages.svg";
 import Settings from "../assets/settings.svg";
@@ -102,133 +102,135 @@ export default function HomePage() {
   }
 
   return (
-    <StyledDiv>
-      {/* navigation & settings */}
-      <HeadingButtons>
-        <SettingsButton
-          onClick={() => {
-            setIsSettingsVisible(!isSettingsVisible);
-          }}
-        >
-          <Settings className={isSettingsVisible ? "head-buttons" : null} />
-        </SettingsButton>
-        <PagesButton
-          onClick={() => {
-            setIsPagesVisible(!isPagesVisible);
-          }}
-        >
-          <Pages className={isPagesVisible ? "head-buttons" : null} />
-        </PagesButton>
-      </HeadingButtons>
-
-      <SettingsSection isVisible={isSettingsVisible}>
-        <span style={{ color: "var(--1)", marginRight: "54px" }}>
-          CALORIE GOAL
-        </span>
-        <StyledForm
-          onSubmit={(event) => {
-            handleSettingsSubmit(event);
-          }}
-        >
-          <StyledInput
-            type="number"
-            min={0}
-            placeholder={`${calorieGoals.at(-1).goal} kcal`}
-            name="calorieGoalInput"
-            required
-          ></StyledInput>
-          <StyledSaveButton
-            type="submit"
+    <>
+      <StyledDiv>
+        {/* navigation & settings */}
+        <HeadingButtons>
+          <SettingsButton
             onClick={() => {
-              setIsSettingsVisible(false);
+              setIsSettingsVisible(!isSettingsVisible);
             }}
           >
-            save
-          </StyledSaveButton>
-        </StyledForm>
-      </SettingsSection>
+            <Settings className={isSettingsVisible ? "head-buttons" : null} />
+          </SettingsButton>
+          <PagesButton
+            onClick={() => {
+              setIsPagesVisible(!isPagesVisible);
+            }}
+          >
+            <Pages className={isPagesVisible ? "head-buttons" : null} />
+          </PagesButton>
+        </HeadingButtons>
 
-      <Nav isVisible={isPagesVisible}>
-        <LinkContainer>
-          <StyledLink href="/dishes">
-            <StyledNavButton>Dishes</StyledNavButton>
-          </StyledLink>
-          <StyledNavSpan>{` ➤`}</StyledNavSpan>
-        </LinkContainer>
+        <SettingsSection isVisible={isSettingsVisible}>
+          <span style={{ color: "var(--1)", marginRight: "54px" }}>
+            CALORIE GOAL
+          </span>
+          <StyledForm
+            onSubmit={(event) => {
+              handleSettingsSubmit(event);
+            }}
+          >
+            <StyledInput
+              type="number"
+              min={0}
+              placeholder={`${calorieGoals.at(-1).goal} kcal`}
+              name="calorieGoalInput"
+              required
+            ></StyledInput>
+            <StyledSaveButton
+              type="submit"
+              onClick={() => {
+                setIsSettingsVisible(false);
+              }}
+            >
+              save
+            </StyledSaveButton>
+          </StyledForm>
+        </SettingsSection>
 
-        <LinkContainer>
-          <StyledLink href="/workouts">
-            <StyledNavButton>Workouts</StyledNavButton>
-          </StyledLink>
-          <StyledNavSpan>➤</StyledNavSpan>
-        </LinkContainer>
-      </Nav>
+        <Nav isVisible={isPagesVisible}>
+          <LinkContainer>
+            <StyledLink href="/dishes">
+              <StyledNavButton>Dishes</StyledNavButton>
+            </StyledLink>
+            <StyledNavSpan>{` ➤`}</StyledNavSpan>
+          </LinkContainer>
 
-      {/* main content */}
+          <LinkContainer>
+            <StyledLink href="/workouts">
+              <StyledNavButton>Workouts</StyledNavButton>
+            </StyledLink>
+            <StyledNavSpan>➤</StyledNavSpan>
+          </LinkContainer>
+        </Nav>
 
-      <StyledButtonCalorieCounter
-        isTrue={getGoalExceeded()}
-        onClick={(event) => {
-          event.stopPropagation();
-          history.find((entry) => entry.date === unixDate) &&
-            setIsListVisible(!isListVisible);
-        }}
-      >
-        {Math.abs(calorieGoals.at(-1).goal - getCaloriesConsumed())}
-        <br />
-        {getGoalExceeded() ? "left" : "over"}
-      </StyledButtonCalorieCounter>
+        {/* main content */}
 
-      <OpenCalorieFormButton
-        style={{
-          visibility: isAddCaloriesButtonVisible ? "visible" : "hidden",
-        }}
-        onClick={(event) => {
-          event.stopPropagation();
-          setIsFormVisible(true);
-        }}
-      >
-        <FontAwesomeIcon
-          style={{
-            transform: `scale(${1.85})`,
+        <StyledButtonCalorieCounter
+          isTrue={getGoalExceeded()}
+          onClick={(event) => {
+            event.stopPropagation();
+            history.find((entry) => entry.date === unixDate) &&
+              setIsListVisible(!isListVisible);
           }}
-          icon={faPlus}
-        />
-      </OpenCalorieFormButton>
+        >
+          {Math.abs(calorieGoals.at(-1).goal - getCaloriesConsumed())}
+          <br />
+          {getGoalExceeded() ? "left" : "over"}
+        </StyledButtonCalorieCounter>
 
-      <FormContainer
-        isTrue={isFormVisible}
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
-      >
-        <AddCalories
-          onClose={setIsFormVisible}
-          qSVisibility={isQSVisible}
-          toggleQSVisibility={setIsQSVisible}
-          toggleFormVisibility={setIsFormVisible}
-        />
-      </FormContainer>
-      <ConsumedContainer
-        isTrue={isListVisible}
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
-      >
-        <ConsumedList />
-      </ConsumedContainer>
-      <CalendarSection isVisible={isListVisible}>
-        <StyledBackdrop>
-          <Backdrop />
-        </StyledBackdrop>
-        <HomeCalendar
-          getTileColor={getGoalExceeded}
-          getCaloriesConsumed={getCaloriesConsumed}
-          isVisible={isListVisible}
-          setCalorieButton={setIsAddCaloriesButtonVisible}
-          calorieButtonVisibility={isAddCaloriesButtonVisible}
-        />
-      </CalendarSection>
-    </StyledDiv>
+        <OpenCalorieFormButton
+          style={{
+            visibility: isAddCaloriesButtonVisible ? "visible" : "hidden",
+          }}
+          onClick={(event) => {
+            event.stopPropagation();
+            setIsFormVisible(true);
+          }}
+        >
+          <FontAwesomeIcon
+            style={{
+              transform: `scale(${1.85})`,
+            }}
+            icon={faPlus}
+          />
+        </OpenCalorieFormButton>
+
+        <FormContainer
+          isTrue={isFormVisible}
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        >
+          <AddCalories
+            onClose={setIsFormVisible}
+            qSVisibility={isQSVisible}
+            toggleQSVisibility={setIsQSVisible}
+            toggleFormVisibility={setIsFormVisible}
+          />
+        </FormContainer>
+        <ConsumedContainer
+          isTrue={isListVisible}
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        >
+          <ConsumedList />
+        </ConsumedContainer>
+        <CalendarSection isVisible={isListVisible}>
+          <StyledBackdrop>
+            <Backdrop />
+          </StyledBackdrop>
+          <HomeCalendar
+            getTileColor={getGoalExceeded}
+            getCaloriesConsumed={getCaloriesConsumed}
+            isVisible={isListVisible}
+            setCalorieButton={setIsAddCaloriesButtonVisible}
+            calorieButtonVisibility={isAddCaloriesButtonVisible}
+          />
+        </CalendarSection>
+      </StyledDiv>
+    </>
   );
 }

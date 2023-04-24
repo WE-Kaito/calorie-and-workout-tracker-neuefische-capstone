@@ -22,7 +22,18 @@ export default function CalendarExercises({
         .slice()
         .filter((exercise) => exercise.workout === todaysWorkout)
         .map((exercise, index) => (
-          <Exercise key={exercise.id} id={exercise.id} index={index} />
+          <Exercise
+            key={exercise.id}
+            id={exercise.id}
+            index={index}
+            workout={exercise.workout}
+            title={exercise.title}
+            sets={exercise.sets}
+            reps={exercise.reps}
+            weight={exercise.weight}
+            time={exercise.time}
+            notes={exercise.notes}
+          />
         ))}
       <CompleteButton
         onClick={() => {

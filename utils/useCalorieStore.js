@@ -138,12 +138,14 @@ const useCalorieStore = create(
           }));
         },
 
-        deleteWorkout: (workoutTitle) =>
-          set((state) => ({
-            exercises: state.exercises.filter(
-              (exercise) => exercise.workout !== workoutTitle
-            ),
-          })),
+        deleteWorkout: (workoutTitle) => {
+          const exercises = useCalorieStore
+            .getState()
+            .exercises.filter((exercise) => exercise.workout !== workoutTitle);
+          set(() => ({
+            exercises: exercises,
+          }));
+        },
 
         deleteExercise: (id) =>
           set((state) => ({

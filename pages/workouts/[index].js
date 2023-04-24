@@ -13,16 +13,16 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 export default function ExercisesPage() {
-  const { exercises, deleteExercise, addExercise } = useCalorieStore();
+  const { exercises, deleteWorkout, addExercise } = useCalorieStore();
 
   const router = useRouter();
   const { index = 0 } = router.query;
-  const workouts = exercises
-    .slice()
-    .filter(
-      (exercise, index, self) =>
-        index === self.findIndex((e) => e.workout === exercise.workout)
-    );
+
+  function getUniqueWorkoutTitles() {
+    const workouts = exercises.map((exercise) => exercise.workout);
+    return [...new Set(workouts)];
+  }
+  console.log(getUniqueWorkoutTitles());
   // hydration error handling
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -33,58 +33,59 @@ export default function ExercisesPage() {
   }
   // --------------------------------
 
-  if (workouts[0])
-    return (
-      <Wrapper>
-        <h1
-          style={{
-            position: "absolute",
-            top: "85px",
-            left: "70px",
-            zIndex: "10",
-            color: "var(--3)",
-            fontSize: 28,
-          }}
-        >
-          {workouts[index].workout}
-        </h1>
-        <DeleteButton
+  return (
+    <Wrapper>
+      <h1
+        style={{
+          position: "absolute",
+          top: "85px",
+          left: "70px",
+          zIndex: "10",
+          color: "var(--3)",
+          fontSize: 28,
+        }}
+      >
+        {getUniqueWorkoutTitles()[index]}
+      </h1>
+      <DeleteButton
+        onClick={() => {
+          deleteWorkout(getUniqueWorkoutTitles()[index]);
+          router.push(`/workouts/`);
+        }}
+      >
+        DELETE WORKOUT
+      </DeleteButton>
+      <Link href="/workouts/">
+        <BackButton>🔙</BackButton>
+      </Link>
+      <List invisible={false}>
+        {exercises
+          .slice()
+          .filter(
+            (exercise) => exercise.workout === getUniqueWorkoutTitles()[index]
+          )
+          .map((exercise, index) => (
+            <Exercise
+              key={exercise.id}
+              index={index}
+              id={exercise.id}
+              workout={exercise.workout}
+              title={exercise.title}
+              sets={exercise.sets}
+              reps={exercise.reps}
+              weight={exercise.weight}
+              time={exercise.time}
+              notes={exercise.notes}
+            />
+          ))}
+        <DetailsEditButton
           onClick={() => {
-            deleteExercise(workouts[index].id);
-            router.push(`/workouts/`);
+            addExercise(getUniqueWorkoutTitles()[index]);
           }}
         >
-          DELETE WORKOUT
-        </DeleteButton>
-        <Link href="/workouts/">
-          <BackButton>🔙</BackButton>
-        </Link>
-        <List invisible={false}>
-          {exercises
-            .slice()
-            .filter((exercise) => exercise.workout === workouts[index].workout)
-            .map((exercise, index) => (
-              <Exercise
-                key={exercise.id}
-                index={index}
-                id={exercise.id}
-                workout={exercise.workout}
-                title={exercise.title}
-                sets={exercise.sets}
-                reps={exercise.reps}
-                weight={exercise.weight}
-                time={exercise.time}
-                notes={exercise.notes}
-              />
-            ))}
-          <DetailsEditButton
-            onClick={() => {
-              addExercise(workouts[index].workout);
-            }}
-          >
-            ADD EXERCISE
-          </DetailsEditButton>
-        </List>
-      </Wrapper>
-    );
+          ADD EXERCISE
+        </DetailsEditButton>
+      </List>
+    </Wrapper>
+  );
 }

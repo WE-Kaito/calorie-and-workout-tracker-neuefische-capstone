@@ -72,7 +72,9 @@ export default function Exercise({
     const dataweight = parseFloat(data.weight).toFixed(1);
     const datatime = formatTime(data.time);
 
-    setExercise(index, {
+    const indexToSet = exercises.findIndex((exercise) => exercise.id === id);
+
+    setExercise(indexToSet, {
       id: uid(),
       workout: workout,
       title: data.title,

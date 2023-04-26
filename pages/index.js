@@ -58,20 +58,8 @@ export default function HomePage() {
   const svgRef = useRef(null);
 
   useEffect(() => {
-    setPercentage((getCaloriesConsumed() / todaysGoal) * 100);
-    const meters = document.querySelectorAll("svg[data-value] .meter");
-    meters.forEach((path) => {
-      let length = path.getTotalLength();
-      path.style.strokeDashoffset = length;
-      path.style.strokeDasharray = length;
-      let value = parseInt(path.parentNode.getAttribute("data-value"));
-      let to = length * ((100 - value) / 100);
-      path.getBoundingClientRect();
-      path.style.strokeDashoffset = Math.max(0, to);
-    });
-  }, []);
-  useEffect(() => {
     setIsLoading(false);
+    setPercentage((getCaloriesConsumed() / todaysGoal) * 100);
   }, []);
 
   useEffect(() => {
@@ -129,17 +117,6 @@ export default function HomePage() {
   if (isLoading) {
     return <LoadingDisplay>█████████████████████████████▒▒▒▒▒</LoadingDisplay>;
   }
-
-  const meters = document.querySelectorAll("svg[data-value] .meter");
-  meters.forEach((path) => {
-    let length = path.getTotalLength();
-    path.style.strokeDashoffset = length;
-    path.style.strokeDasharray = length;
-    let value = parseInt(path.parentNode.getAttribute("data-value"));
-    let to = length * ((100 - value) / 100);
-    path.getBoundingClientRect();
-    path.style.strokeDashoffset = Math.max(0, to);
-  });
 
   return (
     <>

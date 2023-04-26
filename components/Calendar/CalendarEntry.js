@@ -40,7 +40,7 @@ export default function CalendarEntry({
   }
 
   return (
-    <StyledMoodle style={{ paddingLeft: "24.5px" }}>
+    <StyledMoodle style={{ paddingLeft: "22.5px" }}>
       {historyEntryData.map((entry, index) => (
         <>
           {index === 0 && (

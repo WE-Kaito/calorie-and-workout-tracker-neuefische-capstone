@@ -30,6 +30,7 @@ export default function WorkoutsPage() {
     setRoutineDisplay,
     exercises,
   } = useCalorieStore();
+
   const workouts = exercises
     .slice()
     .filter(

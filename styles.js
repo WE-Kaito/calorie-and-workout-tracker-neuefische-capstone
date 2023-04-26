@@ -38,6 +38,7 @@ export default createGlobalStyle`
     justify-content: center;
     align-items: center;
   }
+  
   ::placeholder {
   color: lightsteelblue;
   text-align: center;

@@ -9,7 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import Backdrop from "../assets/backdrop.svg";
 import Pages from "../assets/pages.svg";
 import Settings from "../assets/settings.svg";
-import styled from "styled-components";
+import Bar from "../components/IndexPage/Bar";
 import {
   StyledDiv,
   StyledButtonCalorieCounter,
@@ -31,12 +31,10 @@ import {
   StyledInput,
   StyledForm,
   StyledSaveButton,
-  SetGoalHeadline,
 } from "../components/IndexPage/styles";
 
 export default function HomePage() {
-  const { history, calorieGoals, setCalorieGoal, exercises } =
-    useCalorieStore();
+  const { history, calorieGoals, setCalorieGoal } = useCalorieStore();
   calorieGoals.at(-1).date !== unixDate && setCalorieGoal();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -82,10 +80,11 @@ export default function HomePage() {
       : 0; // returns the sum of calories consumed
   }
 
+  const todaysGoal = calorieGoals.find((entry) => entry.date === unixDate).goal;
+
   function getGoalExceeded() {
     return history.find((entry) => entry.date === unixDate)
-      ? calorieGoals.find((entry) => entry.date === unixDate).goal >=
-          getCaloriesConsumed() // returns true if the sum of calories is less than the corresponding goal
+      ? todaysGoal >= getCaloriesConsumed() // returns true if the sum of calories is less than the corresponding goal
       : true;
   }
 
@@ -104,6 +103,7 @@ export default function HomePage() {
   return (
     <>
       <StyledDiv>
+        {Bar(getCaloriesConsumed(), todaysGoal)}
         {/* navigation & settings */}
         <HeadingButtons>
           <SettingsButton

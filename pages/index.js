@@ -9,7 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import Backdrop from "../assets/backdrop.svg";
 import Pages from "../assets/pages.svg";
 import Settings from "../assets/settings.svg";
-import styled from "styled-components";
+import Bar from "../components/IndexPage/Bar";
 import {
   StyledDiv,
   StyledButtonCalorieCounter,
@@ -31,12 +31,10 @@ import {
   StyledInput,
   StyledForm,
   StyledSaveButton,
-  SetGoalHeadline,
 } from "../components/IndexPage/styles";
 
 export default function HomePage() {
-  const { history, calorieGoals, setCalorieGoal, exercises } =
-    useCalorieStore();
+  const { history, calorieGoals, setCalorieGoal } = useCalorieStore();
   calorieGoals.at(-1).date !== unixDate && setCalorieGoal();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +45,9 @@ export default function HomePage() {
   const [isQSVisible, setIsQSVisible] = useState(false);
   const [isAddCaloriesButtonVisible, setIsAddCaloriesButtonVisible] =
     useState(true);
+  const todaysGoal = calorieGoals.find((entry) => entry.date === unixDate).goal;
+
+  const [percentage, setPercentage] = useState(0);
 
   function handleWindowClosing() {
     setIsListVisible(false);
@@ -54,15 +55,32 @@ export default function HomePage() {
     setIsQSVisible(false);
   }
 
+  const svgRef = useRef(null);
+
   useEffect(() => {
     setIsLoading(false);
+    setPercentage((getCaloriesConsumed() / todaysGoal) * 100);
   }, []);
 
   useEffect(() => {
     if (!history.some((entry) => entry.date === unixDate)) {
       setIsListVisible(false);
     }
+    setPercentage((getCaloriesConsumed() / todaysGoal) * 100);
   }, [history]);
+
+  useEffect(() => {
+    const meters = document.querySelectorAll("svg[data-value] .meter");
+    meters.forEach((path) => {
+      let length = path.getTotalLength();
+      path.style.strokeDashoffset = length;
+      path.style.strokeDasharray = length;
+      let value = parseInt(path.parentNode.getAttribute("data-value"));
+      let to = length * ((100 - value) / 100);
+      path.getBoundingClientRect();
+      path.style.strokeDashoffset = Math.max(0, to);
+    });
+  }, [percentage]);
 
   useEffect(() => {
     isListVisible || isFormVisible
@@ -84,8 +102,7 @@ export default function HomePage() {
 
   function getGoalExceeded() {
     return history.find((entry) => entry.date === unixDate)
-      ? calorieGoals.find((entry) => entry.date === unixDate).goal >=
-          getCaloriesConsumed() // returns true if the sum of calories is less than the corresponding goal
+      ? todaysGoal >= getCaloriesConsumed() // returns true if the sum of calories is less than the corresponding goal
       : true;
   }
 
@@ -104,6 +121,7 @@ export default function HomePage() {
   return (
     <>
       <StyledDiv>
+        {Bar(percentage, svgRef)}
         {/* navigation & settings */}
         <HeadingButtons>
           <SettingsButton

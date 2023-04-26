@@ -184,13 +184,18 @@ export const ToggleThemeButton = styled.button`
   position: absolute;
   left: 60px;
   bottom: 24px;
-  &:hover {
-    background: var(--6);
+
+  @media (hover: hover) {
+    &:hover:enabled {
+      background-color: var(--6);
+    }
   }
-  &:active {
-    background: var(--6);
-    box-shadow: 0px 0.5px 2px black;
-    transform: translateY(0.5px);
+  @media (hover: none) {
+    &:active:enabled {
+      background-color: var(--6);
+      box-shadow: 0px 0.5px 2px black;
+      transform: translateY(0.5px);
+    }
   }
 `;
 

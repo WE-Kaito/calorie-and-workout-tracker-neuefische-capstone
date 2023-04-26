@@ -262,11 +262,11 @@ export const StrokeWrapper = styled.div`
 
 export const StyledMoodle = styled.div`
   position: absolute;
-  bottom: 195px;
+  bottom: 200px;
   left: -5px;
   background: var(--8);
   width: 290px;
-  max-height: 340px;
+  max-height: 330px;
   padding: 15px;
   border-radius: 15px;
   border: 5px solid var(--2);

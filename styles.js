@@ -121,6 +121,9 @@ export default createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
+    -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
     @media (max-width: 280px) {
     scale: 0.82;

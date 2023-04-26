@@ -45,6 +45,9 @@ export default function HomePage() {
   const [isQSVisible, setIsQSVisible] = useState(false);
   const [isAddCaloriesButtonVisible, setIsAddCaloriesButtonVisible] =
     useState(true);
+  const todaysGoal = calorieGoals.find((entry) => entry.date === unixDate).goal;
+
+  const [percentage, setPercentage] = useState(0);
 
   function handleWindowClosing() {
     setIsListVisible(false);
@@ -52,6 +55,21 @@ export default function HomePage() {
     setIsQSVisible(false);
   }
 
+  const svgRef = useRef(null);
+
+  useEffect(() => {
+    setPercentage((getCaloriesConsumed() / todaysGoal) * 100);
+    const meters = document.querySelectorAll("svg[data-value] .meter");
+    meters.forEach((path) => {
+      let length = path.getTotalLength();
+      path.style.strokeDashoffset = length;
+      path.style.strokeDasharray = length;
+      let value = parseInt(path.parentNode.getAttribute("data-value"));
+      let to = length * ((100 - value) / 100);
+      path.getBoundingClientRect();
+      path.style.strokeDashoffset = Math.max(0, to);
+    });
+  }, []);
   useEffect(() => {
     setIsLoading(false);
   }, []);
@@ -60,7 +78,21 @@ export default function HomePage() {
     if (!history.some((entry) => entry.date === unixDate)) {
       setIsListVisible(false);
     }
+    setPercentage((getCaloriesConsumed() / todaysGoal) * 100);
   }, [history]);
+
+  useEffect(() => {
+    const meters = document.querySelectorAll("svg[data-value] .meter");
+    meters.forEach((path) => {
+      let length = path.getTotalLength();
+      path.style.strokeDashoffset = length;
+      path.style.strokeDasharray = length;
+      let value = parseInt(path.parentNode.getAttribute("data-value"));
+      let to = length * ((100 - value) / 100);
+      path.getBoundingClientRect();
+      path.style.strokeDashoffset = Math.max(0, to);
+    });
+  }, [percentage]);
 
   useEffect(() => {
     isListVisible || isFormVisible
@@ -80,8 +112,6 @@ export default function HomePage() {
       : 0; // returns the sum of calories consumed
   }
 
-  const todaysGoal = calorieGoals.find((entry) => entry.date === unixDate).goal;
-
   function getGoalExceeded() {
     return history.find((entry) => entry.date === unixDate)
       ? todaysGoal >= getCaloriesConsumed() // returns true if the sum of calories is less than the corresponding goal
@@ -100,10 +130,21 @@ export default function HomePage() {
     return <LoadingDisplay>█████████████████████████████▒▒▒▒▒</LoadingDisplay>;
   }
 
+  const meters = document.querySelectorAll("svg[data-value] .meter");
+  meters.forEach((path) => {
+    let length = path.getTotalLength();
+    path.style.strokeDashoffset = length;
+    path.style.strokeDasharray = length;
+    let value = parseInt(path.parentNode.getAttribute("data-value"));
+    let to = length * ((100 - value) / 100);
+    path.getBoundingClientRect();
+    path.style.strokeDashoffset = Math.max(0, to);
+  });
+
   return (
     <>
       <StyledDiv>
-        {Bar(getCaloriesConsumed(), todaysGoal)}
+        {Bar(percentage, svgRef)}
         {/* navigation & settings */}
         <HeadingButtons>
           <SettingsButton

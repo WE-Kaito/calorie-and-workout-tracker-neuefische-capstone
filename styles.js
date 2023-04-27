@@ -120,9 +120,17 @@ export default createGlobalStyle`
     scale: 0.82;
     transform: translateY(-63px);
 }
+@media (min: 375px) {
+    scale: 1.005;
+}
 
 @media (min-width: 375px) {
     scale: 1.005;
+}
+
+@media (min-width: 375px) and (pointer: coarse) {
+    scale: 1.005;
+    transform: translateY(-20px);
 }
 
 @media (min-width: 390px) {

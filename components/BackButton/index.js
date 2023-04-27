@@ -4,6 +4,7 @@ import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function BackButton() {
   const BackButton = styled.button`
+    cursor: pointer;
     background: var(--4);
     color: var(--3);
     border-radius: 50%;

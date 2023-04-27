@@ -17,7 +17,7 @@ export default function Bar(percentage, svgRef) {
         position: "absolute",
         top: "-33px",
         left: "9px",
-        filter: "drop-shadow(0px 3px 4px rgba(0, 0, 0, 0.5))",
+        filter: "drop-shadow(0px 3px 4px black)",
       }}
     >
       <path
@@ -31,7 +31,7 @@ export default function Bar(percentage, svgRef) {
       />
       <path
         className="meter"
-        stroke={percentage < 100 ? "var(--6)" : "var(--10)"}
+        stroke={percentage < 100 ? "var(--6)" : "var(--7)"}
         d="M41 149.5a63.5 63.5 0 1 1 117.93 0"
         fill="none"
         strokeDasharray="350"

@@ -248,7 +248,8 @@ export const StyledButtonCalorieCounter = styled.button`
   border-radius: 100%;
   cursor: pointer;
   background: var(--2);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2px 7px black;
+  padding-top: 5px;
 
   &:active,
   &:hover {
@@ -295,14 +296,8 @@ export const StyledBackdrop = styled.div`
   left: -47.5px;
   z-index: -1;
   margin: 0;
-
-  /* bottom: -430px;
-  left: -110px;
-  transform: scalex(1.3) rotate(5deg); */
-  // this is for the list opening effect
 `;
 
-// add media query for scaling() the width
 export const CalendarSection = styled.div`
   position: relative;
   max-height: 264px;

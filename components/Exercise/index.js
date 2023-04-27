@@ -6,7 +6,7 @@ import {
   Input,
   Label,
   SubmitButton,
-  ButtonWrapper,
+  ExerciseButtonWrapper,
   AddExerciseForm,
   ExerciseLabel,
   ExerciseInput,
@@ -23,6 +23,7 @@ import {
 import useCalorieStore from "../../utils/useCalorieStore.js";
 import { useState } from "react";
 import { uid } from "uid";
+import { useTheme } from "next-themes";
 
 export default function Exercise({
   id,
@@ -45,7 +46,8 @@ export default function Exercise({
     typeof time === "string" ? timeToSeconds(time) : time
   );
   const [inputNotes, setInputNotes] = useState(notes);
-  console.log(exercises);
+  const { theme } = useTheme();
+
   function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -154,6 +156,7 @@ export default function Exercise({
       >
         <AddExerciseForm>
           <Input
+            style={{ border: "1.5px solid var(--2)" }}
             id="title"
             name="title"
             type="text"
@@ -214,33 +217,43 @@ export default function Exercise({
               value={inputTime}
               min={0}
               max={1800}
+              step={5}
               onChange={(event) => setInputTime(event.target.value)}
             ></Input>
             <span>{formatTime(inputTime)}</span>
           </ExerciseInputWrapper>
           <Label htmlFor="notes">Notes:</Label>
           <Input
+            style={{ border: "1.5px solid var(--2)", textAlign: "center" }}
             id="notes"
             name="notes"
             type="text"
             value={inputNotes}
             maxLength={36}
-            style={{ textAlign: "center" }}
             onChange={(event) => setInputNotes(event.target.value)}
           ></Input>
-          <ButtonWrapper>
+          <ExerciseButtonWrapper>
             {index !== 0 && (
               <DeleteExerciseButton
+                style={{ color: theme === "theme2" ? "var(--2)" : "var(--3)" }}
                 onClick={() => {
-                  toggleFormVisibility(false);
                   deleteExercise(id);
                 }}
               >
                 DELETE
               </DeleteExerciseButton>
             )}
-            <SubmitButton>save</SubmitButton>
-          </ButtonWrapper>
+            <SubmitButton
+              style={{
+                position: "absolute",
+                width: "140px",
+                bottom: "-14px",
+                left: index !== 0 ? "14px" : "-18px",
+              }}
+            >
+              UPDATE & CLOSE
+            </SubmitButton>
+          </ExerciseButtonWrapper>
         </AddExerciseForm>
       </ExerciseFormWrapper>
     </>

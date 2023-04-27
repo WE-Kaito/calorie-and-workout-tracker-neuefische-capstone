@@ -12,13 +12,13 @@ export const AddCalorieForm = styled.form`
   background-color: var(--8);
   border-radius: 25px;
   padding: 0.75rem;
-  border: 10px solid var(--2);
+  border: 8px solid var(--2);
   transform: translate(-50%, 3%);
 `;
 
 export const NameInput = styled.input`
   background: var(--3);
-  border: none;
+  border: 1.5px solid var(--2);
   border-radius: 6px;
   width: 120px;
   height: 25px;
@@ -26,7 +26,7 @@ export const NameInput = styled.input`
 
 export const NumberInput = styled.input`
   background: var(--3);
-  border: none;
+  border: 1.5px solid var(--2);
   width: 120px;
   border-radius: 6px;
   height: 25px;

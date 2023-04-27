@@ -17,11 +17,16 @@ export default function handleClickDay(
     date.getDate()
   ).getTime();
 
+  if ("vibrate" in navigator) {
+    navigator.vibrate([100]);
+  }
+
   if (history.some((entry) => entry.date === unixTileDate) && date < unixDate) {
-    setCalorieButton(!calorieButtonVisibility);
     setHistoryEntryData(
       history.slice().filter((entry) => entry.date === unixTileDate)
     );
+    setCalorieButton(!calorieButtonVisibility);
+
     setShowHistoryEntry(!showHistoryEntry);
   }
 

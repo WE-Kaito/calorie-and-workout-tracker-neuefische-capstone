@@ -15,6 +15,7 @@ import {
   ListItemEditMode,
   IntervalItem,
   IntervalButton,
+  IntervalButtonSave,
   StyledPageHeadline,
   AddRoutineButton,
 } from "../../components/WorkoutsPage/styles.js";
@@ -22,9 +23,10 @@ import BackButton from "../../components/BackButton/index.js";
 import { LoadingDisplay } from "../../components/IndexPage/styles.js";
 import useCalorieStore from "../../utils/useCalorieStore.js";
 import Link from "next/link.js";
-import headingBack from "../../assets/headingBack.svg";
-import styled from "styled-components";
+import HeadingBackground from "../../components/WorkoutsPage/HeadingBackground.js";
 import { useState, useEffect } from "react";
+import Lottie from "lottie-react";
+import plusAnimation from "../../public/lottie/plus.json";
 
 export default function WorkoutsPage() {
   const {
@@ -41,7 +43,6 @@ export default function WorkoutsPage() {
       (exercise, index, self) =>
         index === self.findIndex((e) => e.workout === exercise.workout)
     );
-  const [formVisibility, toggleFormVisibility] = useState(false);
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [currentInterval, setCurrentInterval] = useState(routineDisplay);
@@ -51,7 +52,6 @@ export default function WorkoutsPage() {
     const formdata = new FormData(event.target);
     const data = Object.fromEntries(formdata);
     addWorkout(data.title);
-    toggleFormVisibility(false);
     event.target.reset();
   }
 
@@ -73,12 +73,22 @@ export default function WorkoutsPage() {
             ]);
           }}
           style={{
-            background: currentInterval.includes(workout)
-              ? "var(--9)"
-              : "var(--6)",
+            justifyContent: "flex-start",
+            paddingLeft: "20px",
+            transform: "translateX(-4px)",
           }}
         >
           {workout.workout}
+          <Lottie
+            animationData={plusAnimation}
+            loop
+            style={{
+              width: "300px",
+              position: "absolute",
+              transform: "translate(90px,1px)",
+              pointerEvents: "none",
+            }}
+          />
         </ListItemEditMode>
       ));
     }
@@ -97,30 +107,36 @@ export default function WorkoutsPage() {
 
   return (
     <Wrapper>
-      <StyledBackground />
+      <HeadingBackground />
       <StyledPageHeadline>Workouts</StyledPageHeadline>
       <Link href="/">
         <BackButton />
       </Link>
-      <List
-        invisible={formVisibility}
-        style={{
-          height: "58%",
-          transform: isEditMode ? "translateY(54px)" : "translateY(2px)",
-        }}
-      >
+      <List>
         {renderUniqueWorkouts()}
         {!isEditMode ? (
-          <ListAddButton
-            onClick={() => {
-              toggleFormVisibility(!formVisibility);
+          <AddWorkoutForm
+            onSubmit={(event) => {
+              handleSubmit(event);
             }}
           >
-            ADD WORKOUT
-          </ListAddButton>
+            <Input
+              style={{ height: "26px", border: "2px solid var(--2)" }}
+              id="title"
+              name="title"
+              type="text"
+              required
+              maxLength={20}
+              placeholder="Title"
+            ></Input>
+            <SubmitButton>ADD WORKOUT</SubmitButton>
+          </AddWorkoutForm>
         ) : (
           <ListAddButton
-            style={{ marginBottom: "40px" }}
+            style={{
+              justifyContent: "flex-start",
+              paddingLeft: "20px",
+            }}
             onClick={() => {
               setCurrentInterval((draft) => [
                 ...draft,
@@ -128,38 +144,22 @@ export default function WorkoutsPage() {
               ]);
             }}
           >
-            + 1 REST DAY
+            1 REST DAY
+            <Lottie
+              animationData={plusAnimation}
+              loop
+              style={{
+                width: "220px",
+                position: "absolute",
+                transform: "translate(126px,1px)",
+                pointerEvents: "none",
+              }}
+            />
           </ListAddButton>
         )}
       </List>
-      <AddWorkoutForm
-        visible={formVisibility}
-        style={{ height: "386px", transform: "translateY(-18.5px)" }}
-        onSubmit={(event) => {
-          handleSubmit(event);
-        }}
-      >
-        <Label htmlFor="title">Title:</Label>
-        <Input
-          id="title"
-          name="title"
-          type="text"
-          required
-          maxLength={20}
-        ></Input>
-        <ButtonWrapper>
-          <CloseFormButton
-            type="button"
-            onClick={() => {
-              toggleFormVisibility(false);
-            }}
-          >
-            CLOSE
-          </CloseFormButton>
-          <SubmitButton>ADD WORKOUT</SubmitButton>
-        </ButtonWrapper>
-      </AddWorkoutForm>
-      {!formVisibility && !isEditMode && (
+
+      {!isEditMode && (
         <AddRoutineButton
           onClick={() => {
             setIsEditMode(!isEditMode);
@@ -185,13 +185,13 @@ export default function WorkoutsPage() {
               </IntervalItem>
             ))}
           </Interval>
-          <ButtonWrapper style={{ marginTop: "15px", marginBottom: "5px" }}>
+          <ButtonWrapper>
             <IntervalButton
               onClick={() => {
                 setIsEditMode(!isEditMode);
               }}
             >
-              CLOSE
+              ▼CLOSE▼
             </IntervalButton>
             <IntervalButton
               style={{ backgroundColor: "var(--7)", color: "var(--5)" }}
@@ -201,8 +201,8 @@ export default function WorkoutsPage() {
             >
               CLEAR
             </IntervalButton>
-            <IntervalButton
-              style={{ backgroundColor: "var(--6)", color: "var(--2)" }}
+            <IntervalButtonSave
+              href="/"
               onClick={() => {
                 setRoutine(currentInterval);
                 setRoutineDisplay(currentInterval);
@@ -210,17 +210,10 @@ export default function WorkoutsPage() {
               }}
             >
               SAVE
-            </IntervalButton>
+            </IntervalButtonSave>
           </ButtonWrapper>
         </SetIntervalSection>
       )}
     </Wrapper>
   );
 }
-
-const StyledBackground = styled(headingBack)`
-  fill: var(--1);
-  position: absolute;
-  top: 0;
-  filter: drop-shadow(0.5px 3px 3px black);
-`;

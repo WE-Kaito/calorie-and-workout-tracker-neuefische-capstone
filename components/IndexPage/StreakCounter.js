@@ -2,9 +2,13 @@ import useCalorieStore from "../../utils/useCalorieStore";
 import { unixDate } from "../../utils/useCalorieStore";
 import Lottie from "lottie-react";
 import redFlameAnimation from "../../public/lottie/redFlame.json";
+import blackFlameAnimation from "../../public/lottie/blackFlame.json";
+import blueFlameAnimation from "../../public/lottie/blueFlame.json";
+import { useTheme } from "next-themes";
 
 export default function StreakCounter({ getCaloriesConsumed }) {
   const { history, calorieGoals } = useCalorieStore();
+  const { theme } = useTheme();
 
   function getDates() {
     const aprilFirst = new Date(2023, 3, 1).getTime();
@@ -68,18 +72,50 @@ export default function StreakCounter({ getCaloriesConsumed }) {
         <span style={{ zIndex: "15", position: "absolute", color: "var(--2)" }}>
           ×{getStreak()}
         </span>
-        <Lottie
-          animationData={redFlameAnimation}
-          autoplay
-          loop
-          style={{
-            position: "absolute",
-            width: "100px",
-            zIndex: "13",
-            bottom: "-23px",
-            filter: "drop-shadow(0px -3px 5px var(--7))",
-          }}
-        />
+        {theme === "theme0" && (
+          <Lottie
+            animationData={redFlameAnimation}
+            autoplay
+            loop
+            style={{
+              position: "absolute",
+              width: "100px",
+              zIndex: "13",
+              bottom: "-23px",
+              filter: "drop-shadow(0px -3px 5px var(--7))",
+            }}
+          />
+        )}
+        {theme === "theme1" && (
+          <Lottie
+            animationData={blueFlameAnimation}
+            autoplay
+            loop
+            style={{
+              position: "absolute",
+              width: "100px",
+              scale: "1.15",
+              transform: "translate(-1px,-2px)",
+              zIndex: "13",
+              bottom: "-23px",
+            }}
+          />
+        )}
+        {theme === "theme2" && (
+          <Lottie
+            animationData={blackFlameAnimation}
+            autoplay
+            loop
+            style={{
+              position: "absolute",
+              width: "100px",
+              zIndex: "13",
+              scale: "1.25",
+              transform: "translate(1px, -2px)",
+              bottom: "-18px",
+            }}
+          />
+        )}
       </div>
     );
   }

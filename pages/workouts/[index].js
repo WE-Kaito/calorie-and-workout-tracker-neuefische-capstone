@@ -3,6 +3,7 @@ import {
   List,
   DeleteButton,
   DetailsEditButton,
+  StyledPageHeadline,
 } from "../../components/WorkoutsPage/styles.js";
 import BackButton from "../../components/BackButton/index.js";
 import Exercise from "../../components/Exercise/index.js";
@@ -35,18 +36,18 @@ export default function ExercisesPage() {
 
   return (
     <Wrapper>
-      <h1
+      <StyledPageHeadline
         style={{
           position: "absolute",
-          top: "85px",
-          left: "70px",
+          top: "70px",
+          left: "50px",
           zIndex: "10",
           color: "var(--3)",
-          fontSize: 28,
+          fontSize: 34,
         }}
       >
         {getUniqueWorkoutTitles()[index]}
-      </h1>
+      </StyledPageHeadline>
       <DeleteButton
         onClick={() => {
           deleteWorkout(getUniqueWorkoutTitles()[index]);
@@ -58,7 +59,10 @@ export default function ExercisesPage() {
       <Link href="/workouts/">
         <BackButton />
       </Link>
-      <List invisible={false}>
+      <List
+        invisible={false}
+        style={{ height: "78%", transform: "translateY(14px)" }}
+      >
         {exercises
           .slice()
           .filter(

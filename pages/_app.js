@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }) {
         themes={["theme0", "theme1", "theme2"]}
       >
         <GlobalStyle />
+
         <Component {...pageProps} />
       </ThemeProvider>
     </>

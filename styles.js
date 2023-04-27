@@ -44,7 +44,7 @@ const theme2 = {
   "--7": "#FF6347",
   "--8": "#CCCCCC",
   "--9": "#0080FF",
-  "--10": "#593680",
+  "--10": "#683a9c",
   "--11": "#D9D9D9",
 };
 
@@ -99,6 +99,13 @@ export default createGlobalStyle`
     --11: ${() => theme2["--11"]};
   }
 
+  html{
+    background-color: var(--2);
+    @media (min-width: 768px) {
+    background-color: var(--1);
+    }
+  }
+
   body {
     margin: 0;
     font-family: var(--font1), sans-serif, system-ui;
@@ -108,10 +115,75 @@ export default createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 280px) {
+    scale: 0.82;
+    transform: translateY(-63px);
+}
+
+@media (min-width: 375px) {
+    scale: 1.005;
+}
+
+@media (min-width: 390px) {
+    scale: 1.043;
+    transform: translateY(12px);
+}
+
+@media (min-width: 393px) {
+    scale: 1.048;
+    transform: translateY(13px);
+}
+
+@media (min-width: 412px) {
+    scale: 1.1;
+    transform: translateY(25px);
+}
+
+
+    @media (min-width: 414px) {
+    scale: 1.1073;
+    transform: translateY(27px);
+    }
+
+    @media (min-width: 768px) {
+    scale: 1.535;
+    transform: translateY(117px);
+    }
+
+    @media (min-width: 820px) {
+    scale: 1.71;
+    transform: translateY(117px);
+    }
+
+    @media (min-width: 912px) {
+    scale: 2.055;
+    transform: translateY(171px);
+    }
+
+    @media (min-width: 923px) {
+    scale: 1;
+    transform: translateY(0px);    }
   }
   
+  button{
+  @media (pointer: coarse) {
+  :hover, :active {
+    background-color: transparent;
+  }
+}
+}
+
   ::placeholder {
   color: var(--1);
   text-align: center;
 }
+input,
+  textarea,
+  button,
+  select,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
 `;

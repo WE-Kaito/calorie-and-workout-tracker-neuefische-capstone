@@ -1,6 +1,6 @@
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { unixDate } from "../../utils/useCalorieStore";
 import useCalorieStore from "../../utils/useCalorieStore";
 import CalendarWrapper, { StrokeWrapper } from "./styles";
@@ -18,6 +18,7 @@ export default function HomeCalendar({
   calorieButtonVisibility,
   showHistoryEntry,
   setShowHistoryEntry,
+  setIsWorkoutVisible,
 }) {
   const { history, calorieGoals, routine, completedWorkouts } =
     useCalorieStore();
@@ -36,19 +37,20 @@ export default function HomeCalendar({
     history.slice().filter((entry) => entry.date === unixDate).length > 4 &&
     isVisible;
 
-  const isDate1Digit = new Date(unixDate).getDate().toString().length === 1;
-
   const isWorkoutToday = routine
     .slice()
     .filter((entry) => entry.id !== "free")
     .some((entry) => entry.date === unixDate);
 
+  useEffect(() => {
+    setIsWorkoutVisible(showWorkout);
+  }, [showWorkout]);
+
+  console.log(showWorkout);
+  console.log(isWorkoutToday);
+
   return (
-    <CalendarWrapper
-      isVisible={invisible}
-      digit1={isDate1Digit}
-      workoutToday={isWorkoutToday}
-    >
+    <>
       <StrokeWrapper isVisible={invisible}>
         <span>|</span>
         <span>|</span>
@@ -57,72 +59,73 @@ export default function HomeCalendar({
         <span>|</span>
         <span>|</span>
       </StrokeWrapper>
-      <Calendar
-        aria-label="Calendar with tracked data"
-        value={date}
-        selectRange={false}
-        maxDate={lastDate}
-        minDate={earliestDate}
-        minDetail="month"
-        formatShortWeekday={formatShortWeekday}
-        formatMonthYear={formatMonthYear}
-        onChange={(date) => {
-          setDate(date);
-        }}
-        onClick={(event) => {
-          event.target.stopPropagation();
-        }}
-        onClickDay={() => {
-          handleClickDay(
-            date,
-            history,
-            unixDate,
-            setCalorieButton,
-            calorieButtonVisibility,
-            setShowWorkout,
-            setShowHistoryEntry,
-            setHistoryEntryData,
-            showHistoryEntry,
-            isWorkoutToday,
-            showWorkout
-          );
-        }}
-        tileClassName={({ date, view }) =>
-          getTileClassName(
-            date,
-            view,
-            history,
-            calorieGoals,
-            routine,
-            unixDate,
-            getCaloriesConsumed
-          )
-        }
-        tileContent={({ date }) =>
-          tileContent({ date }, unixDate, routine, completedWorkouts)
-        }
-      />
-      {showHistoryEntry && (
-        <CalendarEntry
-          getCaloriesConsumed={getCaloriesConsumed}
-          historyEntryData={historyEntryData}
+      <CalendarWrapper isVisible={invisible} workoutToday={isWorkoutToday}>
+        <Calendar
+          aria-label="Calendar with tracked data"
+          value={date}
+          selectRange={false}
+          maxDate={lastDate}
+          minDate={earliestDate}
+          minDetail="month"
+          formatShortWeekday={formatShortWeekday}
+          formatMonthYear={formatMonthYear}
+          onChange={(date) => {
+            setDate(date);
+            handleClickDay(
+              date,
+              history,
+              unixDate,
+              setCalorieButton,
+              calorieButtonVisibility,
+              setShowWorkout,
+              setShowHistoryEntry,
+              setHistoryEntryData,
+              showHistoryEntry,
+              isWorkoutToday,
+              showWorkout
+            );
+          }}
+          onClick={(event) => {
+            event.target.stopPropagation();
+          }}
+          onClickDay={() => {}}
+          tileClassName={({ date, view }) =>
+            getTileClassName(
+              date,
+              view,
+              history,
+              calorieGoals,
+              routine,
+              unixDate,
+              getCaloriesConsumed
+            )
+          }
+          tileContent={({ date }) =>
+            tileContent({ date }, unixDate, routine, completedWorkouts)
+          }
         />
-      )}
-      {showWorkout && isWorkoutToday && (
-        <CalendarExercises
-          setPlayState={setPlayState}
-          setShowWorkout={setShowWorkout}
-          setCalorieButton={setCalorieButton}
-          calorieButtonVisibility={calorieButtonVisibility}
-        />
-      )}
-      {playState === "play" && (
-        <AnimationWorkoutCompleted
-          playState={playState}
-          setPlayState={setPlayState}
-        />
-      )}
-    </CalendarWrapper>
+        {showHistoryEntry && (
+          <CalendarEntry
+            getCaloriesConsumed={getCaloriesConsumed}
+            historyEntryData={historyEntryData}
+          />
+        )}
+        {showWorkout && isWorkoutToday && (
+          <CalendarExercises
+            setPlayState={setPlayState}
+            setShowWorkout={setShowWorkout}
+            setCalorieButton={setCalorieButton}
+            calorieButtonVisibility={calorieButtonVisibility}
+          />
+        )}
+        {playState === "play" && (
+          <AnimationWorkoutCompleted
+            playState={playState}
+            setPlayState={setPlayState}
+          />
+        )}
+      </CalendarWrapper>
+    </>
   );
 }
 

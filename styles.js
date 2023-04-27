@@ -128,11 +128,6 @@ export default createGlobalStyle`
     scale: 1.005;
 }
 
-@media (min-width: 375px) and (pointer: coarse) {
-    scale: 1.005;
-    transform: translateY(-20px);
-}
-
 @media (min-width: 390px) {
     scale: 1.043;
     transform: translateY(12px);

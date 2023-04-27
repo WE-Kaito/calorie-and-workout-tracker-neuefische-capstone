@@ -10,6 +10,7 @@ import Backdrop from "../assets/backdrop.svg";
 import Pages from "../assets/pages.svg";
 import Settings from "../assets/settings.svg";
 import Bar from "../components/IndexPage/Bar";
+import StreakCounter from "../components/IndexPage/StreakCounter";
 import {
   StyledDiv,
   StyledButtonCalorieCounter,
@@ -45,7 +46,10 @@ export default function HomePage() {
   const [isQSVisible, setIsQSVisible] = useState(false);
   const [isAddCaloriesButtonVisible, setIsAddCaloriesButtonVisible] =
     useState(true);
-  const todaysGoal = calorieGoals.find((entry) => entry.date === unixDate).goal;
+  const [showHistoryEntry, setShowHistoryEntry] = useState(false);
+  const todaysGoal = calorieGoals.find(
+    (entry) => entry.date === unixDate
+  )?.goal;
 
   const [percentage, setPercentage] = useState(0);
 
@@ -121,6 +125,9 @@ export default function HomePage() {
   return (
     <>
       <StyledDiv>
+        {!isListVisible && !showHistoryEntry && (
+          <StreakCounter getCaloriesConsumed={getCaloriesConsumed} />
+        )}
         {Bar(percentage, svgRef)}
         {/* navigation & settings */}
         <HeadingButtons>
@@ -241,6 +248,8 @@ export default function HomePage() {
             <Backdrop />
           </StyledBackdrop>
           <HomeCalendar
+            showHistoryEntry={showHistoryEntry}
+            setShowHistoryEntry={setShowHistoryEntry}
             getTileColor={getGoalExceeded}
             getCaloriesConsumed={getCaloriesConsumed}
             isVisible={isListVisible}

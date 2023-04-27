@@ -16,11 +16,13 @@ export default function HomeCalendar({
   isVisible,
   setCalorieButton,
   calorieButtonVisibility,
+  showHistoryEntry,
+  setShowHistoryEntry,
 }) {
   const { history, calorieGoals, routine, completedWorkouts } =
     useCalorieStore();
   const [date, setDate] = useState(new Date());
-  const [showHistoryEntry, setShowHistoryEntry] = useState(false);
+
   const [historyEntryData, setHistoryEntryData] = useState([
     { date: null, meal: null, calories: null, time_stamp: null },
   ]);

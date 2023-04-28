@@ -3,7 +3,6 @@ import {
   List,
   AddDishForm,
   Input,
-  BackButton,
   Label,
   SubmitButton,
   CloseFormButton,
@@ -19,6 +18,7 @@ import useCalorieStore from "../../utils/useCalorieStore.js";
 import Link from "next/link.js";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import BackButton from "../../components/BackButton/index.js";
 
 export default function DishDetails() {
   const { dishes, addDish, deleteDish } = useCalorieStore();
@@ -68,7 +68,7 @@ export default function DishDetails() {
           DELETE ENTRY
         </DeleteButton>
         <Link href="/">
-          <BackButton>🔙</BackButton>
+          <BackButton />
         </Link>
         <List invisible={formVisibility}>
           <DetailsList>

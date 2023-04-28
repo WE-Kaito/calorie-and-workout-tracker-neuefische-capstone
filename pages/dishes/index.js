@@ -5,7 +5,6 @@ import {
   ListAddButton,
   AddDishForm,
   Input,
-  BackButton,
   Label,
   SubmitButton,
   CloseFormButton,
@@ -15,6 +14,7 @@ import { LoadingDisplay } from "../../components/IndexPage/styles.js";
 import useCalorieStore from "../../utils/useCalorieStore.js";
 import Link from "next/link.js";
 import { useState, useEffect } from "react";
+import BackButton from "../../components/BackButton/index.js";
 
 export default function DishesPage() {
   const { dishes, addDish } = useCalorieStore();
@@ -66,7 +66,7 @@ export default function DishesPage() {
         Dishes
       </h1>
       <Link href="/">
-        <BackButton>🔙</BackButton>
+        <BackButton />
       </Link>
       <List invisible={formVisibility}>
         {dishes.map((dish, index) => (

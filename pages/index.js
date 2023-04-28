@@ -7,10 +7,12 @@ import ConsumedList from "../components/ConsumedList/ConsumedList";
 import HomeCalendar from "../components/Calendar";
 import { useState, useEffect, useRef } from "react";
 import Backdrop from "../assets/backdrop.svg";
-import Pages from "../assets/pages.svg";
-import Settings from "../assets/settings.svg";
+import PagesIcon from "../assets/pages.svg";
+import SettingsIcon from "../assets/settings.svg";
 import Bar from "../components/IndexPage/Bar";
 import StreakCounter from "../components/IndexPage/StreakCounter";
+import Settings from "../components/Settings";
+import Navigation from "../components/Navigation";
 import {
   StyledDiv,
   StyledButtonCalorieCounter,
@@ -20,20 +22,11 @@ import {
   LoadingDisplay,
   CalendarSection,
   StyledBackdrop,
-  Nav,
-  LinkContainer,
-  StyledLink,
-  StyledNavSpan,
-  StyledNavButton,
   HeadingButtons,
   SettingsButton,
   PagesButton,
-  SettingsSection,
-  StyledInput,
-  StyledForm,
-  StyledSaveButton,
 } from "../components/IndexPage/styles";
-
+import styled from "styled-components";
 export default function HomePage() {
   const { history, calorieGoals, setCalorieGoal } = useCalorieStore();
   calorieGoals.at(-1).date !== unixDate && setCalorieGoal();
@@ -110,14 +103,6 @@ export default function HomePage() {
       : true;
   }
 
-  function handleSettingsSubmit(event) {
-    event.preventDefault();
-    const formdata = new FormData(event.target);
-    const data = Object.fromEntries(formdata);
-    setCalorieGoal(data.calorieGoalInput);
-    event.target.reset();
-  }
-
   if (isLoading) {
     return <LoadingDisplay>█████████████████████████████▒▒▒▒▒</LoadingDisplay>;
   }
@@ -129,66 +114,34 @@ export default function HomePage() {
           <StreakCounter getCaloriesConsumed={getCaloriesConsumed} />
         )}
         {Bar(percentage, svgRef)}
+
         {/* navigation & settings */}
+
         <HeadingButtons>
           <SettingsButton
             onClick={() => {
               setIsSettingsVisible(!isSettingsVisible);
+              setIsPagesVisible(false);
             }}
           >
-            <Settings className={isSettingsVisible ? "head-buttons" : null} />
+            <StyledSettingsIcon isSettingsVisible={isSettingsVisible} />
           </SettingsButton>
           <PagesButton
             onClick={() => {
               setIsPagesVisible(!isPagesVisible);
+              setIsSettingsVisible(false);
             }}
           >
-            <Pages className={isPagesVisible ? "head-buttons" : null} />
+            <StyledPagesIcon isPagesVisible={isPagesVisible} />
           </PagesButton>
         </HeadingButtons>
-
-        <SettingsSection isVisible={isSettingsVisible}>
-          <span style={{ color: "var(--1)", marginRight: "54px" }}>
-            CALORIE GOAL
-          </span>
-          <StyledForm
-            onSubmit={(event) => {
-              handleSettingsSubmit(event);
-            }}
-          >
-            <StyledInput
-              type="number"
-              min={0}
-              placeholder={`${calorieGoals.at(-1).goal} kcal`}
-              name="calorieGoalInput"
-              required
-            ></StyledInput>
-            <StyledSaveButton
-              type="submit"
-              onClick={() => {
-                setIsSettingsVisible(false);
-              }}
-            >
-              save
-            </StyledSaveButton>
-          </StyledForm>
-        </SettingsSection>
-
-        <Nav isVisible={isPagesVisible}>
-          <LinkContainer>
-            <StyledLink href="/dishes">
-              <StyledNavButton>Dishes</StyledNavButton>
-            </StyledLink>
-            <StyledNavSpan>{` ➤`}</StyledNavSpan>
-          </LinkContainer>
-
-          <LinkContainer>
-            <StyledLink href="/workouts">
-              <StyledNavButton>Workouts</StyledNavButton>
-            </StyledLink>
-            <StyledNavSpan>➤</StyledNavSpan>
-          </LinkContainer>
-        </Nav>
+        <Settings
+          isSettingsVisible={isSettingsVisible}
+          setIsSettingsVisible={setIsSettingsVisible}
+          calorieGoals={calorieGoals}
+          setCalorieGoal={setCalorieGoal}
+        />
+        <Navigation isPagesVisible={isPagesVisible} />
 
         {/* main content */}
 
@@ -245,7 +198,7 @@ export default function HomePage() {
         </ConsumedContainer>
         <CalendarSection isVisible={isListVisible}>
           <StyledBackdrop>
-            <Backdrop />
+            <StyledBackdropSVG />
           </StyledBackdrop>
           <HomeCalendar
             showHistoryEntry={showHistoryEntry}
@@ -261,3 +214,17 @@ export default function HomePage() {
     </>
   );
 }
+
+const StyledBackdropSVG = styled(Backdrop)`
+  fill: var(--2);
+`;
+
+const StyledPagesIcon = styled(PagesIcon)`
+  fill: ${({ isPagesVisible }) => (isPagesVisible ? "var(--8)" : "var(--3)")};
+  stroke: ${({ isPagesVisible }) => (isPagesVisible ? "var(--8)" : "var(--3)")};
+`;
+
+const StyledSettingsIcon = styled(SettingsIcon)`
+  fill: ${({ isSettingsVisible }) =>
+    isSettingsVisible ? "var(--8)" : "var(--3)"};
+`;

@@ -42,7 +42,7 @@ const CalendarWrapper = styled.div`
     }
 
     .react-calendar__navigation__label__labelText {
-      color: black;
+      color: var(--4);
       visibility: ${(props) => (props.isVisible ? "hidden" : "visible")};
       background: var(--1);
       border-radius: 10px;
@@ -107,18 +107,18 @@ const CalendarWrapper = styled.div`
     .react-calendar__month-view__days__day--weekend,
     .react-calendar__month-view__days__day--weekend abbr,
     .react-calendar__month-view__days__day--weekend button:enabled:focus {
-      color: var(--3);
+      color: var(--11);
     }
 
     .react-calendar__month-view__days__day--neighboringMonth,
     .react-calendar__month-view__days__day--neighboringMonth abbr {
-      color: var(--3) !important;
+      color: var(--5) !important;
       opacity: 0.45;
       box-shadow: none !important;
     }
 
     .react-calendar__tile {
-      color: var(--3);
+      color: var(--5);
       background-color: rgba(255, 255, 255, 0);
       text-align: center;
       border-radius: 30px;
@@ -130,8 +130,11 @@ const CalendarWrapper = styled.div`
       border: 5px solid var(--2);
     }
 
+    .react-calendar__tile abbr {
+    }
+
     .react-calendar__tile:disabled {
-      color: ghostwhite;
+      color: var(--5);
       cursor: pointer;
     }
 
@@ -190,7 +193,7 @@ const CalendarWrapper = styled.div`
     .react-calendar__tile--workout,
     .react-calendar__tile--workout abbr {
       background: var(--1);
-      color: var(--3);
+      color: var(--5);
     }
   }
 `;

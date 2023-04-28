@@ -47,23 +47,24 @@ export const AddCalorieButton = styled.button`
   height: 60px;
   border-radius: 50%;
   font-size: 1.2rem;
-  cursor: pointer;
-  border: 2px solid var(--4);
+  font-style: italic;
+  font-weight: bold;
+  box-shadow: 0px 2px 3px black;
 
-  &:hover,
-  &:active {
-    background-color: var(--6);
-    border-color: var(--1);
+  &:hover {
+    background: var(--6);
   }
   &:active {
-    box-shadow: inset 0px 0px 3px var(--2);
+    background: var(--6);
+    box-shadow: 0px 1px 2px black;
+    transform: translateY(0.5px);
   }
 `;
 
 // quick selection
 
 export const OpenQSButton = styled.button`
-  border: 2px solid var(--2);
+  border: none;
   background: var(--3);
   color: var(--2);
   border-radius: 10px;
@@ -75,13 +76,15 @@ export const OpenQSButton = styled.button`
   font-size: x-small;
   font-weight: 600;
 
-  &:hover,
-  &:active {
-    background-color: var(--8);
-    border-color: var(--1);
+  box-shadow: 0px 2px 3px black;
+
+  &:hover {
+    background: var(--6);
   }
   &:active {
-    box-shadow: inset 0px 0px 3px var(--2);
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
   }
 `;
 

@@ -14,22 +14,6 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const BackButton = styled.button`
-  background: var(--3);
-  border-radius: 50%;
-  padding: 16.5px 20px 16.5px 20px;
-  border: none;
-  font-size: xx-large;
-
-  position: absolute;
-  right: 15px;
-  top: 15px;
-
-  &:hover {
-    background-color: var(--8);
-  }
-`;
-
 export const List = styled.section`
   visibility: ${({ invisible }) => (invisible ? "hidden" : "visible")};
   position: ${({ invisible }) => (invisible ? "absolute" : "relative")};

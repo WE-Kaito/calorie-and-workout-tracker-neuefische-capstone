@@ -5,7 +5,6 @@ import {
   ListAddButton,
   AddWorkoutForm,
   Input,
-  BackButton,
   Label,
   SubmitButton,
   CloseFormButton,
@@ -16,10 +15,15 @@ import {
   ListItemEditMode,
   IntervalItem,
   IntervalButton,
+  StyledPageHeadline,
+  AddRoutineButton,
 } from "../../components/WorkoutsPage/styles.js";
+import BackButton from "../../components/BackButton/index.js";
 import { LoadingDisplay } from "../../components/IndexPage/styles.js";
 import useCalorieStore from "../../utils/useCalorieStore.js";
 import Link from "next/link.js";
+import headingBack from "../../assets/headingBack.svg";
+import styled from "styled-components";
 import { useState, useEffect } from "react";
 
 export default function WorkoutsPage() {
@@ -93,20 +97,10 @@ export default function WorkoutsPage() {
 
   return (
     <Wrapper>
-      <h1
-        style={{
-          position: "absolute",
-          top: "67px",
-          left: "70px",
-          zIndex: "10",
-          color: "var(--3)",
-          fontSize: 28,
-        }}
-      >
-        Workouts
-      </h1>
+      <StyledBackground />
+      <StyledPageHeadline>Workouts</StyledPageHeadline>
       <Link href="/">
-        <BackButton>🔙</BackButton>
+        <BackButton />
       </Link>
       <List
         invisible={formVisibility}
@@ -166,22 +160,17 @@ export default function WorkoutsPage() {
         </ButtonWrapper>
       </AddWorkoutForm>
       {!formVisibility && !isEditMode && (
-        <ListAddButton
-          style={{
-            width: "260px",
-            height: "40px",
-            transform: "translateY(2.8px)",
-          }}
+        <AddRoutineButton
           onClick={() => {
             setIsEditMode(!isEditMode);
           }}
         >
-          ADD ROUTINE TO CALENDAR
-        </ListAddButton>
+          ▲ ADD ROUTINE TO CALENDAR ▲
+        </AddRoutineButton>
       )}
       {isEditMode && (
         <SetIntervalSection>
-          <IntervalHeadline>YOUR WORKOUT INTERVAL:</IntervalHeadline>
+          <IntervalHeadline>YOUR ROUTINE:</IntervalHeadline>
           <Interval>
             {currentInterval.map((workout, index) => (
               <IntervalItem
@@ -191,6 +180,7 @@ export default function WorkoutsPage() {
                   color: workout.id === "free" ? "lightsteelblue" : null,
                 }}
               >
+                {currentInterval.length - 1 === index ? "↻ " : "⇣ "}
                 {workout.workout}
               </IntervalItem>
             ))}
@@ -227,3 +217,10 @@ export default function WorkoutsPage() {
     </Wrapper>
   );
 }
+
+const StyledBackground = styled(headingBack)`
+  fill: var(--1);
+  position: absolute;
+  top: 0;
+  filter: drop-shadow(0.5px 3px 3px black);
+`;

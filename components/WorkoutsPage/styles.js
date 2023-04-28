@@ -37,7 +37,7 @@ export const List = styled.section`
 
   width: 70%;
   height: 63%;
-  background: var(--1);
+  background: none;
   border-radius: 20px;
   transform: translateY(5%);
   overflow-y: scroll;
@@ -50,19 +50,32 @@ export const List = styled.section`
 export const ListAddButton = styled.button`
   width: 100%;
   height: 10%;
+  color: var(--4);
 
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background: var(--3);
-  color: var(--2);
   border-radius: 20px;
   border: none;
-  cursor: pointer;
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 17px;
+
+  background: var(--9);
+  box-shadow: 0px 2px 3px black;
+  padding-top: 4.5px;
 
   &:hover {
-    background-color: var(--8);
+    background-color: var(--6);
+  }
+  &:active {
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
+  }
+  &:visited {
+    text-decoration: none;
+    color: var(--2);
   }
 `;
 
@@ -238,6 +251,7 @@ export const ExerciseInputWrapper = styled.div`
 
 export const ListItem = styled(Link)`
   text-decoration: none;
+  font-size: 17px;
   width: 100%;
   height: 10%;
   color: var(--2);
@@ -249,10 +263,16 @@ export const ListItem = styled(Link)`
   border: none;
   margin-bottom: 15px;
 
-  background: var(--8);
+  background: var(--3);
+  box-shadow: 0px 2px 3px black;
 
   &:hover {
-    background-color: var(--3);
+    background-color: var(--6);
+  }
+  &:active {
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
   }
   &:visited {
     text-decoration: none;
@@ -315,28 +335,29 @@ export const DeleteExerciseButton = styled.button`
 
 export const SetIntervalSection = styled.section`
   transform: translateY(20px);
-  width: 70%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  background: var(--3);
+  width: 100%;
+  height: 30%;
+
+  position: absolute;
+  bottom: 0;
+  padding: 8px 200px 20px 28px;
+  background: var(--8);
   color: var(--2);
-  border-radius: 20px;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
 `;
 
 export const IntervalHeadline = styled.h2`
-  margin-bottom: 0;
+  margin-bottom: 8px;
   font-size: 0.96em;
 `;
 
 export const Interval = styled.div`
   display: flex;
-  width: 240px;
-  gap: 4px;
-  flex-wrap: wrap;
-  max-height: 58px;
+  flex-direction: column;
+  width: 180px;
+  gap: 5px;
+  max-height: 106px;
   overflow-y: scroll;
 
   scrollbar-width: thin;
@@ -379,6 +400,7 @@ export const ListItemEditMode = styled.button`
 
 export const IntervalItem = styled.span`
   height: 20px;
+  width: 100%;
   background: var(--1);
   color: var(--5);
   border-radius: 6px;
@@ -392,4 +414,37 @@ export const IntervalButton = styled.button`
   color: var(--4);
   padding: 5px;
   border-radius: 7px;
+`;
+
+export const StyledPageHeadline = styled.h1`
+  position: absolute;
+  top: 5px;
+  left: 70px;
+  z-index: 10;
+  color: var(--3);
+  font-size: 40px;
+  text-shadow: 1px 1px 2px black;
+`;
+
+export const AddRoutineButton = styled.button`
+  border: none;
+  position: absolute;
+  bottom: 0px;
+  background: var(--8);
+  width: 100%;
+  height: 10%;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  font-size: 20px;
+  color: var(--2);
+  box-shadow: 0px -0.5px 2px black;
+
+  &:hover,
+  &:active {
+    background-color: var(--6);
+  }
+  &:active {
+    height: 15%;
+    padding-bottom: 10%;
+  }
 `;

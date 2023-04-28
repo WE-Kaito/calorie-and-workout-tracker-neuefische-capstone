@@ -1,10 +1,10 @@
 import {
   Wrapper,
   List,
-  BackButton,
   DeleteButton,
   DetailsEditButton,
 } from "../../components/WorkoutsPage/styles.js";
+import BackButton from "../../components/BackButton/index.js";
 import Exercise from "../../components/Exercise/index.js";
 import { LoadingDisplay } from "../../components/IndexPage/styles.js";
 import useCalorieStore from "../../utils/useCalorieStore.js";
@@ -56,7 +56,7 @@ export default function ExercisesPage() {
         DELETE WORKOUT
       </DeleteButton>
       <Link href="/workouts/">
-        <BackButton>🔙</BackButton>
+        <BackButton />
       </Link>
       <List invisible={false}>
         {exercises

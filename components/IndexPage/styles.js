@@ -15,7 +15,7 @@ export const StyledDiv = styled.div`
 // Navigation & Settings -------------------------------
 
 export const HeadingButtons = styled.div`
-  z-index: 20;
+  z-index: 33;
   position: absolute;
   top: 20px;
   left: 50%;
@@ -49,7 +49,7 @@ export const Nav = styled.nav`
   right: -47.5px;
   width: 280px;
   height: 260px;
-  z-index: 3;
+  z-index: 30;
   background: var(--2);
   border-bottom-left-radius: 30px;
   filter: drop-shadow(2px 2px 5px black);
@@ -153,7 +153,7 @@ export const ConsumedContainer = styled.div`
   height: 80%;
   left: 50%;
   transform: translateX(-50%) scale(0.85);
-  z-index: 3;
+  z-index: 100;
 
   padding: 2rem;
   border-radius: 25px;

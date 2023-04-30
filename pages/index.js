@@ -46,6 +46,7 @@ export default function HomePage() {
   const [isQSVisible, setIsQSVisible] = useState(false);
   const [isAddCaloriesButtonVisible, setIsAddCaloriesButtonVisible] =
     useState(true);
+  const [showHistoryEntry, setShowHistoryEntry] = useState(false);
   const todaysGoal = calorieGoals.find(
     (entry) => entry.date === unixDate
   )?.goal;
@@ -124,9 +125,9 @@ export default function HomePage() {
   return (
     <>
       <StyledDiv>
-        <StreakCounter
-          getCaloriesConsumed={getCaloriesConsumed}
-        ></StreakCounter>
+        {!isListVisible && !showHistoryEntry && (
+          <StreakCounter getCaloriesConsumed={getCaloriesConsumed} />
+        )}
         {Bar(percentage, svgRef)}
         {/* navigation & settings */}
         <HeadingButtons>
@@ -247,6 +248,8 @@ export default function HomePage() {
             <Backdrop />
           </StyledBackdrop>
           <HomeCalendar
+            showHistoryEntry={showHistoryEntry}
+            setShowHistoryEntry={setShowHistoryEntry}
             getTileColor={getGoalExceeded}
             getCaloriesConsumed={getCaloriesConsumed}
             isVisible={isListVisible}

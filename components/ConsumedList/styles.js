@@ -48,6 +48,6 @@ export const Wrapper = styled.div`
   left: 50%;
   transform: translateX(-50%);
 
-  z-index: 10;
+  z-index: 100;
   position: fixed;
 `;

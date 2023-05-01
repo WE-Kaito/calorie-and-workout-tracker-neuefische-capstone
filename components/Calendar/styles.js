@@ -46,7 +46,7 @@ const CalendarWrapper = styled.div`
     .react-calendar__navigation__label {
       position: absolute;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%, 3px);
     }
 
     .react-calendar__navigation__label__labelText {
@@ -99,10 +99,18 @@ const CalendarWrapper = styled.div`
       background: none;
     }
     .react-calendar__navigation__prev-button {
-      transform: translate(-20px, -1px) !important;
+      transform: translate(-20px, -6px) scaleY(0.92) !important;
+      font-size: 18px;
+      padding-bottom: 2.75px;
+
+      filter: drop-shadow(0px 1px 1.5px black);
     }
     .react-calendar__navigation__next-button {
-      transform: translate(124.5px, -1px) !important;
+      transform: translate(124.5px, -6px) scaleY(0.92) !important;
+      font-size: 18px;
+      padding-bottom: 2.75px;
+
+      filter: drop-shadow(0px 1px 1.5px black);
     }
 
     .react-calendar__navigation__next2-button,
@@ -140,9 +148,6 @@ const CalendarWrapper = styled.div`
       font-size: 14;
       font-weight: 500;
     }
-    button {
-      border: 5px solid var(--2);
-    }
 
     .react-calendar__tile abbr {
       padding-left: 0.75px;
@@ -159,7 +164,12 @@ const CalendarWrapper = styled.div`
       border: 2px solid var(--2);
       border-radius: 25px;
       background: var(--2);
-      padding: 5.5px;
+      padding-top: 5.5px;
+      padding-bottom: 5.5px;
+      padding-left: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
+      padding-right: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
     }
     .react-calendar__tile--now {
       border: 2.5px solid var(--2);
@@ -175,7 +185,12 @@ const CalendarWrapper = styled.div`
 
     .react-calendar__tile--now--wasExceeded abbr {
       border: 2.5px solid var(--2);
-      padding: 5.5px;
+      padding-top: 5.5px;
+      padding-bottom: 5.5px;
+      padding-left: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
+      padding-right: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
       border-radius: 25px;
       background: var(--2);
     }
@@ -186,7 +201,12 @@ const CalendarWrapper = styled.div`
 
     .react-calendar__tile--now--wasNotExceeded abbr {
       border: 2.5px solid var(--2);
-      padding: 5.5px;
+      padding-top: 5.5px;
+      padding-bottom: 5.5px;
+      padding-left: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
+      padding-right: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
       margin-left: 0.25px;
       border-radius: 25px;
       background: var(--2);
@@ -201,6 +221,11 @@ const CalendarWrapper = styled.div`
       background-color: var(--7);
       color: var(--4);
     }
+
+    .react-calendar__tile--wasExceeded,
+    .react-calendar__tile--wasNotExceeded {
+      border: 5px solid var(--2);
+    }
     .react-calendar__tile--wasNotExceeded,
     .react-calendar__tile--wasNotExceeded abbr {
       background-color: var(--6);
@@ -211,6 +236,9 @@ const CalendarWrapper = styled.div`
     .react-calendar__tile--workout abbr {
       background: var(--1);
       color: var(--5);
+    }
+    .react-calendar__tile--workout {
+      border: 5px solid var(--2);
     }
   }
 `;

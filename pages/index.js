@@ -134,13 +134,15 @@ export default function HomePage() {
           <StyledPagesIcon isPagesVisible={isPagesVisible} />
         </PagesButton>
       </HeadingButtons>
-      <Settings
-        isSettingsVisible={isSettingsVisible}
-        setIsSettingsVisible={setIsSettingsVisible}
-        calorieGoals={calorieGoals}
-        setCalorieGoal={setCalorieGoal}
-      />
-      <Navigation isPagesVisible={isPagesVisible} />
+      {isSettingsVisible && (
+        <Settings
+          isSettingsVisible={isSettingsVisible}
+          setIsSettingsVisible={setIsSettingsVisible}
+          calorieGoals={calorieGoals}
+          setCalorieGoal={setCalorieGoal}
+        />
+      )}
+      {isPagesVisible && <Navigation />}
 
       {/* main content */}
 

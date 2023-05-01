@@ -1,6 +1,8 @@
+import styled from "styled-components";
+
 export default function Bar(percentage, svgRef) {
   return (
-    <svg
+    <StyledSVG
       ref={svgRef}
       pointerEvents="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -8,17 +10,6 @@ export default function Bar(percentage, svgRef) {
       width="262"
       viewBox="0 0 200 200"
       data-value={`${percentage}`}
-      style={{
-        willChange: "auto",
-        strokeWidth: "17px",
-        strokeMiterlimit: "round",
-        strokeLinecap: "round",
-        transition: "stroke-dashoffset 850ms ease-in-out",
-        position: "absolute",
-        top: "-33px",
-        left: "9px",
-        filter: "drop-shadow(0px 3px 4px black)",
-      }}
     >
       <path
         className="bg"
@@ -37,6 +28,18 @@ export default function Bar(percentage, svgRef) {
         strokeDasharray="350"
         strokeDashoffset="350"
       />
-    </svg>
+    </StyledSVG>
   );
 }
+
+const StyledSVG = styled.svg`
+  will-change: auto;
+  stroke-width: 17px;
+  stroke-miterlimit: round;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 850ms ease-in-out;
+  position: absolute;
+  top: -33px;
+  left: 9px;
+  filter: drop-shadow(0px 3px 4px black);
+`;

@@ -23,7 +23,6 @@ export default function ExercisesPage() {
     const workouts = exercises.map((exercise) => exercise.workout);
     return [...new Set(workouts)];
   }
-  console.log(getUniqueWorkoutTitles());
   // hydration error handling
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {

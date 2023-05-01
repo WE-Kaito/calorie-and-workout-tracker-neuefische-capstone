@@ -49,8 +49,6 @@ export const Nav = styled.nav`
   background: var(--2);
   border-bottom-left-radius: 30px;
   filter: drop-shadow(2px 2px 5px black);
-
-  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
 `;
 
 export const LinkContainer = styled.div`
@@ -117,8 +115,6 @@ export const SettingsSection = styled.nav`
   background: var(--2);
   border-bottom-right-radius: 150px;
   filter: drop-shadow(2px 2px 5px black);
-
-  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
 `;
 
 export const StyledForm = styled.form`
@@ -269,7 +265,7 @@ export const OpenCalorieFormButton = styled.button`
   width: 60px;
   height: 60px;
   cursor: pointer;
-  box-shadow: 0px 4px 4px black;
+  box-shadow: 0px 3px 4px black;
   transform: translateY(-34px);
   z-index: 2;
 
@@ -302,4 +298,14 @@ export const CalendarSection = styled.div`
   position: relative;
   max-height: 264px;
   z-index: ${(props) => (props.isVisible ? "-1" : "1")};
+`;
+
+export const StreakCounterDiv = styled.div`
+  position: absolute;
+  top: 247px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
 `;

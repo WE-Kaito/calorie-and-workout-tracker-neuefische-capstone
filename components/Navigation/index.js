@@ -8,9 +8,9 @@ import {
 } from "../IndexPage/styles";
 import Link from "next/link";
 
-export default function Navigation({ isPagesVisible }) {
+export default function Navigation() {
   return (
-    <Nav isVisible={isPagesVisible}>
+    <Nav>
       <StyledMoodleHeading style={{ left: "58px" }}>GO TO</StyledMoodleHeading>
       <LinkContainer>
         <StyledLink href="/dishes">

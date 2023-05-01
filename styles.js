@@ -1,9 +1,14 @@
 import { createGlobalStyle } from "styled-components";
-import { Roboto } from "@next/font/google";
+import { Roboto, Carter_One } from "@next/font/google";
 
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["100", "300", "400", "500", "700", "900"],
+});
+
+const carterOne = Carter_One({
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 const theme0 = {
@@ -69,6 +74,7 @@ export default createGlobalStyle`
     --11: ${() => theme0["--11"]};
 
     --font1: ${roboto.style.fontFamily}, serif;
+    --font2: ${carterOne.style.fontFamily}, serif;
   }
 
   [data-theme="theme1"] {

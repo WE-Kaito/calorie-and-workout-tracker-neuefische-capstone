@@ -42,12 +42,11 @@ export default function HomeCalendar({
     .filter((entry) => entry.id !== "free")
     .some((entry) => entry.date === unixDate);
 
+  const monthDigits = new Date().getDate().toString().length;
+
   useEffect(() => {
     setIsWorkoutVisible(showWorkout);
   }, [showWorkout]);
-
-  console.log(showWorkout);
-  console.log(isWorkoutToday);
 
   return (
     <>
@@ -59,7 +58,11 @@ export default function HomeCalendar({
         <span>|</span>
         <span>|</span>
       </StrokeWrapper>
-      <CalendarWrapper isVisible={invisible} workoutToday={isWorkoutToday}>
+      <CalendarWrapper
+        isVisible={invisible}
+        workoutToday={isWorkoutToday}
+        digitLength={monthDigits}
+      >
         <Calendar
           aria-label="Calendar with tracked data"
           value={date}

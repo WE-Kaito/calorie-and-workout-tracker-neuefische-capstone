@@ -101,7 +101,7 @@ export const QuickSelection = styled.ul`
   border-radius: 25px;
   padding: 0.75rem;
   padding-bottom: 0;
-  border: 10px solid var(--2);
+  border: 7px solid var(--2);
   transform: translate(-50%);
   overflow-y: scroll;
   max-height: 330px;
@@ -121,18 +121,21 @@ export const StyledListItem = styled.button`
   align-items: center;
   width: 185px;
   height: 30px;
-  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  padding: 0.3rem 0.9rem 0.3rem 0.9rem;
   border-radius: 15px;
   background: var(--3);
   color: var(--2);
   margin-bottom: 10px;
   margin-left: 7px;
 
-  &:hover,
-  &:active {
-    background-color: var(--6);
+  box-shadow: 0px 1.5px 2.5px black;
+
+  &:hover {
+    background: var(--6);
   }
   &:active {
-    box-shadow: inset 0px 0px 3px var(--2);
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
   }
 `;

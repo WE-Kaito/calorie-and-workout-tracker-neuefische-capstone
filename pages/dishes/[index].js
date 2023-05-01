@@ -9,7 +9,6 @@ import {
   DetailsList,
   Detail,
   DishHeadline,
-  DetailsBackButton,
   DeleteButton,
   DetailsEditButton,
   ListWrapper,

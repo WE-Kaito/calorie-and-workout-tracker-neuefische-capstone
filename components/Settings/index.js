@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 
 export default function Settings({
-  isSettingsVisible,
   setIsSettingsVisible,
   setCalorieGoal,
   calorieGoals,
@@ -35,7 +34,7 @@ export default function Settings({
   }
 
   return (
-    <SettingsSection isVisible={isSettingsVisible}>
+    <SettingsSection>
       <StyledMoodleHeading>SETTINGS</StyledMoodleHeading>
       <StyledForm
         onSubmit={(event) => {

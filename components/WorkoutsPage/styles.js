@@ -156,7 +156,7 @@ export const ButtonWrapper = styled.div`
   width: 100px;
   height: 30%;
   position: absolute;
-  top: 68px;
+  top: 54px;
   left: 240px;
 
   display: flex;
@@ -379,7 +379,7 @@ export const DeleteExerciseButton = styled.button`
 export const SetIntervalSection = styled.section`
   transform: translateY(20px);
   width: 100%;
-  height: 30%;
+  height: 35%;
 
   position: absolute;
   bottom: 0;
@@ -528,20 +528,20 @@ export const AddRoutineButton = styled.button`
   bottom: 0px;
   background: var(--8);
   width: 100%;
-  height: 10%;
+  height: 16%;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
   font-size: 20px;
   color: var(--2);
   box-shadow: 0px -0.5px 2px black;
+  padding-bottom: 40px;
 
   &:hover,
   &:active {
     background-color: var(--6);
-  }
-  &:active {
-    height: 15%;
-    padding-bottom: 10%;
+
+    height: 20%;
+    padding-bottom: 62px;
   }
 `;
 

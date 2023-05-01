@@ -94,12 +94,12 @@ export default function HomePage() {
           .reduce((accumulator, current) => {
             return accumulator + current;
           })
-      : 0; // returns the sum of calories consumed
+      : 0;
   }
 
   function getGoalExceeded() {
     return history.find((entry) => entry.date === unixDate)
-      ? todaysGoal >= getCaloriesConsumed() // returns true if the sum of calories is less than the corresponding goal
+      ? todaysGoal >= getCaloriesConsumed()
       : true;
   }
 
@@ -113,8 +113,6 @@ export default function HomePage() {
         <StreakCounter getCaloriesConsumed={getCaloriesConsumed} />
       )}
       {Bar(percentage, svgRef)}
-
-      {/* navigation & settings */}
 
       <HeadingButtons>
         <SettingsButton
@@ -143,8 +141,6 @@ export default function HomePage() {
         />
       )}
       {isPagesVisible && <Navigation />}
-
-      {/* main content */}
 
       <StyledButtonCalorieCounter
         isTrue={getGoalExceeded()}

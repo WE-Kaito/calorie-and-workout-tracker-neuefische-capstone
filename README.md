@@ -9,4 +9,4 @@ Simple and fast tracking of your calorie intake and workout progress.
 
 Watch the features:
 
-[![trackerVideo](https://img.youtube.com/vi/C5IOIIUKorI/0.jpg)](https://www.youtube.com/watch?v=C5IOIIUKorI)
+[![trackerVideo](./assets/thumbnail.jpg)](https://www.youtube.com/watch?v=C5IOIIUKorI)

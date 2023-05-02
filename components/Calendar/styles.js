@@ -2,8 +2,10 @@ import styled from "styled-components";
 
 const CalendarWrapper = styled.div`
   width: fit-content;
-  transform: translateY(1.5rem) /* scale(1.05) */;
+  scale: 1.05;
+  transform: translateY(34px);
   border-radius: 20px;
+
   .react-calendar {
     width: 280px;
     background-color: rgba(255, 255, 255, 0);
@@ -41,8 +43,14 @@ const CalendarWrapper = styled.div`
       border-radius: 15px;
     }
 
+    .react-calendar__navigation__label {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 3px);
+    }
+
     .react-calendar__navigation__label__labelText {
-      color: black;
+      color: var(--4);
       visibility: ${(props) => (props.isVisible ? "hidden" : "visible")};
       background: var(--1);
       border-radius: 10px;
@@ -74,6 +82,7 @@ const CalendarWrapper = styled.div`
 
     .react-calendar__navigation button:enabled:hover,
     .react-calendar__navigation button:enabled:focus {
+      background-color: var(--6);
     }
 
     .react-calendar__month-view__weekdays {
@@ -90,10 +99,23 @@ const CalendarWrapper = styled.div`
       background: none;
     }
     .react-calendar__navigation__prev-button {
-      transform: translateX(-20px) !important;
+      transform: translate(-20px, -6px) scaleY(0.92) !important;
+      font-size: 18px;
+      padding-bottom: 2.75px;
+
+      filter: drop-shadow(0px 1px 1.5px black);
     }
     .react-calendar__navigation__next-button {
-      transform: translateX(20px) !important;
+      transform: translate(124.5px, -6px) scaleY(0.92) !important;
+      font-size: 18px;
+      padding-bottom: 2.75px;
+
+      filter: drop-shadow(0px 1px 1.5px black);
+    }
+
+    .react-calendar__navigation__next2-button,
+    .react-calendar__navigation__prev2-button {
+      visibility: hidden;
     }
 
     .react-calendar__month-view__weekNumbers .react-calendar__tile {
@@ -107,18 +129,18 @@ const CalendarWrapper = styled.div`
     .react-calendar__month-view__days__day--weekend,
     .react-calendar__month-view__days__day--weekend abbr,
     .react-calendar__month-view__days__day--weekend button:enabled:focus {
-      color: var(--3);
+      color: var(--11);
     }
 
     .react-calendar__month-view__days__day--neighboringMonth,
     .react-calendar__month-view__days__day--neighboringMonth abbr {
-      color: var(--3) !important;
+      color: var(--5) !important;
       opacity: 0.45;
       box-shadow: none !important;
     }
 
     .react-calendar__tile {
-      color: var(--3);
+      color: var(--5);
       background-color: rgba(255, 255, 255, 0);
       text-align: center;
       border-radius: 30px;
@@ -126,12 +148,14 @@ const CalendarWrapper = styled.div`
       font-size: 14;
       font-weight: 500;
     }
-    button {
-      border: 5px solid var(--2);
+
+    .react-calendar__tile abbr {
+      padding-left: 0.75px;
+      padding-top: 0.5px;
     }
 
     .react-calendar__tile:disabled {
-      color: ghostwhite;
+      color: var(--5);
       cursor: pointer;
     }
 
@@ -140,7 +164,12 @@ const CalendarWrapper = styled.div`
       border: 2px solid var(--2);
       border-radius: 25px;
       background: var(--2);
-      padding: ${({ digit1 }) => (digit1 ? "6px 9.25px 6px 9.25px" : "6px")};
+      padding-top: 5.5px;
+      padding-bottom: 5.5px;
+      padding-left: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
+      padding-right: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
     }
     .react-calendar__tile--now {
       border: 2.5px solid var(--2);
@@ -156,7 +185,12 @@ const CalendarWrapper = styled.div`
 
     .react-calendar__tile--now--wasExceeded abbr {
       border: 2.5px solid var(--2);
-      padding: 5.5px;
+      padding-top: 5.5px;
+      padding-bottom: 5.5px;
+      padding-left: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
+      padding-right: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
       border-radius: 25px;
       background: var(--2);
     }
@@ -167,7 +201,13 @@ const CalendarWrapper = styled.div`
 
     .react-calendar__tile--now--wasNotExceeded abbr {
       border: 2.5px solid var(--2);
-      padding: 5.5px;
+      padding-top: 5.5px;
+      padding-bottom: 5.5px;
+      padding-left: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
+      padding-right: ${({ digitLength }) =>
+        digitLength === 2 ? "5.5px" : "8.75px"};
+      margin-left: 0.25px;
       border-radius: 25px;
       background: var(--2);
     }
@@ -181,6 +221,11 @@ const CalendarWrapper = styled.div`
       background-color: var(--7);
       color: var(--4);
     }
+
+    .react-calendar__tile--wasExceeded,
+    .react-calendar__tile--wasNotExceeded {
+      border: 5px solid var(--2);
+    }
     .react-calendar__tile--wasNotExceeded,
     .react-calendar__tile--wasNotExceeded abbr {
       background-color: var(--6);
@@ -190,7 +235,10 @@ const CalendarWrapper = styled.div`
     .react-calendar__tile--workout,
     .react-calendar__tile--workout abbr {
       background: var(--1);
-      color: var(--3);
+      color: var(--5);
+    }
+    .react-calendar__tile--workout {
+      border: 5px solid var(--2);
     }
   }
 `;
@@ -203,25 +251,25 @@ export const StrokeWrapper = styled.div`
   opacity: 0.7;
   position: absolute;
   display: flex;
-  gap: 36.5px;
+  gap: 38.5px;
 
   transform: scaleY(1.3);
   font-weight: 200;
 
-  bottom: 206.5px;
-  left: 40px;
+  bottom: 175px;
+  left: 35px;
 `;
 
 export const StyledMoodle = styled.div`
   position: absolute;
   bottom: 200px;
-  left: 5px;
+  left: -5px;
   background: var(--8);
-  width: 270px;
-  max-height: 340px;
+  width: 290px;
+  max-height: 330px;
   padding: 15px;
   border-radius: 15px;
-  border: 3px solid var(--2);
+  border: 5px solid var(--2);
   overflow-y: scroll;
   overflow-x: hidden;
   z-index: 200;
@@ -245,9 +293,10 @@ export const StyledListItem = styled.div`
 
 export const StyledListHeadline = styled.h2`
   color: var(--2);
-  width: 237.5px;
+  width: auto;
   text-align: center;
   margin-top: 8px;
+  text-shadow: 0.75px 0.5px 1px black;
 `;
 
 export const StyledListSpan = styled.p`
@@ -270,6 +319,7 @@ export const CompleteButton = styled.button`
   align-items: center;
   border-radius: 50%;
   transform: translateX(200px);
+  box-shadow: 0.5px 1.5px 2px black;
   :hover {
     background-color: var(--6);
   }

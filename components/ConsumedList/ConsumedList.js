@@ -42,7 +42,7 @@ export default function ConsumedList() {
                   style={{
                     fontSize: 22,
                     transform: `translateX(7px)`,
-                    color: "lightcoral",
+                    color: "var(--7)",
                   }}
                 />
               </button>

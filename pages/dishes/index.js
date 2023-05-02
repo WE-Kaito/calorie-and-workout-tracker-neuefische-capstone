@@ -5,7 +5,6 @@ import {
   ListAddButton,
   AddDishForm,
   Input,
-  BackButton,
   Label,
   SubmitButton,
   CloseFormButton,
@@ -15,6 +14,9 @@ import { LoadingDisplay } from "../../components/IndexPage/styles.js";
 import useCalorieStore from "../../utils/useCalorieStore.js";
 import Link from "next/link.js";
 import { useState, useEffect } from "react";
+import BackButton from "../../components/BackButton/index.js";
+import HeadingBackground from "../../components/WorkoutsPage/HeadingBackground.js";
+import { StyledPageHeadline } from "../../components/WorkoutsPage/styles.js";
 
 export default function DishesPage() {
   const { dishes, addDish } = useCalorieStore();
@@ -53,120 +55,103 @@ export default function DishesPage() {
 
   return (
     <Wrapper>
-      <h1
-        style={{
-          position: "absolute",
-          top: "85px",
-          left: "70px",
-          zIndex: "10",
-          color: "var(--3)",
-          fontSize: 28,
-        }}
-      >
-        Dishes
-      </h1>
+      <HeadingBackground />
+      <StyledPageHeadline>Dishes</StyledPageHeadline>
       <Link href="/">
-        <BackButton>🔙</BackButton>
+        <BackButton />
       </Link>
-      <List invisible={formVisibility}>
-        {dishes.map((dish, index) => (
-          <ListItem
-            href={`/dishes/${index}`}
-            key={index}
-            style={{
-              justifyContent: "space-between",
-              padding: "0px 30px 0px 30px",
+      {!formVisibility && (
+        <List>
+          {dishes.map((dish, index) => (
+            <ListItem
+              href={`/dishes/${index}`}
+              key={index}
+              style={{
+                justifyContent: "space-between",
+                padding: "0px 30px 0px 30px",
+              }}
+            >
+              <span>{dish.meal}</span>
+              <span>{`${dish.calories}kcal`}</span>
+            </ListItem>
+          ))}
+          <ListAddButton
+            onClick={() => {
+              toggleFormVisibility(!formVisibility);
             }}
           >
-            <span>{dish.meal}</span>
-            <span>{`${dish.calories}kcal`}</span>
-          </ListItem>
-        ))}
-        <ListAddButton
-          onClick={() => {
-            toggleFormVisibility(!formVisibility);
+            ADD MEAL
+          </ListAddButton>
+        </List>
+      )}
+      {formVisibility && (
+        <AddDishForm
+          onSubmit={(event) => {
+            handleSubmit(event);
           }}
         >
-          add Item
-        </ListAddButton>
-      </List>
-      <AddDishForm
-        visible={formVisibility}
-        onSubmit={(event) => {
-          handleSubmit(event);
-        }}
-      >
-        <Label htmlFor="meal">Your Meal:</Label>
-        <Input
-          id="meal"
-          name="meal"
-          type="text"
-          required
-          maxLength={20}
-        ></Input>
+          <Label htmlFor="meal">Your Meal:</Label>
+          <Input
+            id="meal"
+            name="meal"
+            type="text"
+            required
+            maxLength={20}
+          ></Input>
 
-        <Label htmlFor="calories">{`Calories (kcal):`}</Label>
-        <Input
-          id="calories"
-          name="calories"
-          type="number"
-          required
-          min={0}
-          max={7000}
-          style={{ width: "140px" }}
-        ></Input>
+          <Label htmlFor="calories">{`Calories (kcal):`}</Label>
+          <Input
+            id="calories"
+            name="calories"
+            type="number"
+            required
+            min={0}
+            max={7000}
+          ></Input>
 
-        <Label htmlFor="mass">{`Mass (g):`}</Label>
-        <Input
-          id="mass"
-          name="mass"
-          type="number"
-          min={0}
-          max={7000}
-          style={{ width: "140px" }}
-        ></Input>
+          <Label htmlFor="mass">{`Mass (g):`}</Label>
+          <Input id="mass" name="mass" type="number" min={0} max={7000}></Input>
 
-        <Label htmlFor="proteins">{`Proteins (g):`}</Label>
-        <Input
-          if="proteins"
-          name="proteins"
-          type="number"
-          min={0}
-          max={7000}
-          style={{ width: "140px" }}
-        ></Input>
+          <Label htmlFor="proteins">{`Proteins (g):`}</Label>
+          <Input
+            if="proteins"
+            name="proteins"
+            type="number"
+            min={0}
+            max={7000}
+          ></Input>
 
-        <Label htmlFor="carbs">{`Carbs (g):`}</Label>
-        <Input
-          id="carbs"
-          name="carbs"
-          type="number"
-          min={0}
-          max={7000}
-          style={{ width: "140px" }}
-        ></Input>
+          <Label htmlFor="carbs">{`Carbs (g):`}</Label>
+          <Input
+            id="carbs"
+            name="carbs"
+            type="number"
+            min={0}
+            max={7000}
+          ></Input>
 
-        <Label htmlFor="notes" maxLength={140}>
-          Notes:
-        </Label>
-        <Input
-          id="notes"
-          name="notes"
-          type="text"
-          style={{ textAlign: "center" }}
-        ></Input>
-        <ButtonWrapper>
-          <CloseFormButton
-            type="button"
-            onClick={() => {
-              toggleFormVisibility(false);
-            }}
-          >
-            close
-          </CloseFormButton>
-          <SubmitButton>submit</SubmitButton>
-        </ButtonWrapper>
-      </AddDishForm>
+          <Label htmlFor="notes" maxLength={140}>
+            Notes:
+          </Label>
+          <Input
+            id="notes"
+            name="notes"
+            type="text"
+            style={{ textAlign: "center" }}
+          ></Input>
+          <ButtonWrapper>
+            <CloseFormButton
+              type="button"
+              onClick={() => {
+                toggleFormVisibility(false);
+              }}
+            >
+              CLOSE
+            </CloseFormButton>
+            <SubmitButton>ADD MEAL</SubmitButton>
+          </ButtonWrapper>
+        </AddDishForm>
+      )}
     </Wrapper>
   );
 }

@@ -10,7 +10,8 @@ export const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 10px;
   align-items: center;
 `;
 
@@ -32,78 +33,92 @@ export const BackButton = styled.button`
 `;
 
 export const List = styled.section`
-  visibility: ${({ invisible }) => (invisible ? "hidden" : "visible")};
-  position: ${({ invisible }) => (invisible ? "absolute" : "relative")};
-
-  width: 70%;
-  height: 63%;
-  background: var(--1);
+  position: relative;
+  width: 80%;
+  height: 55.55%;
+  background: none;
   border-radius: 20px;
-  transform: translateY(5%);
+  margin-top: 120px;
   overflow-y: scroll;
-
+  padding-left: 6px;
+  -webkit-overflow-scrolling: touch;
   &::-webkit-scrollbar {
     width: 0px;
   }
 `;
 
 export const ListAddButton = styled.button`
-  width: 100%;
-  height: 10%;
+  width: 96%;
+  height: 40px;
+  color: var(--4);
 
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background: var(--3);
-  color: var(--2);
   border-radius: 20px;
   border: none;
-  cursor: pointer;
+  margin-bottom: 15px;
+  margin-left: 4px;
+  font-weight: 500;
+  font-size: 17px;
+
+  background: var(--9);
+  box-shadow: 0px 2px 3px black;
+  padding-top: 4.5px;
 
   &:hover {
-    background-color: var(--8);
+    background-color: var(--6);
+  }
+  &:active {
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
+  }
+  &:visited {
+    text-decoration: none;
+    color: var(--2);
   }
 `;
 
 export const AddWorkoutForm = styled.form`
-  visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
-  position: ${({ visible }) => (visible ? "relative" : "absolute")};
-
-  width: 70%;
-  height: 63%;
-  background: lightsteelblue;
+  width: 96%;
+  height: 100px;
+  background: var(--1);
   border-radius: 20px;
-  transform: translateY(5%);
+  margin-left: 4px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  box-shadow: 0px 2px 3px black;
 `;
 
 export const ExerciseFormWrapper = styled.form`
   visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
   position: ${({ visible }) => (visible ? "relative" : "absolute")};
 
-  width: 100%;
+  width: 97%;
+  margin-left: 4px;
   height: 190px;
-  background: lightsteelblue;
+  background: var(--1);
   border-radius: 20px;
   transform: translateY(-15px);
 
-  margin-top: 15px;
+  margin-top: 30px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  box-shadow: 0px 2px 4px black;
 `;
 
 export const AddExerciseForm = styled.div`
   width: 100%;
   height: fit-content;
-  background: lightsteelblue;
+  background: none;
   border-radius: 20px;
   transform: translateY(5%);
 
@@ -138,10 +153,15 @@ export const Input = styled.input`
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 100%;
-  height: 10%;
+  width: 100px;
+  height: 30%;
+  position: absolute;
+  top: 54px;
+  left: 240px;
 
   display: flex;
+  gap: 12px;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
 `;
@@ -166,16 +186,24 @@ export const SubmitButton = styled.button`
   border-radius: 7px;
   color: var(--2);
   padding: 5px;
-  transform: translateY(14px);
+  width: 80%;
+  height: 26px;
+  box-shadow: 0px 2px 3px black;
 
   &:hover {
-    background-color: var(--8);
+    background: var(--6);
+  }
+  &:active {
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
   }
 `;
 
 export const DetailsEditButton = styled.button`
   border: none;
-  width: 100%;
+  width: 97%;
+  margin-left: 4px;
   height: 10%;
   color: var(--2);
 
@@ -188,26 +216,38 @@ export const DetailsEditButton = styled.button`
 
   background: var(--3);
 
+  box-shadow: 0px 2px 3px black;
+
   &:hover {
-    background-color: var(--6);
+    background: var(--6);
+  }
+  &:active {
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
   }
 `;
 
 export const DeleteButton = styled.button`
   border: none;
   background: var(--7);
-  color: var(--3);
+  color: var(--4);
   position: absolute;
-  top: 40px;
-  left: 70px;
+  top: 30px;
+  left: 46px;
   padding: 8px;
   border-radius: 6px;
   text-decoration: none;
 
+  box-shadow: 0px 2px 3px black;
+
   &:hover {
-    background-color: var(--8);
-    color: crimson;
-    font-weight: 800;
+    background: var(--6);
+  }
+  &:active {
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
   }
 `;
 export const ExerciseLabel = styled.label``;
@@ -217,7 +257,7 @@ export const ExerciseInput = styled.input`
   height: 1.3rem;
   border-radius: 7px;
   background-color: var(--3);
-  border: none;
+  border: 1.5px solid var(--2);
   text-align: center;
 
   &::-webkit-outer-spin-button,
@@ -238,21 +278,28 @@ export const ExerciseInputWrapper = styled.div`
 
 export const ListItem = styled(Link)`
   text-decoration: none;
-  width: 100%;
-  height: 10%;
+  width: 98%;
+  height: 58px;
   color: var(--2);
 
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
+  border-radius: 30px;
   border: none;
   margin-bottom: 15px;
-
-  background: var(--8);
+  font-size: 1.2em;
+  padding-top: 4px;
+  background: var(--3);
+  box-shadow: 0px 2px 3px black;
 
   &:hover {
-    background-color: var(--3);
+    background-color: var(--6);
+  }
+  &:active {
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
   }
   &:visited {
     text-decoration: none;
@@ -261,7 +308,8 @@ export const ListItem = styled(Link)`
 `;
 
 export const ListItemExercise = styled.button`
-  width: 100%;
+  width: 97%;
+  margin-left: 4px;
   height: fit-content;
   color: var(--2);
 
@@ -274,11 +322,18 @@ export const ListItemExercise = styled.button`
   margin-bottom: 15px;
   padding: 5px;
 
-  background: var(--8);
+  background: var(--1);
 
   text-overflow: clip;
+  box-shadow: 0px 2px 3px black;
+
   &:hover {
-    background-color: var(--3);
+    background: var(--6);
+  }
+  &:active {
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
   }
 `;
 
@@ -303,11 +358,19 @@ export const DeleteExerciseButton = styled.button`
   border-radius: 7px;
   color: var(--3);
   padding: 5px;
+  position: absolute;
+  bottom: -14px;
+  left: -55px;
 
-  transform: translateY(14px);
+  box-shadow: 0px 2px 3px black;
 
   &:hover {
-    background-color: var(--8);
+    background: var(--10);
+  }
+  &:active {
+    background: var(--10);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
   }
 `;
 
@@ -315,28 +378,30 @@ export const DeleteExerciseButton = styled.button`
 
 export const SetIntervalSection = styled.section`
   transform: translateY(20px);
-  width: 70%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  background: var(--3);
+  width: 100%;
+  height: 35%;
+
+  position: absolute;
+  bottom: 0;
+  padding: 8px 200px 20px 28px;
+  background: var(--8);
   color: var(--2);
-  border-radius: 20px;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
 `;
 
 export const IntervalHeadline = styled.h2`
-  margin-bottom: 0;
+  margin-bottom: 8px;
+  margin-left: 6px;
   font-size: 0.96em;
 `;
 
 export const Interval = styled.div`
   display: flex;
-  width: 240px;
+  flex-direction: column;
+  width: 180px;
   gap: 4px;
-  flex-wrap: wrap;
-  max-height: 58px;
+  max-height: 106px;
   overflow-y: scroll;
 
   scrollbar-width: thin;
@@ -355,41 +420,136 @@ export const Interval = styled.div`
 `;
 
 export const ListItemEditMode = styled.button`
-  width: 100%;
-  height: 10%;
+  width: 98%;
+  height: 58px;
   color: var(--2);
   cursor: pointer;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
+  border-radius: 30px;
   border: none;
   margin-bottom: 15px;
-  font-size: 1.02em;
+  font-size: 1.2em;
+  padding-top: 4px;
+  box-shadow: 0px 2px 3px black;
+  background-color: var(--8);
+  margin-left: 4px;
 
-  background: var(--3);
-
-  &:hover,
-  &:active {
+  &:hover {
     background-color: var(--6);
-    color: (var--4);
+  }
+  &:active {
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
+  }
+  &:visited {
+    text-decoration: none;
+    color: var(--2);
   }
 `;
 
 export const IntervalItem = styled.span`
   height: 20px;
+  width: 93%;
   background: var(--1);
   color: var(--5);
   border-radius: 6px;
   padding: 0px 4px 0px 4px;
-  box-shadow: inset 0 0 2px ghostwhite;
+  box-shadow: 1px 1px 1.5px black;
+  margin: 1px;
 `;
 
 export const IntervalButton = styled.button`
+  cursor: pointer;
   border: none;
-  background: var(--8);
+  width: 100%;
+  height: 50px;
+  background: var(--3);
   color: var(--4);
   padding: 5px;
   border-radius: 7px;
+  font-size: 16.5px;
+
+  box-shadow: 0px 2px 3px black;
+
+  &:hover {
+    background: var(--6);
+  }
+  &:active {
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
+  }
+`;
+
+export const IntervalButtonSave = styled(Link)`
+  border: none;
+  width: 100%;
+  height: 50px;
+  background: var(--6);
+  color: var(--2);
+  font-weight: 400;
+  text-decoration: none;
+  text-align: center;
+  padding: 5px;
+  border-radius: 7px;
+  font-size: 16.5px;
+
+  box-shadow: 0px 2px 3px black;
+
+  &:hover {
+    background: var(--6);
+  }
+  &:active {
+    background: var(--6);
+    box-shadow: 0px 0.5px 2px black;
+    transform: translateY(0.5px);
+  }
+  &:visited {
+  }
+`;
+
+export const StyledPageHeadline = styled.h1`
+  position: absolute;
+  top: 5px;
+  left: 70px;
+  z-index: 10;
+  color: var(--3);
+  font-size: 40px;
+  text-shadow: 1px 1px 0.5px black;
+`;
+
+export const AddRoutineButton = styled.button`
+  border: none;
+  position: absolute;
+  bottom: 0px;
+  background: var(--8);
+  width: 100%;
+  height: 16%;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  font-size: 20px;
+  color: var(--2);
+  box-shadow: 0px -0.5px 2px black;
+  padding-bottom: 40px;
+
+  &:hover,
+  &:active {
+    background-color: var(--6);
+
+    height: 20%;
+    padding-bottom: 62px;
+  }
+`;
+
+export const ExerciseButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  position: absolute;
+  width: 100px;
+  gap: 40px;
+  bottom: -23px;
 `;

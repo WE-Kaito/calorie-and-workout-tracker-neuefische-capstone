@@ -7,10 +7,12 @@ import ConsumedList from "../components/ConsumedList/ConsumedList";
 import HomeCalendar from "../components/Calendar";
 import { useState, useEffect, useRef } from "react";
 import Backdrop from "../assets/backdrop.svg";
-import Pages from "../assets/pages.svg";
-import Settings from "../assets/settings.svg";
+import PagesIcon from "../assets/pages.svg";
+import SettingsIcon from "../assets/settings.svg";
 import Bar from "../components/IndexPage/Bar";
 import StreakCounter from "../components/IndexPage/StreakCounter";
+import Settings from "../components/Settings";
+import Navigation from "../components/Navigation";
 import {
   StyledDiv,
   StyledButtonCalorieCounter,
@@ -20,20 +22,11 @@ import {
   LoadingDisplay,
   CalendarSection,
   StyledBackdrop,
-  Nav,
-  LinkContainer,
-  StyledLink,
-  StyledNavSpan,
-  StyledNavButton,
   HeadingButtons,
   SettingsButton,
   PagesButton,
-  SettingsSection,
-  StyledInput,
-  StyledForm,
-  StyledSaveButton,
 } from "../components/IndexPage/styles";
-
+import styled from "styled-components";
 export default function HomePage() {
   const { history, calorieGoals, setCalorieGoal } = useCalorieStore();
   calorieGoals.at(-1).date !== unixDate && setCalorieGoal();
@@ -47,6 +40,7 @@ export default function HomePage() {
   const [isAddCaloriesButtonVisible, setIsAddCaloriesButtonVisible] =
     useState(true);
   const [showHistoryEntry, setShowHistoryEntry] = useState(false);
+  const [isWorkoutVisible, setIsWorkoutVisible] = useState(false);
   const todaysGoal = calorieGoals.find(
     (entry) => entry.date === unixDate
   )?.goal;
@@ -65,7 +59,6 @@ export default function HomePage() {
     setIsLoading(false);
     setPercentage((getCaloriesConsumed() / todaysGoal) * 100);
   }, []);
-
   useEffect(() => {
     if (!history.some((entry) => entry.date === unixDate)) {
       setIsListVisible(false);
@@ -101,21 +94,13 @@ export default function HomePage() {
           .reduce((accumulator, current) => {
             return accumulator + current;
           })
-      : 0; // returns the sum of calories consumed
+      : 0;
   }
 
   function getGoalExceeded() {
     return history.find((entry) => entry.date === unixDate)
-      ? todaysGoal >= getCaloriesConsumed() // returns true if the sum of calories is less than the corresponding goal
+      ? todaysGoal >= getCaloriesConsumed()
       : true;
-  }
-
-  function handleSettingsSubmit(event) {
-    event.preventDefault();
-    const formdata = new FormData(event.target);
-    const data = Object.fromEntries(formdata);
-    setCalorieGoal(data.calorieGoalInput);
-    event.target.reset();
   }
 
   if (isLoading) {
@@ -123,141 +108,123 @@ export default function HomePage() {
   }
 
   return (
-    <>
-      <StyledDiv>
-        {!isListVisible && !showHistoryEntry && (
-          <StreakCounter getCaloriesConsumed={getCaloriesConsumed} />
-        )}
-        {Bar(percentage, svgRef)}
-        {/* navigation & settings */}
-        <HeadingButtons>
-          <SettingsButton
-            onClick={() => {
-              setIsSettingsVisible(!isSettingsVisible);
-            }}
-          >
-            <Settings className={isSettingsVisible ? "head-buttons" : null} />
-          </SettingsButton>
-          <PagesButton
-            onClick={() => {
-              setIsPagesVisible(!isPagesVisible);
-            }}
-          >
-            <Pages className={isPagesVisible ? "head-buttons" : null} />
-          </PagesButton>
-        </HeadingButtons>
+    <StyledDiv>
+      {!isListVisible && !showHistoryEntry && !isWorkoutVisible && (
+        <StreakCounter getCaloriesConsumed={getCaloriesConsumed} />
+      )}
+      {Bar(percentage, svgRef)}
 
-        <SettingsSection isVisible={isSettingsVisible}>
-          <span style={{ color: "var(--1)", marginRight: "54px" }}>
-            CALORIE GOAL
-          </span>
-          <StyledForm
-            onSubmit={(event) => {
-              handleSettingsSubmit(event);
-            }}
-          >
-            <StyledInput
-              type="number"
-              min={0}
-              placeholder={`${calorieGoals.at(-1).goal} kcal`}
-              name="calorieGoalInput"
-              required
-            ></StyledInput>
-            <StyledSaveButton
-              type="submit"
-              onClick={() => {
-                setIsSettingsVisible(false);
-              }}
-            >
-              save
-            </StyledSaveButton>
-          </StyledForm>
-        </SettingsSection>
-
-        <Nav isVisible={isPagesVisible}>
-          <LinkContainer>
-            <StyledLink href="/dishes">
-              <StyledNavButton>Dishes</StyledNavButton>
-            </StyledLink>
-            <StyledNavSpan>{` ➤`}</StyledNavSpan>
-          </LinkContainer>
-
-          <LinkContainer>
-            <StyledLink href="/workouts">
-              <StyledNavButton>Workouts</StyledNavButton>
-            </StyledLink>
-            <StyledNavSpan>➤</StyledNavSpan>
-          </LinkContainer>
-        </Nav>
-
-        {/* main content */}
-
-        <StyledButtonCalorieCounter
-          isTrue={getGoalExceeded()}
-          onClick={(event) => {
-            event.stopPropagation();
-            history.find((entry) => entry.date === unixDate) &&
-              setIsListVisible(!isListVisible);
+      <HeadingButtons>
+        <SettingsButton
+          onClick={() => {
+            setIsSettingsVisible(!isSettingsVisible);
+            setIsPagesVisible(false);
           }}
         >
-          {Math.abs(calorieGoals.at(-1).goal - getCaloriesConsumed())}
-          <br />
-          {getGoalExceeded() ? "left" : "over"}
-        </StyledButtonCalorieCounter>
+          <StyledSettingsIcon isSettingsVisible={isSettingsVisible} />
+        </SettingsButton>
+        <PagesButton
+          onClick={() => {
+            setIsPagesVisible(!isPagesVisible);
+            setIsSettingsVisible(false);
+          }}
+        >
+          <StyledPagesIcon isPagesVisible={isPagesVisible} />
+        </PagesButton>
+      </HeadingButtons>
+      {isSettingsVisible && (
+        <Settings
+          isSettingsVisible={isSettingsVisible}
+          setIsSettingsVisible={setIsSettingsVisible}
+          calorieGoals={calorieGoals}
+          setCalorieGoal={setCalorieGoal}
+        />
+      )}
+      {isPagesVisible && <Navigation />}
 
-        <OpenCalorieFormButton
+      <StyledButtonCalorieCounter
+        isTrue={getGoalExceeded()}
+        onClick={(event) => {
+          event.stopPropagation();
+          history.find((entry) => entry.date === unixDate) &&
+            setIsListVisible(!isListVisible);
+        }}
+      >
+        {Math.abs(calorieGoals.at(-1).goal - getCaloriesConsumed())}
+        <br />
+        {getGoalExceeded() ? "left" : "over"}
+      </StyledButtonCalorieCounter>
+
+      <OpenCalorieFormButton
+        style={{
+          visibility: isAddCaloriesButtonVisible ? "visible" : "hidden",
+        }}
+        onClick={(event) => {
+          event.stopPropagation();
+          setIsFormVisible(true);
+        }}
+      >
+        <FontAwesomeIcon
           style={{
-            visibility: isAddCaloriesButtonVisible ? "visible" : "hidden",
+            transform: `scale(${1.85})`,
           }}
-          onClick={(event) => {
-            event.stopPropagation();
-            setIsFormVisible(true);
-          }}
-        >
-          <FontAwesomeIcon
-            style={{
-              transform: `scale(${1.85})`,
-            }}
-            icon={faPlus}
-          />
-        </OpenCalorieFormButton>
+          icon={faPlus}
+        />
+      </OpenCalorieFormButton>
 
-        <FormContainer
-          isTrue={isFormVisible}
-          onClick={(event) => {
-            event.stopPropagation();
-          }}
-        >
-          <AddCalories
-            onClose={setIsFormVisible}
-            qSVisibility={isQSVisible}
-            toggleQSVisibility={setIsQSVisible}
-            toggleFormVisibility={setIsFormVisible}
-          />
-        </FormContainer>
-        <ConsumedContainer
-          isTrue={isListVisible}
-          onClick={(event) => {
-            event.stopPropagation();
-          }}
-        >
-          <ConsumedList />
-        </ConsumedContainer>
-        <CalendarSection isVisible={isListVisible}>
-          <StyledBackdrop>
-            <Backdrop />
-          </StyledBackdrop>
-          <HomeCalendar
-            showHistoryEntry={showHistoryEntry}
-            setShowHistoryEntry={setShowHistoryEntry}
-            getTileColor={getGoalExceeded}
-            getCaloriesConsumed={getCaloriesConsumed}
-            isVisible={isListVisible}
-            setCalorieButton={setIsAddCaloriesButtonVisible}
-            calorieButtonVisibility={isAddCaloriesButtonVisible}
-          />
-        </CalendarSection>
-      </StyledDiv>
-    </>
+      <FormContainer
+        isTrue={isFormVisible}
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
+        <AddCalories
+          onClose={setIsFormVisible}
+          qSVisibility={isQSVisible}
+          toggleQSVisibility={setIsQSVisible}
+          toggleFormVisibility={setIsFormVisible}
+        />
+      </FormContainer>
+      <ConsumedContainer
+        isTrue={isListVisible}
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
+        <ConsumedList />
+      </ConsumedContainer>
+      <CalendarSection isVisible={isListVisible}>
+        <StyledBackdrop>
+          <StyledBackdropSVG />
+        </StyledBackdrop>
+        <HomeCalendar
+          showHistoryEntry={showHistoryEntry}
+          setShowHistoryEntry={setShowHistoryEntry}
+          getTileColor={getGoalExceeded}
+          getCaloriesConsumed={getCaloriesConsumed}
+          isVisible={isListVisible}
+          setCalorieButton={setIsAddCaloriesButtonVisible}
+          calorieButtonVisibility={isAddCaloriesButtonVisible}
+          isWorkoutVisible={isWorkoutVisible}
+          setIsWorkoutVisible={setIsWorkoutVisible}
+        />
+      </CalendarSection>
+    </StyledDiv>
   );
 }
+
+const StyledBackdropSVG = styled(Backdrop)`
+  fill: var(--2);
+`;
+
+const StyledPagesIcon = styled(PagesIcon)`
+  fill: ${({ isPagesVisible }) => (isPagesVisible ? "var(--8)" : "var(--3)")};
+  stroke: ${({ isPagesVisible }) => (isPagesVisible ? "var(--8)" : "var(--3)")};
+  filter: drop-shadow(1px 1px 1.25px black);
+`;
+
+const StyledSettingsIcon = styled(SettingsIcon)`
+  fill: ${({ isSettingsVisible }) =>
+    isSettingsVisible ? "var(--8)" : "var(--3)"};
+  filter: drop-shadow(1px 1px 1.25px black);
+`;

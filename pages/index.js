@@ -10,6 +10,7 @@ import Backdrop from "../assets/backdrop.svg";
 import Pages from "../assets/pages.svg";
 import Settings from "../assets/settings.svg";
 import Bar from "../components/IndexPage/Bar";
+import StreakCounter from "../components/IndexPage/StreakCounter";
 import {
   StyledDiv,
   StyledButtonCalorieCounter,
@@ -45,7 +46,9 @@ export default function HomePage() {
   const [isQSVisible, setIsQSVisible] = useState(false);
   const [isAddCaloriesButtonVisible, setIsAddCaloriesButtonVisible] =
     useState(true);
-  const todaysGoal = calorieGoals.find((entry) => entry.date === unixDate).goal;
+  const todaysGoal = calorieGoals.find(
+    (entry) => entry.date === unixDate
+  )?.goal;
 
   const [percentage, setPercentage] = useState(0);
 
@@ -121,6 +124,9 @@ export default function HomePage() {
   return (
     <>
       <StyledDiv>
+        <StreakCounter
+          getCaloriesConsumed={getCaloriesConsumed}
+        ></StreakCounter>
         {Bar(percentage, svgRef)}
         {/* navigation & settings */}
         <HeadingButtons>

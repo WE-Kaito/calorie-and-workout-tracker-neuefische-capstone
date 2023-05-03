@@ -102,6 +102,9 @@ export const StyledNavButton = styled.button`
 `;
 
 export const SettingsSection = styled.nav`
+  visibility: ${({ isSettingsVisible }) =>
+    isSettingsVisible ? "visible" : "hidden"};
+
   position: absolute;
   display: flex;
   flex-direction: column;

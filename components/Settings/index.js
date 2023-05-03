@@ -15,6 +15,7 @@ export default function Settings({
   setIsSettingsVisible,
   setCalorieGoal,
   calorieGoals,
+  isSettingsVisible,
 }) {
   const { theme, setTheme } = useTheme();
 
@@ -25,16 +26,17 @@ export default function Settings({
     setTheme(nextTheme);
   }
 
-  function handleSettingsSubmit(event) {
+  async function handleSettingsSubmit(event) {
     event.preventDefault();
     const formdata = new FormData(event.target);
     const data = Object.fromEntries(formdata);
-    setCalorieGoal(data.calorieGoalInput);
+    await setCalorieGoal(data.calorieGoalInput);
+    console.log(data);
     event.target.reset();
   }
 
   return (
-    <SettingsSection>
+    <SettingsSection isSettingsVisible={isSettingsVisible}>
       <StyledMoodleHeading>SETTINGS</StyledMoodleHeading>
       <StyledForm
         onSubmit={(event) => {

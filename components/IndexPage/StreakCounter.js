@@ -50,7 +50,7 @@ export default function StreakCounter({ getCaloriesConsumed }) {
     }
     return streak;
   }
-  console.log(getStreak());
+
   if (getStreak() >= 3) {
     return (
       <div

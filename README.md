@@ -4,7 +4,8 @@
 
 Capstone project for the neuefische web development bootcamp.
 
-The lightweight and motivating Tracker App I always wanted
+The lightweight and motivating Tracker App I always wanted.
+
 Simple and fast tracking of your calorie intake and workout progress.
 
 **Core Features:**

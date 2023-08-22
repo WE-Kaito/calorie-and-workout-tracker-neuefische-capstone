@@ -21,5 +21,8 @@ Core Features:
   - Past dates are colored by success.
   - Show and increase the streak indicator after 3+ days of sticking to your diet.
 
+---
+
 Watch the demo:
+
 [![trackerVideo](./assets/thumbnail.jpg)](https://www.youtube.com/watch?v=C5IOIIUKorI)

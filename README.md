@@ -10,7 +10,7 @@ Simple and fast tracking of your calorie intake and workout progress.
 
 **Features:**
 - **Add consumed meal:** Press ```+``` to either directly put in the name(optional) and kcal or use the
-- **Quick Selection**: Press one of your custom dishes to directly add it. QS is ordered by frequence.
+- **Quick Selection**: Press one of your custom dishes to directly add it. QS is ordered by frequency.
 - **Counter:** See and delete your entries by pressing the counter. It has a colored progress bar and indicates by color if you consumed too much.
 - **Add dishes:** Add a custom dish with optional further information.
 - **Add workouts:** Add a Workout, then add your exercises with name, weight, repetitions, timespan and notes

@@ -22,15 +22,19 @@ Simple and fast tracking of your calorie intake and workout progress.
   - Past dates are colored by success.
   - Show and increase the streak indicator after 3+ days of sticking to your diet.
 
+**Created with:**
+- React + Next.js
+- Libraries: react-calendar, styled-components, lottie-react
+
 ---
 
 !!! Not maintained further. I am currently [rebulding the app as a side project](https://github.com/WE-Kaito/calorie-and-workout-tracker-mobile) using React Native and Firebase.  
 
-As my first graduation project, this was very rough around the edges and tought me much. 
+As my first graduation project, this was a bit rough around the edges and tought me much. 
 Data is only saved in the browsers local storage, so not using a database and user accounts is also an issue, especially for mobile use.
 
 ---
 
-Watch the demo:
+Watch the demo on YouTube:
 
 [![trackerVideo](./assets/thumbnail.jpg)](https://www.youtube.com/watch?v=C5IOIIUKorI)

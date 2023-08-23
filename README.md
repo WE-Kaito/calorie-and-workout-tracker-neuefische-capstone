@@ -8,7 +8,7 @@ The lightweight and motivating Tracker App I always wanted.
 
 Simple and fast tracking of your calorie intake and workout progress.
 
-**Core Features:**
+**Features:**
 - **Add consumed meal:** Press ```+``` to either directly put in the name(optional) and kcal or use the
 - **Quick Selection**: Press one of your custom dishes to directly add it. QS is ordered by frequence.
 - **Counter:** See and delete your entries by pressing the counter. It has a colored progress bar and indicates by color if you consumed too much.

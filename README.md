@@ -14,7 +14,7 @@ Simple and fast tracking of your calorie intake and workout progress.
 - **Counter:** See and delete your entries by pressing the counter. It has a colored progress bar and indicates by color if you consumed too much.
 - **Add dishes:** Add a custom dish with optional further information.
 - **Add workouts:** Add a Workout, then add your exercises with name, weight, repetitions, timespan and notes
-- **Set Routine:** Set a routine of your workouts and rest days, to add it to the calendar.
+- **Set routine:** Set a routine of your workouts and rest days, to add it to the calendar.
 - **Settings:** Edit your calorie goal and choose between one of 3 **Themes**.
 - **Calendar:**
 - - Open todays workout by pressing the pulsating date. Earn a star on the current date by completion and directly adjust values.

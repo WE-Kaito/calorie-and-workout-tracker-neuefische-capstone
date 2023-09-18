@@ -28,7 +28,7 @@ Simple and fast tracking of your calorie intake and workout progress.
 
 ---
 
-!!! Not maintained further. This project will be [rebuilt](https://github.com/WE-Kaito/calorie-and-workout-tracker-mobile) using React Native and Firebase, once the Digimon TCG Simulator is finished.  
+!!! Not maintained further. This project will be [rebuilt using React Native and Firebase](https://github.com/WE-Kaito/calorie-and-workout-tracker-mobile), once the Digimon TCG Simulator is finished.  
 
 As my first graduation project, this was a bit rough around the edges and tought me much. 
 Data is only saved in the browsers local storage, so not using a database and user accounts is also an issue, especially for mobile use.
